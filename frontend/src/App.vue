@@ -14,6 +14,17 @@ export default {
 }
 </script>
 
+<script>
+import fuck from './components/fuck.vue'
+
+export default {
+  name: 'App',
+  components: {
+    fuck
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
