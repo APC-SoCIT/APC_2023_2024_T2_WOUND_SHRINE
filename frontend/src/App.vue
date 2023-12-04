@@ -8,22 +8,13 @@ import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
+  
   components: {
-    HelloWorld
+    HelloWorld,
   }
 }
 </script>
 
-<script>
-import fuck from './components/fuck.vue'
-
-export default {
-  name: 'App',
-  components: {
-    fuck
-  }
-}
-</script>
 
 <style>
 #app {
