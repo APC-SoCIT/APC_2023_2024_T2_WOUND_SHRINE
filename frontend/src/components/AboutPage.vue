@@ -1,27 +1,19 @@
 <template>
     <div>
-      <header>
-        <h1>About Our Church</h1>
-      </header>
+      <router-link to="/about">
+        <header>
+          <h1>About Our Church</h1>
+        </header>
+      </router-link>
       <main>
+        <nav>
+          <router-link to="/">Home</router-link> |
+          <router-link to="/about">About</router-link>
+        </nav>
         <section>
-          <h2>Our Mission</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
+          <!-- Content for the About page -->
         </section>
-        <section>
-          <h2>Our History</h2>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-        </section>
+        <!-- Add more sections for different functionalities -->
       </main>
       <footer>
         <p>&copy; 2023 Church Management System</p>
@@ -29,38 +21,5 @@
     </div>
   </template>
   
-  <script>
-  export default {
-    name: "AboutPage",
-  };
-  </script>
+  <!-- Rest of the script and style sections remain the same -->
   
-  <style scoped>
-  /* Add your custom styles here */
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-  
-  header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em;
-  }
-  
-  main {
-    padding: 20px;
-  }
-  
-  footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-  </style>
