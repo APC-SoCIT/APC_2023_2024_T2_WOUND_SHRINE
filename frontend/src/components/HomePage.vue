@@ -7,8 +7,8 @@
       </router-link>
       <main>
         <nav>
-          <router-link to="/">Home</router-link> |
-          <router-link to="/about">About</router-link>
+          <router-link to="/">HomePage</router-link> |
+          <router-link to="/about">AboutPage</router-link>
         </nav>
         <section>
           <!-- Content for the Home page -->
