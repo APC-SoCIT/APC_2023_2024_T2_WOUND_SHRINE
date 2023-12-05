@@ -58,7 +58,7 @@ export default {
         }
       },
       carouselItems: [
-        { id: 1, image: './src/assets/Image1.jpg', description: 'flkgjmdflkgjdlfkgjdlfkg' },
+        { id: 1, image: './assets/Image1.jpg', description: 'flkgjmdflkgjdlfkgjdlfkg' },
         { id: 2, image: './assets/Image2.jpg', description: 'Description for Image 2' },
         { id: 3, image: './assets/Image3.jpg', description: 'Description for Image 3' },
         // Add more items as needed
