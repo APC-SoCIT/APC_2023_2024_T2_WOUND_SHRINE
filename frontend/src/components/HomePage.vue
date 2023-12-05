@@ -15,10 +15,12 @@
         <!-- Add the carousel component here -->
         <swiper :options="swiperOption">
           <swiper-slide v-for="item in carouselItems" :key="item.id">
-            <img :src="item.image" alt="Carousel Image">
-            <p>{{ item.description }}</p>
+            <img :src="item.image" alt="Image" />
+            <template v-slot:desc>
+              <p>{{ item.description }}</p>
+            </template>
           </swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
+          <div class="swiper-pagination"></div>
         </swiper>
       </section>
       
@@ -56,9 +58,9 @@ export default {
         }
       },
       carouselItems: [
-        { id: 1, image: './assets/priest1.jpg', description: 'testing ' },
-        { id: 2, image: 'path/to/image2.jpg', description: 'Description for Image 2' },
-        { id: 3, image: 'path/to/image3.jpg', description: 'Description for Image 3' },
+        { id: 1, image: './src/assets/Image1.jpg', description: 'flkgjmdflkgjdlfkgjdlfkg' },
+        { id: 2, image: './assets/Image2.jpg', description: 'Description for Image 2' },
+        { id: 3, image: './assets/Image3.jpg', description: 'Description for Image 3' },
         // Add more items as needed
       ]
     };
