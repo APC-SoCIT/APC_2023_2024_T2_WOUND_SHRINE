@@ -1,24 +1,97 @@
 <template>
-    <div>
-      <router-link to="/">
-        <header>
-          <h1>Church Management System</h1>
-        </header>
-      </router-link>
-      <main>
-        <nav>
-          <router-link to="/">HomePage</router-link> |
-          <router-link to="/about">AboutPage</router-link>
-        </nav>
-        <section>
-          <!-- Content for the Home page -->
-        </section>
-        <!-- Add more sections for different functionalities -->
-      </main>
-      <footer>
-        <p>&copy; 2023 Church Management System</p>
-      </footer>
-    </div>
-  </template>
-  
-  <!-- Rest of the script and style sections remain the same -->
+  <div>
+    <router-link to="/">
+      <header>
+        <h1>Church Management System</h1>
+      </header>
+    </router-link>
+    <main>
+      <nav>
+        <router-link to="/">Home</router-link> |
+        <router-link to="/about">About</router-link>
+      </nav>
+      
+      <section>
+        <!-- Add the carousel component here -->
+        <swiper :options="swiperOption">
+          <swiper-slide v-for="item in carouselItems" :key="item.id">
+            <img :src="item.image" alt="Carousel Image">
+            <p>{{ item.description }}</p>
+          </swiper-slide>
+          <div class="swiper-pagination" slot="pagination"></div>
+        </swiper>
+      </section>
+      
+      <section>
+        <!-- Content for the Home page -->
+      </section>
+      <!-- Add more sections for different functionalities -->
+    </main>
+    <footer>
+      <p>&copy; 2023 Church Management System</p>
+    </footer>
+  </div>
+</template>
+
+<script>
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+
+export default {
+  name: "HomePage",
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+  data() {
+    return {
+      swiperOption: {
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        }
+      },
+      carouselItems: [
+        { id: 1, image: './assets/priest1.jpg', description: 'testing ' },
+        { id: 2, image: 'path/to/image2.jpg', description: 'Description for Image 2' },
+        { id: 3, image: 'path/to/image3.jpg', description: 'Description for Image 3' },
+        // Add more items as needed
+      ]
+    };
+  }
+};
+</script>
+
+<style scoped>
+/* Add your custom styles here */
+
+header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1em;
+}
+
+nav {
+  margin-bottom: 10px;
+}
+
+main {
+  padding-top: 80px; /* Adjust padding to account for the fixed header */
+  padding: 20px;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1em;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+</style>
