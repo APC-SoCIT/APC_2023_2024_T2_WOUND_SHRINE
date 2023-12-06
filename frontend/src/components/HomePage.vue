@@ -18,11 +18,11 @@
 <style>
  .menu {
   border-radius: 25px;
+  height: 20em;
   text-align: center;
-  width: 50%;
+  width: 90%;
   background-color: #ffaa2b;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
   
   }
 
