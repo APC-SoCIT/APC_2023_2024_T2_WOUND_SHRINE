@@ -27,9 +27,11 @@
     height: 2em;
     display:flex;
     justify-content:center;
+    color: black;
   }
 
   ul {
+    color: black;
     margin: auto;
     width:80%;
     display:flex;
@@ -38,6 +40,7 @@
 
   router-link {
     display: inline-block;
+    color: black;
     color: rgb(0, 0, 0);
     text-decoration: none;
     display:flex;
