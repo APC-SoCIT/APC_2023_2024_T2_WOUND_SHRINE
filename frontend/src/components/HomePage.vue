@@ -17,6 +17,7 @@
 
 <style>
  .menu {
+  border-radius: 25px;
   text-align: center;
   width: 50%;
   background-color: #ffaa2b;
