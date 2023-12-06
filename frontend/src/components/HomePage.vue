@@ -3,6 +3,7 @@
       <router-link to="/">
         <header>
           <h1>Church Management System</h1>
+          <link href="Home.css" rel="stylesheet"/>
         </header>
       </router-link>
       <main>
@@ -68,33 +69,5 @@
   };
   </script>
   
-  <style scoped>
-  /* Add your custom styles here */
   
-  header {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em;
-  }
-  
-  nav {
-    margin-bottom: 10px;
-  }
-  
-  main {
-    padding-top: 80px; /* Adjust padding to account for the fixed header */
-    padding: 20px;
-  }
-  
-  footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1em;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-  }
-  </style>
   
