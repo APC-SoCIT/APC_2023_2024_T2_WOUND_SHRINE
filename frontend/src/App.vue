@@ -2,17 +2,15 @@
   <div id="app">
 
     <nav>
-      <router-link to="/">HomePage</router-link>
-      <router-link to="/about">About</router-link>
+      <router-link to="/">Home Page</router-link>
+      <router-link to="/about">About Page</router-link>
       <router-link to="/services">Services</router-link>
       <router-link to="/contact">Contact</router-link>
     </nav>
 
     <header>
-      <h1>Your Company Name</h1>
+      <h1>Church Request Management System</h1>
     </header>
-
-    
 
     <router-view></router-view>
   </div>
@@ -24,19 +22,26 @@
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #760e0e;
   }
 
   header {
-    background-color: #333;
+    background-color: #ffaa2b;
     color: #fff;
-    padding: 10px;
+    padding: 50px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    margin-top: auto;
+  
   }
 
   nav {
-    background-color: #444;
+    background-color: #ffaa2b;
     overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   router-link {
