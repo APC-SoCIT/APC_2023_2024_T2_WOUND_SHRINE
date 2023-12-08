@@ -4,7 +4,7 @@
       <ul>
       <router-link to="/">Home Page </router-link>
       <router-link to="/about">About Page </router-link>
-      <router-link to="/services">Services Component </router-link>
+      <router-link to="/ServicesComponent">Services Component </router-link>
       <router-link to="/contact">Contact </router-link>
     </ul>
     </nav>

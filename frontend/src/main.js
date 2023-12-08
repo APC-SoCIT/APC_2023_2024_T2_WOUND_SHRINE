@@ -3,14 +3,16 @@ import App from './App.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from './components/HomePage.vue';
 import About from './components/AboutPage.vue';
-import Services from './components/ServicesComponent.vue';
+import services from './components/ServicesComponent.vue';
+import Contact from './components/ContactInfo.vue';
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { path: '/', component: Home },
-    { path: '/aboutPage', component: About },
-    { path: '/ServicesComponent', component: Services },
+    { path: '/about', component: About },
+    { path: '/services', component: services },
+    { path: '/contact', component: Contact },
     // add your routes here
   ],
 });
