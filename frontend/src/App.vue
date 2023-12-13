@@ -2,9 +2,10 @@
   <div id="app">
     <nav>
       <ul>
-      <router-link to="/">Home Page </router-link>
-      <router-link to="/about">About Page </router-link>
-      <router-link to="/ServicesComponent">Services Component </router-link>
+      <router-link to="/">HOME </router-link>
+      <router-link to="/about">ABOUT </router-link>
+      <router-link to="/blogpost">BLOG </router-link>
+      <router-link to="/ServicesComponent">Services </router-link>
       <router-link to="/contact">Contact </router-link>
     </ul>
     </nav>
