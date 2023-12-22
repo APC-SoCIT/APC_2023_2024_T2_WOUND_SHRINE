@@ -7,10 +7,10 @@
             <img src="/5Logo.png" alt="Logo" class="logo" />
           </div>
           <div class="info">
-            <h1>CAMPER CAFE</h1>
-            <p>Est. 2020</p>
+            <h1>SHRINE OF THE FIVE WOUNDS OF OUR LORD JESUS CHRIST</h1>
+            <p>364 Real Street, Talon I, Las Pinas, 1747 Metro Manila</p>
             <section>
-              <h2>Coffee</h2>
+              <!-- <h2>Coffee</h2> -->
             </section>
           </div>
         </main>

@@ -13,4 +13,7 @@ export default {
 
 <style scoped>
 /* Add your styles here if needed */
+h2, p {
+  text-align: center;
+}
 </style>
