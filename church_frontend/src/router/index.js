@@ -48,11 +48,18 @@ const router = createRouter({
                 title: `Blog | ${import.meta.env.VITE_FE_TITLE}`,
             },
           }, {
-            path: '/ceremonies',
-            name: 'ceremonies',
-            component: () => import('../views/CeremoniesView.vue'),
+              path: '/ceremonies',
+              name: 'ceremonies',
+              component: () => import('../views/CeremoniesView.vue'),
+              meta: {
+                title: `Ceremonies | ${import.meta.env.VITE_FE_TITLE}`,
+            },
+          }, {
+            path: '/document',
+            name: 'document',
+            component: () => import('../views/DocumentView.vue'),
             meta: {
-              title: `Ceremonies | ${import.meta.env.VITE_FE_TITLE}`,
+              title: `Document | ${import.meta.env.VITE_FE_TITLE}`,
           },
         },
         
