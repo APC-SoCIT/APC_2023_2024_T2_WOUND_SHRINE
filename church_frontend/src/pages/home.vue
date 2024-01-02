@@ -6,8 +6,8 @@
         <q-img 
           src="/img/logo.png" 
           lazy-src="/img/logo.png"
-          height="150px"  
-          style="max-width: 170px; margin-right: 20px; border-radius: 50%;"
+          height="255px"  
+          style="max-width: 290px; margin-right: 20px; border-radius: 50%;"
         />
         <div class="info">
           <h3>SHRINE OF THE FIVE WOUNDS OF OUR LORD JESUS CHRIST</h3>
@@ -49,6 +49,7 @@
   flex-direction: column;
   align-items:  flex-start; /* Align content to the start (left) */
   justify-content: center; /* Center content vertically */
+  text-align: center;
   display: inline;
   color: black;
   
