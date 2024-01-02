@@ -47,7 +47,14 @@ const router = createRouter({
               meta: {
                 title: `Blog | ${import.meta.env.VITE_FE_TITLE}`,
             },
+          }, {
+            path: '/ceremonies',
+            name: 'ceremonies',
+            component: () => import('../views/CeremoniesView.vue'),
+            meta: {
+              title: `Ceremonies | ${import.meta.env.VITE_FE_TITLE}`,
           },
+        },
         
               // beforeEnter: middleware.user,
             ],
