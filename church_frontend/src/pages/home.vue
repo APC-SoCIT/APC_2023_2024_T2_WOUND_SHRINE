@@ -45,18 +45,23 @@
         Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
         Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
         Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
-          
         </p>
       </div>
     </div>
 
-    <!-- Existing Welcome Content -->
-    <div class="p" style="margin-top: 50px; text-align: center;">
-      <p>Welcome to our website!</p>
+    <!-- Replace the welcome message with an image -->
+    <div style="margin-top: 50px; text-align: center;">
+      <q-img 
+        src="/img/church.png" 
+        lazy-src="/img/church.png"
+        height="550px"  
+        style="max-width: 3000px;"
+      />
     </div>
   </div>
 </template>
 
+<!-- CSS remains unchanged -->
 <style>
 /* Styles for the existing menu */
 .menu {
@@ -100,13 +105,14 @@
   align-items: flex-start;
   justify-content: flex-start;
   color: #ffaa2b;
+  margin-left: 100px;
   flex: 1; /* This ensures that the message section takes available space */
 }
 
 .paragraph-text {
   text-align: justify; /* Justify the text */
   margin-top: 0; 
-  width: 60%; /* Adjust the width as per your design */
+  width: 70%; /* Adjust the width as per your design */
   line-height: 1.6; /* Adjust the line height for better readability */
   color: white;
 }
