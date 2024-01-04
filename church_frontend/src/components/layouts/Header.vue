@@ -40,9 +40,9 @@
               <q-item-label>My Profile</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable v-close-popup @click="logout">
+          <q-item clickable v-close-popup @click="login">
             <q-item-section>
-              <q-item-label>Logout</q-item-label>
+              <q-item-label>Login</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
