@@ -87,6 +87,7 @@
   align-items: flex-start;
   justify-content: center;
   text-align: center;
+  display: inline;
   color: black;
 }
 

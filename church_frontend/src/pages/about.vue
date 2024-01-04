@@ -27,22 +27,42 @@
       <h4 style="text-align: left;">VISION</h4>
       <h5 style="text-align: left;">English:</h5>
       <p style="text-align: justify; color: white;">
-        ... (English content) ...
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
+        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
+        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
+        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
+        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
       </p>
       <h5 style="text-align: left; margin-top: 20px;">Tagalog:</h5>
       <p style="text-align: justify; color: white;">
-        ... (Tagalog content) ...
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
+        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
+        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
+        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
+        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
       </p>
     </div>
     <div class="vision-mission-item">
       <h4 style="text-align: left;">MISSION</h4>
       <h5 style="text-align: left;">English:</h5>
       <p style="text-align: justify; color: white;">
-        ... (English content) ...
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
+        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
+        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
+        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
+        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
       </p>
       <h5 style="text-align: left; margin-top: 20px;">Tagalog:</h5>
       <p style="text-align: justify; color: white;">
-        ... (Tagalog content) ...
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
+        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
+        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
+        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
+        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
       </p>
     </div>
   </div>
@@ -50,7 +70,7 @@
 
   <!-- Contact Section -->
   <div class="contact-container">
-    <h2>CONTACT</h2>
+    <h4>CONTACT</h4>
     <div class="contact-details">
       <p><strong>Name:</strong> Shrine of the Five Wounds of Our Lord Jesus Christ</p>
       <p><strong>Address:</strong> 364 Real Street, Talon I, Las Pinas, 1747 Metro Manila</p>
@@ -62,8 +82,19 @@
 
   <!-- MAP Section -->
   <div class="map-container">
-    <h2>MAP</h2>
-    <img src="/path-to-your-map-image.jpg" alt="Map of the location" style="width: 100%; max-width: 800px;">
+    <h4>MAP</h4>
+    <q-img 
+          src="/img/map.png" 
+          lazy-src="/img/map.png"
+          height="400px"  
+          style="max-width: 800px; margin-right: 20px; "
+        />
+  </div>
+
+  <div class="space">
+    <h4></h4>
+    
+        
   </div>
   <!-- End of MAP Section -->
 </template>
@@ -131,11 +162,21 @@ h2 {
 
 .vision-mission-item p {
   text-align: justify;
+  width: 600px;
 }
 
-.contact-container, .map-container {
+.contact-container {
   text-align: center;
   margin-top: 50px;
+  margin-bottom: 30px;
+  color: #ffaa2b;
+}
+
+.map-container {
+  text-align: center;
+  margin-top: 50px;
+  color: #ffaa2b;
+
 }
 
 .contact-details {
@@ -147,5 +188,6 @@ h2 {
 .contact-details a:hover {
   text-decoration: underline; /* Add underline on hover for better UX */
 }
+  
 
 </style>

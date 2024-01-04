@@ -45,7 +45,7 @@ export default {
           title: "Sama Samang Kasalan sa Simbahan",
           date: "April 22, 2023",
           image: "/img/kasalan.png",
-          description: "This is the description for Samasd;pkfgjs;dklfjs;dlkf sd;lfkjsd l;kfjsdfl jsd;f sdf jsd;lfksd;lfksd fsdf sdf s;kldjfs;ldkf sdflksd;flksdf sd  Samang Kasalan sa Simbahan."
+          description: "Sama-samang Kasal sa Simbahan is a Filipino term that translates to Mass Wedding in the Church in English. This event typically refers to a ceremony where multiple couples get married simultaneously in a church setting. It's a significant occasion that allows couples to exchange vows and be united in marriage together, often with the presence of their families, friends, and community members. The event symbolizes unity, love, and commitment, showcasing the collective celebration of love and matrimony."
         },
         {
           title: "Flores De Maria",
@@ -57,13 +57,13 @@ export default {
           title: "THE VOICE 2023",
           date: "April 21, 2023",
           image: "/img/thevoice.png",
-          description: "This is the description for THE VOICE 2023."
+          description: "The Voice contest would be a localized singing competition that aims to showcase the vocal talents within that specific area. Organized within the barangay, this contest provides an opportunity for residents, regardless of age or background, to display their singing abilities. "
         },
         {
           title: "GINANG NG DAMBANA",
           date: "April 23, 2023",
           image: "/img/dambana.png",
-          description: "This is the description for GINANG NG DAMBANA."
+          description: "The Ginang ng Dambana pageant contest serves as a significant cultural and religious event, celebrating the virtues, grace, and dedication of women within the context of their faith and community. Participants showcase not only their outer beauty but also their inner qualities, reflecting the values and principles upheld by the shrine or religious institution they represent."
         },
         {
           title: "Libre Tuli",
