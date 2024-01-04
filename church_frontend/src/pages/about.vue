@@ -55,7 +55,7 @@
       <p><strong>Name:</strong> Shrine of the Five Wounds of Our Lord Jesus Christ</p>
       <p><strong>Address:</strong> 364 Real Street, Talon I, Las Pinas, 1747 Metro Manila</p>
       <p><strong>Tel Num:</strong> (Your Telephone Number)</p>
-      <p><strong>FB Page:</strong> <a href="https://www.facebook.com/yourpage">Your Facebook Page</a></p>
+      <p><strong>FB Page:</strong> <a href="https://www.facebook.com/5WoundsShrine">5WoundShrine</a></p>
     </div>
   </div>
   <!-- End of Contact Section -->

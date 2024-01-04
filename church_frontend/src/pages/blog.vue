@@ -44,38 +44,38 @@ export default {
         {
           title: "Sama Samang Kasalan sa Simbahan",
           date: "April 22, 2023",
-          image: "/img/logo.png",
+          image: "/img/kasalan.png",
           description: "This is the description for Samasd;pkfgjs;dklfjs;dlkf sd;lfkjsd l;kfjsdfl jsd;f sdf jsd;lfksd;lfksd fsdf sdf s;kldjfs;ldkf sdflksd;flksdf sd  Samang Kasalan sa Simbahan."
         },
         {
           title: "Flores De Maria",
           date: "May 27, 2023",
           image: "/img/floresdemaria.png",
-          description: "This is the descriptsdf;kvgbljmsdf;gf sdflkjsd;lf ksd;lfk sd;lfk s;dlfk wspe4o[fks;e oflsefo sef; sefok sop3fk s;eolkf se ion for Flores De Maria."
+          description: "Flores de Maria or Flores de Mayo emerged as a festival that beautifully combined religious devotion to the Virgin Mary with a celebration of the natural world's splendor. The name itself, Flores de Mayo or Flowers of May, reflects the tradition of offering flowers as a tribute to the Virgin Mary."
         },
         {
           title: "THE VOICE 2023",
           date: "April 21, 2023",
-          image: "https://via.placeholder.com/150",
+          image: "/img/thevoice.png",
           description: "This is the description for THE VOICE 2023."
         },
         {
           title: "GINANG NG DAMBANA",
           date: "April 23, 2023",
-          image: "https://via.placeholder.com/150",
+          image: "/img/dambana.png",
           description: "This is the description for GINANG NG DAMBANA."
         },
         {
           title: "Libre Tuli",
           date: "April 17, 2023",
-          image: "https://via.placeholder.com/150",
-          description: "This is the description for Libre Tuli."
+          image: "/img/tuli.png",
+          description: "Kasabay ng pagdiriwang ng 38th Patronal Feast ng Shrine of the Five Wounds of Our Lord Jesus Christ tayo ay muling nagsagawa ng Libreng Tuli kaninang Umaga sa pangunguna ng ating Butihing Kapitan, Hon. Lawrence Philip DL. Roco, kasama ang ating mga kaibigang Medical Volunteers mula sa Life Plus Emergency Medical Services, Elias Aldana Fire And Rescue, Blue Eagle Fire Volunteer & Rescue Group, SFAC Nursing Students."
         },
         {
           title: "BEC DAY",
           date: "June 4, 2023",
-          image: "https://via.placeholder.com/150",
-          description: "This is the description for BEC DAY."
+          image: "/img/bec.png",
+          description: "A day of praise and worship, full of fun, fellowship and presentation of different groups. Participated by Kapit Bahayan of  all different communities from 1 to 31 and our Religious Nuns and Priest Fr. Jerson Rey Avenido. Thank you Commission on Basic Ecclesial Community headed by Sis Agnes Carillo"
         }
       ],
       selectedEvent: null
