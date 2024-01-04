@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h2 v-if="!selectedEvent">Upcoming BEC Days</h2>
+    <h2 v-if="!selectedEvent">BLOG</h2>
 
     <!-- Show the events grid if no event is selected -->
     <div v-if="!selectedEvent" class="events-grid">
@@ -112,7 +112,7 @@ h2 {
 }
 
 .event-card {
-  border: 1px solid #ccc;
+ 
   border-radius: 4px;
   padding: 15px;
   text-align: center;
@@ -134,7 +134,7 @@ h2 {
 .detailed-view {
   text-align: center;
   padding: 20px;
-  border: 1px solid #ccc;
+  
   margin-top: 20px;
   border-radius: 4px;
   position: relative;
