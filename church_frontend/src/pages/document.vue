@@ -16,7 +16,7 @@
     </div>
     
     <!-- Document Request Form -->
-    <div v-if="selectedDocument && !showPaymentForm" class="request-form">
+    <div v-if="selectedDocument && !showPaymentForm && !showConfirmation" class="request-form">
       <!-- Back button with the icon and text "GO BACK" -->
       <button @click="selectedDocument = null" class="back-button bigger-button">
         <q-icon name="arrow_back" color="#ffaa2b"></q-icon> GO BACK
@@ -44,23 +44,21 @@
     </div>
 
     <!-- New Form for Payment Details -->
-    <div v-if="showPaymentForm" class="payment-form">
+    <div v-if="showPaymentForm && !showConfirmation" class="payment-form">
       <h3 style="margin-bottom: 20px;">Payment Details</h3>
       <form @submit.prevent="submitPayment">
         <label for="paymentOption">Payment Option:</label>
         <select id="paymentOption" v-model="paymentOption" required>
-          <option value="creditCard">Credit Card</option>
-          <option value="debitCard">Debit Card</option>
-          <option value="paypal">PayPal</option>
+          <option value="creditCard">online</option>
+          <option value="debitCard">bank transfer</option>
+          <option value="paypal">F2F</option>
         </select>
 
         <label for="paymentChannel">Payment Channel:</label>
-        <select id="paymentOption" v-model="paymentOption" required>
-          <option value="creditCard">Credit Card</option>
-          <option value="debitCard">Debit Card</option>
-          <option value="paypal">PayPal</option>
+        <select id="paymentChannel" v-model="paymentChannel" required>
+          <option value="online">gcash</option>
+          <option value="offline">over the counter</option>
         </select>
-
 
         <label for="fee">Fee:</label>
         <input type="number" id="fee" v-model="fee" required>
@@ -74,6 +72,14 @@
         <button type="submit">Submit Payment</button>
       </form>
     </div>
+
+    <!-- Confirmation Message after Payment -->
+    <div v-if="showConfirmation" class="confirmation-message">
+      <h3>Your document request has been confirmed.</h3>
+      <p>Please wait for your updates through your email address!</p>
+      <button @click="showDocumentSelection">Review</button>
+      <button @click="exit">Exit</button>
+    </div>
   </div>
 </template>
 
@@ -82,24 +88,16 @@ export default {
   data() {
     return {
       documents: [
-        {
-          title: "MARRIAGE CERTIFICATE",
-          status: "Available"
-        },
-        {
-          title: "BAPTISMAL CERTIFICATE",
-          status: "Available"
-        },
-        {
-          title: "MASS CARDS",
-          status: "Available"
-        }
+        { title: "MARRIAGE CERTIFICATE", status: "Available" },
+        { title: "BAPTISMAL CERTIFICATE", status: "Available" },
+        { title: "MASS CARDS", status: "Available" }
       ],
       selectedDocument: null,
       name: '',
       email: '',
       address: '',
       showPaymentForm: false,
+      showConfirmation: false,
       paymentOption: '',
       paymentChannel: '',
       fee: '',
@@ -112,11 +110,20 @@ export default {
     },
     submitRequest() {
       console.log('Form submitted:', this.name, this.email, this.address);
-      this.showPaymentForm = true; // Show the payment form after submitting the initial form
+      this.showPaymentForm = true;
     },
     submitPayment() {
       console.log('Payment submitted:', this.paymentOption, this.paymentChannel, this.fee, this.shippingOption);
-      // Handle payment submission logic here if needed
+      this.showPaymentForm = false;
+      this.showConfirmation = true;
+    },
+    showDocumentSelection() {
+      this.showConfirmation = false;
+      this.selectedDocument = null;
+    },
+    exit() {
+      this.showConfirmation = false;
+      this.selectedDocument = null;
     }
   }
 }
@@ -215,4 +222,29 @@ text-align: center;
   padding: 8px; /* Optional padding for better appearance */
 }
 
+  .confirmation-message {
+    margin-top: 50px;
+    padding: 20px;
+    
+    border-radius: 4px;
+    background-color: #760e0e;
+    color: #ffaa2b;
+    text-align: center;
+  }
+
+  .confirmation-message button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #ffaa2b;
+    border: none;
+    border-radius: 4px;
+    color: black;
+    font-size: 1em;
+  }
+
+  .confirmation-message button:hover {
+    background-color: #ffaa2b;
+    color: #760e0e;
+  }
 </style>

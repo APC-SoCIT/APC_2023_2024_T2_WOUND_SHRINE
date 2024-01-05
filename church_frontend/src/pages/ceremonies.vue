@@ -293,6 +293,8 @@ export default {
 }
 
 .next-button {
+  background-color: #ffaa2b;
+  color: black;
   position: absolute;
   bottom: -100px;
   right: 10px;
