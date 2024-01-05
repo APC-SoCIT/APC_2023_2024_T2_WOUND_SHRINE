@@ -1,3 +1,4 @@
+//not yet complete
 <?php
 require_once "config.php";
 
