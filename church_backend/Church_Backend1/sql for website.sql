@@ -1,4 +1,5 @@
 --mysql
+--note full features not yet implemented
 CREATE TABLE churchmembers (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
