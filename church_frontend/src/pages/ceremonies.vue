@@ -39,6 +39,10 @@
 
     <!-- Request Form -->
     <div v-if="showRequestForm && !formSubmitted">
+      <!-- Additional Go Back button here -->
+  <button class="back-button" @click="showRequestForm = false">
+    <q-icon name="arrow_back" color="#ffaa2b"></q-icon>Go Back
+  </button>
       <h3>Request Form for {{ selectedService.name }}</h3>
       <!-- Integrated request form here -->
       <form @submit.prevent="submitForm">
@@ -99,6 +103,7 @@
         <button type="submit">Submit Information Form</button>
       </form>
     </div>
+    
 
     <!-- Message after submitting the form -->
     <div v-if="formSubmitted">
