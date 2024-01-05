@@ -1,6 +1,4 @@
-<?php
-$servername = "localhost";
-$username = "root";
+//not yet complete
 <?php
 require_once "config.php";
 
