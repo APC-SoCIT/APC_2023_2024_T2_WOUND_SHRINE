@@ -29,12 +29,15 @@
             <label for="name">Name:</label>
             <input type="text" id="name" v-model="name" required>
             
+            <label for="number">Number:</label>
+            <input type="text" id="number" v-model="number" required>
+            
             <label for="email">Email:</label>
             <input type="email" id="email" v-model="email" required>
             
             <label for="address">Address:</label>
-            <textarea id="address" v-model="address" required></textarea>
-            
+            <input type="text" id="address" v-model="address" required>
+                  
             <button type="submit">Submit</button>
           </form>
         </div>
