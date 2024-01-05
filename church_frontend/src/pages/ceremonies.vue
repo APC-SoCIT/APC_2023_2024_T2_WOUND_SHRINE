@@ -1,5 +1,8 @@
 <template>
   <div class="services">
+    <!-- Display header only if no service is selected -->
+    <h2 v-if="!selectedService">SERVICES</h2>
+
     <!-- List of Services -->
     <div v-if="!selectedService && !showRequestForm">
       <div class="box" v-for="service in services" :key="service.name" @click="showServiceDetails(service)">
@@ -14,12 +17,16 @@
         <!-- Left side: FAQ & Process -->
         <div class="details-left">
           <h3>FAQ & Process</h3>
-          <p>{{ selectedService.process }}</p>
+          <ul>
+            <li v-for="(step, index) in selectedService.process" :key="index">{{ step }}</li>
+          </ul>
         </div>
         <!-- Right side: Requirements -->
         <div class="details-right">
           <h3>Requirements</h3>
-          <p>{{ selectedService.requirements }}</p>
+          <ul>
+            <li v-for="(requirement, index) in selectedService.requirements" :key="index">{{ requirement }}</li>
+          </ul>
         </div>
       </div>
       <!-- Go Back button -->
@@ -29,7 +36,7 @@
       <!-- Next button -->
       <button class="next-button" @click="showRequestForm = true">Next</button>
     </div>
-    
+
     <!-- Request Form -->
     <div v-if="showRequestForm">
       <h3>Request Form for {{ selectedService.name }}</h3>
@@ -103,34 +110,71 @@ export default {
       services: [
         {
           name: 'Wedding',
-          process: 'Choose a date -> Book venue -> Invite guests...',
-          requirements: 'Marriage license -> Church approval...'
+          process: [
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+            'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+          ],
+          requirements: [
+            'Marriage license',
+            'Church approval'
+          ]
         },
         {
           name: 'Baptism',
-          process: 'Contact the church -> Schedule the baptism...',
-          requirements: 'Birth certificate -> Godparents...'
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ]
         },
         {
           name: 'Confession',
-          process: 'Prepare spiritually -> Approach the confessional...',
-          requirements: 'Examination of conscience...'
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ]
         },
         {
           name: 'Confirmation',
-          process: 'Attend catechism -> Choose a sponsor...',
-          requirements: 'Confirmation classes -> Baptismal certificate...'
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ]
         },
         {
           name: 'House Blessing',
-          process: 'Contact the parish -> Schedule the blessing...',
-          requirements: 'Holy water -> Blessed candles...'
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ]
         },
         {
           name: 'Anointing of the Sick',
-          process: 'Contact the priest -> Schedule the anointing...',
-          requirements: 'Serious illness -> Confession...'
-        }
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ]
+        },
+        // Add more services as needed
       ],
       selectedService: null,
       showRequestForm: false,
@@ -167,6 +211,9 @@ export default {
 <style scoped>
 .services {
   text-align: center;
+  color: #ffaa2b;
+  margin: auto;
+  margin-top: 50px;
 }
 
 .box {
@@ -177,25 +224,38 @@ export default {
   margin: 20px;
   border-radius: 5px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  width: 450px; 
+  width: 450px;
   height: 150px;
   cursor: pointer;
   display: inline-block;
-  justify-content: center;    /* Center horizontally */
-  align-items: center;        /* Center vertically */
+  justify-content: center;
+  align-items: center;
 }
+
 .box:hover {
   background-color: #e2e6ea;
 }
 
 .details-left, .details-right {
-  width: 48%; 
+  width: 40%;
   display: inline-block;
   vertical-align: top;
 }
 
 .details-left {
   margin-right: 2%;
+}
+
+.details-left ul,
+.details-right ul {
+  text-align: justify;
+}
+
+.details-left li,
+.details-right li {
+  display: inline-block;
+  width: 80%;
+  padding: 5px 0;
 }
 
 .back-button {
@@ -209,13 +269,11 @@ export default {
   position: absolute;
   bottom: -100px;
   right: 10px;
-
 }
 
 form {
- display: grid;
- grid-template-columns: repeat(2, 1fr);
- gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
-/* Your other styles remain unchanged */
 </style>
