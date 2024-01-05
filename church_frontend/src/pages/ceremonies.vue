@@ -38,7 +38,7 @@
     </div>
 
     <!-- Request Form -->
-    <div v-if="showRequestForm">
+    <div v-if="showRequestForm && !formSubmitted">
       <h3>Request Form for {{ selectedService.name }}</h3>
       <!-- Integrated request form here -->
       <form @submit.prevent="submitForm">
@@ -99,6 +99,16 @@
         <button type="submit">Submit Information Form</button>
       </form>
     </div>
+
+    <!-- Message after submitting the form -->
+    <div v-if="formSubmitted">
+      <h3>Your reservation has been submitted.</h3>
+      <p>Please wait for our confirmation through your email address!</p>
+      <!-- Button to review the reservation form -->
+      <button @click="reviewReservation">Review Reservation</button>
+      <!-- Button to exit and go back to services -->
+      <button @click="exitReservation">Exit</button>
+    </div>
   </div>
 </template>
 
@@ -108,7 +118,7 @@ export default {
   data() {
     return {
       services: [
-        {
+      {
           name: 'Wedding',
           process: [
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -174,7 +184,6 @@ export default {
             'Godparents'
           ]
         },
-        // Add more services as needed
       ],
       selectedService: null,
       showRequestForm: false,
@@ -192,6 +201,7 @@ export default {
         serviceType: '',
         attachment: null,
       },
+      formSubmitted: false, // New state to track form submission
     };
   },
   methods: {
@@ -199,7 +209,20 @@ export default {
       this.selectedService = service;
     },
     submitForm() {
-      console.log(this.formData);  // Handle form submission logic
+      // Mocking form submission logic here
+      console.log(this.formData);
+      this.formSubmitted = true; // Set formSubmitted to true after form submission
+    },
+    reviewReservation() {
+      // Handle logic to review the reservation form. For now, log a message.
+      console.log('Reviewing reservation form...');
+      // You can navigate to another route or display more detailed information here.
+    },
+    exitReservation() {
+      // Reset formSubmitted to false and navigate back to services.
+      this.formSubmitted = false;
+      this.selectedService = null; // Reset the selected service
+      this.showRequestForm = false; // Hide the request form
     },
     handleFileUpload(event) {
       this.formData.attachment = event.target.files[0];
@@ -207,7 +230,6 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .services {
   text-align: center;
