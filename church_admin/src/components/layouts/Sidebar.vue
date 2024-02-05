@@ -26,39 +26,95 @@ const links = [
     icon: 'dashboard',
     link: '/home'
   },
+  {
+    title: 'Service Requests',
+    icon: 'dashboard',
+    link: '/home',
+    items: [
+      {
+        title: 'Baptism',
+        link: '/dropdown-item-1'
+      },
+      {
+        title: 'Marriage',
+        link: '/dropdown-item-2'
+      },
+      {
+        title: 'Confirmation',
+        link: '/dropdown-item-2'
+      },
+      {
+        title: 'House Blessing',
+        link: '/dropdown-item-2'
+      },
+      {
+        title: 'Confession',
+        link: '/dropdown-item-2'
+      },
+      {title: 'Annointing of the Sick',
+        link: '/dropdown-item-2'
+      }
+    ]
+  },
+  {
+    title: 'Dcoument Requests',
+    icon: 'dashboard',
+    link: '/home',
+    items: [
+      {
+        title: 'Marriage Certificate',
+        link: '/dropdown-item-1'
+      },
+      {
+        title: 'Baptism Certificate',
+        link: '/dropdown-item-2'
+      },
+      {
+        title: 'Good Moral',
+        link: '/dropdown-item-2'
+      },
+      {
+        title: 'Mass Cards',
+        link: '/dropdown-item-2'
+      },
+    ]
+  },
 ]
 
 function toggleDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
- emitter.on('toggleDrawer', () => toggleDrawer())
+emitter.on('toggleDrawer', () => toggleDrawer())
 
-
- function webapps(){
-    const path = 'webapps'
-    router.push(path)
-  }
+function webapps() {
+  const path = 'webapps'
+  router.push(path)
+}
 </script>
+
 <style lang="scss">
-#button-apps{
-  background-color: #ffaa2b!important; 
+#button-apps {
+  background-color: #ffaa2b !important;
   color: white;
 }
-#sidebar-label{
+
+#sidebar-label {
   color: black;
   font-weight: 400;
 }
-#sidebar-label:active{
+
+#sidebar-label:active {
   color: black;
   font-weight: 800;
 }
-#sidebar-label:hover{
-    color: #00b85d;
-    font-weight: 500;
-    background-color: #00b85c1e !important;
+
+#sidebar-label:hover {
+  color: white;
+  font-weight: 500;
+  background-color: #00b85c1e !important;
 }
 
 .q-drawer {
-  background-color: #ffaa2b  !important; /* Set the desired background color */
+  background-color: #ffaa2b !important; /* Set the desired background color */
 }
 </style>

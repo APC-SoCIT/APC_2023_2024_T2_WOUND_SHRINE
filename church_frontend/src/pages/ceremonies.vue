@@ -107,12 +107,13 @@
 
     <!-- Message after submitting the form -->
     <div v-if="formSubmitted">
-      <h3>Your reservation has been submitted.</h3>
+      <h3>Your request has been submitted.</h3>
       <p>Please wait for our confirmation through your email address!</p>
       <!-- Button to review the reservation form -->
-      <button @click="reviewReservation">Review Reservation</button>
+      
+      <button class="review-button" @click="reviewReservation">Review Reservation</button>
       <!-- Button to exit and go back to services -->
-      <button @click="exitReservation">Exit</button>
+      <button class="exit-button" @click="exitReservation">Exit</button>
     </div>
   </div>
 </template>
@@ -257,6 +258,7 @@ export default {
   display: inline-block;
   justify-content: center;
   align-items: center;
+  font-size: 30px;
 }
 
 .box:hover {
@@ -304,5 +306,35 @@ form {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
+}
+
+.review-button {
+  background-color: #ffaa2b;
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.review-button:hover {
+  background-color: #e2e6ea;
+  color: #ffaa2b;
+}
+
+.exit-button {
+  background-color: #ffaa2b;
+  color: black;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.exit-button:hover {
+  background-color: #e2e6ea;
+  color: #ffaa2b;
 }
 </style>

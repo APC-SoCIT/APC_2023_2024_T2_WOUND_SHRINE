@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import MainView from '../views/MainView.vue'
 import { useAuthStore } from "../stores/auth";
 
+
 import middleware from "./middleware";
 
 const router = createRouter({
@@ -16,6 +17,7 @@ const router = createRouter({
             },
             beforeEnter: middleware.guest,
         },
+          
         {
             path: '/',
             name: 'main',
@@ -61,11 +63,35 @@ const router = createRouter({
             meta: {
               title: `Document | ${import.meta.env.VITE_FE_TITLE}`,
           },
-        },
+        },{
+            path: '/Dashboard',
+            name: 'dashboard',
+            component: () => import('../views/admin/Dashboard.vue'),
+            meta:{
+              title: `Dashboard | ${import.meta.env.VITE_FE_TITLE}`,
+            }
+          },{
+            path: '/ServiceRequests',
+            name: 'servicerequests',
+            component: () => import('../views/admin/ServiceRequests.vue'),
+            meta:{
+              title: `ServiceRequests | ${import.meta.env.VITE_FE_TITLE}`,
+            }
+          },{
+            path: '/DocumentRequests',
+            name: 'documentrequests',
+            component: () => import('../views/admin/DocumentRequests.vue'),
+            meta:{
+              title: `DocumentRequests | ${import.meta.env.VITE_FE_TITLE}`,
+            }
+          }
+      
         
               // beforeEnter: middleware.user,
             ],
-        }
+        },
+
+        
         
 
     ]
