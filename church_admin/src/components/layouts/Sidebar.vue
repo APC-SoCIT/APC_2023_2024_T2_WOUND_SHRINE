@@ -94,7 +94,7 @@ function webapps() {
 
 <style lang="scss">
 #button-apps {
-  background-color: #ffaa2b !important;
+  background-color: #00B85D !important;
   color: white;
 }
 
@@ -109,9 +109,9 @@ function webapps() {
 }
 
 #sidebar-label:hover {
-  color: white;
+  color: black;
   font-weight: 500;
-  background-color: #00b85c1e !important;
+  background-color: #ffaa2b !important;
 }
 
 .q-drawer {
