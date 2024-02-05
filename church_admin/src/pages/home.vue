@@ -105,7 +105,7 @@
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  color: #ffaa2b;
+  color: black;
   margin-left: 100px;
   flex: 1; /* This ensures that the message section takes available space */
 }
@@ -115,6 +115,6 @@
   margin-top: 0; 
   width: 70%; /* Adjust the width as per your design */
   line-height: 1.6; /* Adjust the line height for better readability */
-  color: white;
+  color: black;
 }
 </style>
