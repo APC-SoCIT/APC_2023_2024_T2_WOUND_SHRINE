@@ -28,54 +28,54 @@ const links = [
   },
   {
     title: 'Service Requests',
-    icon: 'dashboard',
+    icon: 'assignment',
     link: '/home',
     items: [
       {
         title: 'Baptism',
-        link: '/dropdown-item-1'
+        link: '/baptism'
       },
       {
         title: 'Marriage',
-        link: '/dropdown-item-2'
+        link: '/marriage'
       },
       {
         title: 'Confirmation',
-        link: '/dropdown-item-2'
+        link: '/confirmation'
       },
       {
         title: 'House Blessing',
-        link: '/dropdown-item-2'
+        link: '/houseblessing'
       },
       {
         title: 'Confession',
-        link: '/dropdown-item-2'
+        link: '/confession'
       },
       {title: 'Annointing of the Sick',
-        link: '/dropdown-item-2'
+        link: '/annointingofthesick'
       }
     ]
   },
   {
     title: 'Dcoument Requests',
-    icon: 'dashboard',
+    icon: 'subject',
     link: '/home',
     items: [
       {
         title: 'Marriage Certificate',
-        link: '/dropdown-item-1'
+        link: '/marriagecertificate'
       },
       {
         title: 'Baptism Certificate',
-        link: '/dropdown-item-2'
+        link: '/baptismcertifcate'
       },
       {
         title: 'Good Moral',
-        link: '/dropdown-item-2'
+        link: '/goodmoral'
       },
       {
         title: 'Mass Cards',
-        link: '/dropdown-item-2'
+        link: '/masscards'
       },
     ]
   },
