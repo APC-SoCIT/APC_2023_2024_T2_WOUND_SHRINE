@@ -10,6 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@coreui/vue": "^4.10.2",
     "@quasar/extras": "^1.16.2",
     "axios": "^1.3.5",
     "emitter": "^0.0.2",

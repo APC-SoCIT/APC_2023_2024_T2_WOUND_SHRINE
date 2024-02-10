@@ -165,20 +165,20 @@ const router = createRouter({
         },
         {
             path: '/',
-            name: 'birthcertificate',
+            name: 'baptismcertificate',
             meta: {
-                title: `BirthCertificate | ${import.meta.env.VITE_FE_TITLE}`,
+                title: `BaptismCertificate | ${import.meta.env.VITE_FE_TITLE}`,
             },
             component: MainView,
             // beforeEnter: middleware.user,
             children: [
               // Users Maintenance Route
               {
-                path: '/birthcertificate',
-                name: 'birthcertificate',
-                component: () => import('../views/DocumentRequests/BirthCertificate.vue'),
+                path: '/baptismcertificate',
+                name: 'baptismcertificate',
+                component: () => import('../views/DocumentRequests/BaptismCertificate.vue'),
                 meta: {
-                  title: `BirthCertificate | ${import.meta.env.VITE_FE_TITLE}`,
+                  title: `BaptismCertificate | ${import.meta.env.VITE_FE_TITLE}`,
               },
               // beforeEnter: middleware.user,
               },

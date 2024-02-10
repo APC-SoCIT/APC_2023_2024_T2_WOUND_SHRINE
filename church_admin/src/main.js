@@ -15,6 +15,8 @@ import '@quasar/extras/material-icons-outlined/material-icons-outlined.css'
 import 'quasar/src/css/index.sass'
 import './assets/main.css'
 
+
+
 const app = createApp(App)
 
 const emitter = mitt()
