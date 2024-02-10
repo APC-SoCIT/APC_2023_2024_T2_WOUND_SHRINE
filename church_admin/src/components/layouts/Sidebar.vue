@@ -26,6 +26,7 @@ const links = [
     icon: 'dashboard',
     link: '/home'
   },
+  
   {
     title: 'Service Requests',
     icon: 'assignment',
@@ -67,7 +68,7 @@ const links = [
       },
       {
         title: 'Baptism Certificate',
-        link: '/baptismcertifcate'
+        link: '/baptismcertificate'
       },
       {
         title: 'Good Moral',

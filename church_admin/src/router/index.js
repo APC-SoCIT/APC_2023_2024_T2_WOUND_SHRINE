@@ -34,83 +34,23 @@ const router = createRouter({
                   title: `Home | ${import.meta.env.VITE_FE_TITLE}`,
               },
               // beforeEnter: middleware.user,
-              },
-            ],
-        },
-        {
-            path: '/',
-            name: 'baptism',
-            meta: {
-                title: `Baptism | ${import.meta.env.VITE_FE_TITLE}`,
-            },
-            component: MainView,
-            // beforeEnter: middleware.user,
-            children: [
-              // Users Maintenance Route
-              {
+              }, {
                 path: '/baptism',
                 name: 'baptism',
-                component: () => import('../views/ServiceRequests/Baptism.vue'),
+                component: () => import('../views/ServiceRequests/BaptismView.vue'),
                 meta: {
                   title: `Baptism | ${import.meta.env.VITE_FE_TITLE}`,
               },
               // beforeEnter: middleware.user,
-              },
-            ],
-        },
-        {
-            path: '/',
-            name: 'marriage',
-            meta: {
-                title: `Marriage | ${import.meta.env.VITE_FE_TITLE}`,
-            },
-            component: MainView,
-            // beforeEnter: middleware.user,
-            children: [
-              // Users Maintenance Route
-              {
+              }, {
                 path: '/marriage',
                 name: 'marriage',
-                component: () => import('../views/ServiceRequests/Marriage.vue'),
+                component: () => import('../views/ServiceRequests/MarriageView.vue'),
                 meta: {
                   title: `Marriage | ${import.meta.env.VITE_FE_TITLE}`,
               },
               // beforeEnter: middleware.user,
-              },
-            ],
-        },
-        {
-            path: '/',
-            name: 'confession',
-            meta: {
-                title: `Confession | ${import.meta.env.VITE_FE_TITLE}`,
-            },
-            component: MainView,
-            // beforeEnter: middleware.user,
-            children: [
-              // Users Maintenance Route
-              {
-                path: '/confession',
-                name: 'confession',
-                component: () => import('../views/ServiceRequests/Confession.vue'),
-                meta: {
-                  title: `Confession | ${import.meta.env.VITE_FE_TITLE}`,
-              },
-              // beforeEnter: middleware.user,
-              },
-            ],
-        },
-        {
-            path: '/',
-            name: 'confirmation',
-            meta: {
-                title: `Confirmation | ${import.meta.env.VITE_FE_TITLE}`,
-            },
-            component: MainView,
-            // beforeEnter: middleware.user,
-            children: [
-              // Users Maintenance Route
-              {
+              },{
                 path: '/confirmation',
                 name: 'confirmation',
                 component: () => import('../views/ServiceRequests/Confirmation.vue'),
@@ -118,43 +58,25 @@ const router = createRouter({
                   title: `Cofirmation | ${import.meta.env.VITE_FE_TITLE}`,
               },
               // beforeEnter: middleware.user,
-              },
-            ],
-        },
-        {
-            path: '/',
-            name: 'houseblessing',
-            meta: {
-                title: `HouseBlessing | ${import.meta.env.VITE_FE_TITLE}`,
-            },
-            component: MainView,
-            // beforeEnter: middleware.user,
-            children: [
-              // Users Maintenance Route
-              {
+              },{
                 path: '/houseblessing',
-                name: 'houseblessinhg',
+                name: 'houseblessing',
                 component: () => import('../views/ServiceRequests/HouseBlessing.vue'),
                 meta: {
                   title: `HouseBlessing | ${import.meta.env.VITE_FE_TITLE}`,
               },
               // beforeEnter: middleware.user,
+              },{
+                path: '/confession',
+                name: 'confession',
+                component: () => import('../views/ServiceRequests/Confession.vue'),
+                meta: {
+                  title: `Confession | ${import.meta.env.VITE_FE_TITLE}`,
               },
-            ],
-        },
-        {
-            path: '/',
-            name: 'annointingofthesick',
-            meta: {
-                title: `AnnointingOfTheSick | ${import.meta.env.VITE_FE_TITLE}`,
-            },
-            component: MainView,
-            // beforeEnter: middleware.user,
-            children: [
-              // Users Maintenance Route
-              {
+              // beforeEnter: middleware.user,
+              },{
                 path: '/annointingofthesick',
-                name: 'confirmation',
+                name: 'annointingofthesick',
                 component: () => import('../views/ServiceRequests/HouseBlessing.vue'),
                 meta: {
                   title: `HouseBlessing | ${import.meta.env.VITE_FE_TITLE}`,
@@ -163,6 +85,7 @@ const router = createRouter({
               },
             ],
         },
+        
         {
             path: '/',
             name: 'baptismcertificate',
