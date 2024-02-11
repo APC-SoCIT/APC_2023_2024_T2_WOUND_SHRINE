@@ -1,120 +1,170 @@
 <template>
-  <div>
-    <!-- Existing Menu Content -->
-    <div class="menu">
-      <main>
-        <div class="logo-info-container">
-          <!-- Logo placed beside the name -->
-          <q-img 
-            src="/img/logo.png" 
-            lazy-src="/img/logo.png"
-            height="255px"  
-            style="max-width: 290px; margin-right: 20px; border-radius: 50%;"
-          />
-          <div class="info">
-            <h3>SHRINE OF THE FIVE WOUNDS OF OUR LORD JESUS CHRIST</h3>
-            <h4>364 Real Street, Talon I, Las Pinas, 1747 Metro Manila</h4>
-          </div>
-        </div>
-      </main>
-    </div>
+  <div class="container">
+    <h1 class="page-header">{{ title }}</h1>
 
-    <!-- Logo and Info Section with Space -->
-    <div class="logo-info-section" style="margin-top: 50px; display: flex; align-items: flex-start;">
-      <!-- Logo placed beside the name -->
-      <q-img 
-        src="/img/pope.png" 
-        lazy-src="/img/pope.png"
-        height="600px"  
-        style="max-width: 500px; margin-right: 100px;"
-      />
-      <div class="message">
-        <h4>A Message From Our Parish Priest</h4>
-        <p class="paragraph-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
-        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
-        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
-        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
-        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
-        </p>
-        <p class="paragraph-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
-        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
-        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
-        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
-        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
-        </p>
-      </div>
-    </div>
+    <q-btn-dropdown label="View">
+      <q-list link>
+        <q-item clickable @click="changeStatus('all')">
+          <q-item-main>
+            <q-item-tile label>All Requests</q-item-tile>
+          </q-item-main>
+        </q-item>
+        <q-item clickable @click="changeStatus('approved')">
+          <q-item-main>
+            <q-item-tile label>Approved Requests</q-item-tile>
+          </q-item-main>
+        </q-item>
+        <q-item clickable @click="changeStatus('pending')">
+          <q-item-main>
+            <q-item-tile label>Pending Requests</q-item-tile>
+          </q-item-main>
+        </q-item>
+      </q-list>
+    </q-btn-dropdown>
 
-    <!-- Replace the welcome message with an image -->
-    <div style="margin-top: 50px; text-align: center;">
-      <q-img 
-        src="/img/church.png" 
-        lazy-src="/img/church.png"
-        height="550px"  
-        style="max-width: 3000px;"
-      />
-    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Member ID</th>
+          <th>Name</th>
+          <th>Date of Request</th>
+          <th>Time of Request</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="request in filteredRequests" :key="request.memberId">
+          <td>{{ request.memberId }}</td>
+          <td>{{ request.name }}</td>
+          <td>{{ request.dateOfRequest }}</td>
+          <td>{{ request.timeOfRequest }}</td>
+          <td>{{ request.status }}</td>
+          <td>
+            <button class="details-btn" @click="showDetails(request.memberId)">
+              View Full Details
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
-<!-- CSS remains unchanged -->
-<style>
-/* Styles for the existing menu */
-.menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 25px;
-  height: 20em;
-  width: 90%;
-  background-color: #ffaa2b;
-  margin: auto;
-  margin-top: 30px;
+<script>
+export default {
+props: {
+  title: {
+    type: String,
+    default: "Marriage Requests",
+  },
+  requests: {
+    type: Array,
+    default: () => [
+      {
+        memberId: 12345,
+        name: 'Jarvis V. Carpo',
+        dateOfRequest: '2024-02-08',
+        timeOfRequest: '14:30:00',
+        status: 'approved',
+      },
+      {
+        memberId: 67890,
+        name: 'Kim Altea',
+        dateOfRequest: '2024-02-09',
+        timeOfRequest: '10:45:00',
+        status: 'pending',
+      },
+    ],
+  },
+},
+data() {
+  return {
+    requestStatus: "all",
+  };
+},
+computed: {
+  filteredRequests() {
+    if (this.requestStatus === "all") {
+      return this.requests;
+    } else {
+      return this.requests.filter((request) => request.status === this.requestStatus);
+    }
+  },
+},
+methods: {
+  showDetails(memberId) {
+    alert("View full details for Member ID: " + memberId);
+  },
+  updateStatus(request) {
+    // Handle status update, e.g., send an API request
+    console.log(`Status of request ${request.memberId} updated to ${request.status}`);
+  },
+  changeStatus(status) {
+    // Handle the click event for each status in the dropdown
+    this.requestStatus = status;
+    console.log(`Changed status to: ${status}`);
+    // You can perform additional logic based on the selected status
+  },
+},
+};
+</script>
+
+<style scoped>
+.container {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+margin: 0 10px;
 }
 
-.logo-info-container {
-  display: flex;
-  align-items: center;
+.page-header {
+text-align: left;
+color: black;
+margin-bottom: 0px;
+font-size: 45px;
+font-weight: bold;
 }
 
-.info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  text-align: center;
-  display: inline;
-  color: black;
+.table {
+border: 1px solid DarkOrange;
+border-radius: 8px;
+border-spacing: 0;
+width: 100%;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+margin-top: 10px; 
 }
 
-/* Styles for the new logo-info section */
-.logo-info-section {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  margin: auto;
-  margin-left: 100px;
+.table th {
+background-color: #f2af5e;
 }
 
-.message {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  color: black;
-  margin-left: 100px;
-  flex: 1; /* This ensures that the message section takes available space */
+.table td,
+.table th {
+border-bottom: 1px solid DarkOrange;
+padding: 8px;
+text-align: left;
 }
 
-.paragraph-text {
-  text-align: justify; /* Justify the text */
-  margin-top: 0; 
-  width: 70%; /* Adjust the width as per your design */
-  line-height: 1.6; /* Adjust the line height for better readability */
-  color: black;
+.roundedCorners tr:last-child > td {
+border-bottom: none;
+}
+
+select {
+padding: 6px;
+}
+
+.details-btn {
+padding: 6px 12px;
+background-color: #af5e4c;
+color: white;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+margin: 0; /* Add this line to remove margin */
+}
+
+.details-btn:hover {
+background-color: #f0981e;
 }
 </style>

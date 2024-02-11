@@ -54,7 +54,7 @@
   props: {
     title: {
       type: String,
-      default: "Marriage Certificate Requests",
+      default: "Good Moral Requests",
     },
     requests: {
       type: Array,

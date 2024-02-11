@@ -77,7 +77,7 @@ const router = createRouter({
               },{
                 path: '/annointingofthesick',
                 name: 'annointingofthesick',
-                component: () => import('../views/ServiceRequests/HouseBlessing.vue'),
+                component: () => import('../views/ServiceRequests/AnnointingOfTheSick.vue'),
                 meta: {
                   title: `HouseBlessing | ${import.meta.env.VITE_FE_TITLE}`,
               },
@@ -144,6 +144,27 @@ const router = createRouter({
                 component: () => import('../views/DocumentRequests/MassCards.vue'),
                 meta: {
                   title: `MassCards| ${import.meta.env.VITE_FE_TITLE}`,
+              },
+              // beforeEnter: middleware.user,
+              },
+            ],
+        }, 
+        {
+            path: '/',
+            name: 'goodmoral',
+            meta: {
+                title: `GoodMoral | ${import.meta.env.VITE_FE_TITLE}`,
+            },
+            component: MainView,
+            // beforeEnter: middleware.user,
+            children: [
+              // Users Maintenance Route
+              {
+                path: '/goodmoral',
+                name: 'goodmoral',
+                component: () => import('../views/DocumentRequests/GoodMoral.vue'),
+                meta: {
+                  title: `GoodMoral| ${import.meta.env.VITE_FE_TITLE}`,
               },
               // beforeEnter: middleware.user,
               },
