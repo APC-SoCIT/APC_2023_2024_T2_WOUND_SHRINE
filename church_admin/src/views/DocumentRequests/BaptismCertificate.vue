@@ -47,6 +47,7 @@
       </tbody>
     </table>
   </div>
+  
 </template>
 
 <script>
