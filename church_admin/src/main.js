@@ -15,8 +15,7 @@ import '@quasar/extras/material-icons-outlined/material-icons-outlined.css'
 import 'quasar/src/css/index.sass'
 import './assets/main.css'
 
-import { setupCalendar, Calendar, DatePicker } from 'v-calendar';
-import 'v-calendar/style.css';
+
 
 
 
