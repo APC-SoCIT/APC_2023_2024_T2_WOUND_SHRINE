@@ -15,12 +15,12 @@ import '@quasar/extras/material-icons-outlined/material-icons-outlined.css'
 import 'quasar/src/css/index.sass'
 import './assets/main.css'
 
-
-
-
+import VueApexCharts from "vue3-apexcharts";
 
 
 const app = createApp(App)
+
+app.use(VueApexCharts);
 
 const emitter = mitt()
 const pinia = createPinia()
