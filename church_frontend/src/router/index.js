@@ -16,7 +16,15 @@ const router = createRouter({
                 title: `Sign-In | ${import.meta.env.VITE_FE_TITLE}`,
             },
             beforeEnter: middleware.guest,
-        },
+        },{
+          path: '/Register',
+          name: 'Register',
+          component: () => import('../views/RegisterView.vue'),
+          meta: {
+              title: `Sign-up | ${import.meta.env.VITE_FE_TITLE}`,
+          },
+          beforeEnter: middleware.guest,
+      },
           
         {
             path: '/',
