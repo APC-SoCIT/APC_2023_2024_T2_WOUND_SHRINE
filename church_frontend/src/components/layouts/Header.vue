@@ -1,7 +1,7 @@
 <template>
   <q-header class="text-white" style="background-color: #ffaa2b; border-bottom: 1px solid #e0e0e0!important;">
     <q-toolbar>
-      <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" />
+      <!-- <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" /> -->
 
       <q-toolbar-title>
         <q-img 
@@ -25,7 +25,14 @@
       <!-- Spacing for even distribution -->
       <q-space />
 
-      <q-icon style="color: black; font-weight: 600; font-size: 20px;" class="q-mr-xs" name="notifications"></q-icon>
+      <!-- Notification button with dropdown -->
+      <q-btn-dropdown flat dense icon="notifications" color="black" text-color="black">
+        <q-list>
+          <q-item v-for="(notification, index) in notifications" :key="index" clickable @click="onItemClick(notification)">
+            <q-item-section>{{ notification }}</q-item-section>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown>
 
       <q-avatar class="q-ma-md">
         <img src="https://cdn.quasar.dev/img/avatar.png">
@@ -60,6 +67,7 @@ const router = useRouter()
 const store = useAuthStore();
 const emitter = inject('emitter')
 const userData = ref('')
+const notifications = ref(['Notification 1', 'Notification 2', 'Notification 3']) // Example notifications
 
 function toggleLeftDrawer() {
   emitter.emit('toggleDrawer')
@@ -83,6 +91,11 @@ function login(){
 function navigateTo(routeName) {
   const path = `/${routeName.toLowerCase()}`
   router.push(path)
+}
+
+function onItemClick(notification) {
+  // Handle click action for notifications
+  console.log('Clicked notification:', notification);
 }
 </script>
 

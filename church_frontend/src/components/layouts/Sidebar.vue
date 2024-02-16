@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
     <q-list>
       <template v-for="link in links" :key="link.title">
@@ -7,7 +7,7 @@
       </template>
     </q-list>
   </q-drawer>
-</template>
+</template> -->
 
 <script setup>
 import { ref } from 'vue'
