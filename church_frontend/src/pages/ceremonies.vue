@@ -37,80 +37,35 @@
       <button class="next-button" @click="showRequestForm = true">Next</button>
     </div>
 
-    <!-- Request Form -->
-    <div v-if="showRequestForm && !formSubmitted">
+    <!-- Request Form for selected service -->
+    <div v-if="selectedService && showRequestForm && !formSubmitted">
       <!-- Additional Go Back button here -->
-  <button class="back-button" @click="showRequestForm = false">
-    <q-icon name="arrow_back" color="#ffaa2b"></q-icon>Go Back
-  </button>
+      <button class="back-button" @click="showRequestForm = false">
+        <q-icon name="arrow_back" color="#ffaa2b"></q-icon>Go Back
+      </button>
       <h3>Request Form for {{ selectedService.name }}</h3>
       <!-- Integrated request form here -->
-      <form @submit.prevent="submitForm">
-        <div>
-          <label for="name">Name:</label>
-          <input type="text" id="name" v-model="formData.name" required>
-        </div>
-        <div>
-          <label for="father">Father's Name:</label>
-          <input type="text" id="father" v-model="formData.fatherName" required>
-        </div>
-        <div>
-          <label for="mother">Mother's Name:</label>
-          <input type="text" id="mother" v-model="formData.motherName" required>
-        </div>
-        <div>
-          <label for="phone">Phone Number:</label>
-          <input type="text" id="phone" v-model="formData.phoneNumber" required>
-        </div>
-        <div>
-          <label for="email">Email:</label>
-          <input type="email" id="email" v-model="formData.email" required>
-        </div>
-        <div>
-          <label for="godparents">List of God Parents:</label>
-          <input type="text" id="godparents" v-model="formData.godParents" required>
-        </div>
-        <div>
-          <label for="preferredTime">Prefered Time:</label>
-          <input type="datetime-local" id="preferredTime" v-model="formData.preferredTime" required>
-        </div>
-        <div>
-          <label for="alternateTime">Alternate Time:</label>
-          <input type="datetime-local" id="alternateTime" v-model="formData.alternateTime" required>
-        </div>
-        <div>
-          <label for="attendees">Number of Attendees:</label>
-          <input type="number" id="attendees" v-model="formData.attendees" required>
-        </div>
-        <div>
-          <label for="churchOrCivil">Wedding Type:</label>
-          <select id="churchOrCivil" v-model="formData.weddingType" required>
-            <option value="church">Church Wedding</option>
-            <option value="civil">Civil Ceremony</option>
-          </select>
-        </div>
-        <div>
-          <label for="service">Service Type:</label>
-          <select id="service" v-model="formData.serviceType" required>
-            <option value="fullService">Full Service</option>
-            <option value="partialService">Partial Service</option>
-          </select>
-        </div>
-        <div>
-          <label for="attachment">Attachment:</label>
-          <input type="file" id="attachment" @change="handleFileUpload">
+      <form @submit.prevent="submitForm(selectedService)">
+        <div v-for="(field, index) in selectedService.formFields" :key="index">
+          <label :for="field.id">{{ field.label }}:</label>
+          <template v-if="field.type === 'text' || field.type === 'email' || field.type === 'datetime-local' || field.type === 'file' || field.type === 'number'">
+            <input :type="field.type" :id="field.id" v-model="formData[field.id]" :required="field.required">
+          </template>
+          <template v-else-if="field.type === 'select'">
+            <select :id="field.id" v-model="formData[field.id]" :required="field.required">
+              <option v-for="(option, index) in field.options" :key="index" :value="option.value">{{ option.label }}</option>
+            </select>
+          </template>
         </div>
         <button type="submit">Submit Information Form</button>
       </form>
     </div>
-    
 
     <!-- Message after submitting the form -->
     <div v-if="formSubmitted">
       <h3>Your request has been submitted.</h3>
       <p>Please wait for our confirmation through your email address!</p>
       <!-- Button to review the reservation form -->
-      
       <button class="review-button" @click="reviewReservation">Review Reservation</button>
       <!-- Button to exit and go back to services -->
       <button class="exit-button" @click="exitReservation">Exit</button>
@@ -124,7 +79,7 @@ export default {
   data() {
     return {
       services: [
-      {
+        {
           name: 'Wedding',
           process: [
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -133,6 +88,14 @@ export default {
           requirements: [
             'Marriage license',
             'Church approval'
+          ],
+          formFields: [
+            { id: 'name', label: 'Name', type: 'text', required: true },
+            { id: 'fatherName', label: "Father's Name", type: 'text', required: true },
+            { id: 'motherName', label: "Mother's Name", type: 'text', required: true },
+            { id: 'phoneNumber', label: 'Phone Number', type: 'text', required: true },
+            { id: 'email', label: 'Email', type: 'email', required: true },
+            // Add more fields as needed
           ]
         },
         {
@@ -190,23 +153,11 @@ export default {
             'Godparents'
           ]
         },
+        // Add more services with their respective form fields
       ],
       selectedService: null,
       showRequestForm: false,
-      formData: {
-        name: '',
-        fatherName: '',
-        motherName: '',
-        phoneNumber: '',
-        email: '',
-        godParents: '',
-        preferredTime: '',
-        alternateTime: '',
-        attendees: '',
-        weddingType: '',
-        serviceType: '',
-        attachment: null,
-      },
+      formData: {},
       formSubmitted: false, // New state to track form submission
     };
   },
@@ -214,7 +165,7 @@ export default {
     showServiceDetails(service) {
       this.selectedService = service;
     },
-    submitForm() {
+    submitForm(selectedService) {
       // Mocking form submission logic here
       console.log(this.formData);
       this.formSubmitted = true; // Set formSubmitted to true after form submission
@@ -230,12 +181,10 @@ export default {
       this.selectedService = null; // Reset the selected service
       this.showRequestForm = false; // Hide the request form
     },
-    handleFileUpload(event) {
-      this.formData.attachment = event.target.files[0];
-    },
   },
 };
 </script>
+
 <style scoped>
 .services {
   text-align: center;

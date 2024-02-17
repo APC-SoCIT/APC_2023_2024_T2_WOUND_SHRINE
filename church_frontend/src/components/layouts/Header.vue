@@ -89,6 +89,13 @@ function login(){
 
 // Navigation function for the buttons
 function navigateTo(routeName) {
+  // Check if clicking on the same page
+  if (router.currentRoute.value.name === routeName.toLowerCase()) {
+    // Go back to the top of the page or refresh it
+    window.scrollTo(0, 0);
+    return;
+  }
+  
   const path = `/${routeName.toLowerCase()}`
   router.push(path)
 }
