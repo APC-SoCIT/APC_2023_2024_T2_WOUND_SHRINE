@@ -1,7 +1,7 @@
 <template>
   <q-header class="text-white" style="background-color: #ffaa2b; border-bottom: 1px solid #e0e0e0!important;">
     <q-toolbar>
-      <!-- <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" /> -->
+      <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" />
 
       <q-toolbar-title>
         <q-img 
