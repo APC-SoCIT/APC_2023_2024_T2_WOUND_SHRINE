@@ -24,17 +24,17 @@ const links = [
   {
     title: 'My Profile',
     icon: 'Profile',
-    link: '/home'
+    link: '/myprofile'
   },
   {
     title: 'Request Status',
     icon: 'dashboard',
-    link: '/home'
+    link: '/requeststatus'
   },
   {
     title: 'Account Settings',
     icon: 'Settings',
-    link: '/home'
+    link: '/accountsettings'
   },
 ]
 

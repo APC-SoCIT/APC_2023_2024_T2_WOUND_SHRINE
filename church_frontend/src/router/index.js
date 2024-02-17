@@ -72,25 +72,25 @@ const router = createRouter({
               title: `Document | ${import.meta.env.VITE_FE_TITLE}`,
           },
         },{
-            path: '/Dashboard',
-            name: 'dashboard',
-            component: () => import('../views/admin/Dashboard.vue'),
+            path: '/MyProfile',
+            name: 'myprofile',
+            component: () => import('../views/client/MyProfile.vue'),
             meta:{
-              title: `Dashboard | ${import.meta.env.VITE_FE_TITLE}`,
+              title: `MyProfle | ${import.meta.env.VITE_FE_TITLE}`,
             }
           },{
-            path: '/ServiceRequests',
-            name: 'servicerequests',
-            component: () => import('../views/admin/ServiceRequests.vue'),
+            path: '/RequestStatus',
+            name: 'requeststatus',
+            component: () => import('../views/client/RequestStatus.vue'),
             meta:{
-              title: `ServiceRequests | ${import.meta.env.VITE_FE_TITLE}`,
+              title: `RequestStatus | ${import.meta.env.VITE_FE_TITLE}`,
             }
           },{
-            path: '/DocumentRequests',
-            name: 'documentrequests',
-            component: () => import('../views/admin/DocumentRequests.vue'),
+            path: '/AccountSettings',
+            name: 'accountsettings',
+            component: () => import('../views/client/AccountSettings.vue'),
             meta:{
-              title: `DocumentRequests | ${import.meta.env.VITE_FE_TITLE}`,
+              title: `AccountSettings | ${import.meta.env.VITE_FE_TITLE}`,
             }
           }
       
