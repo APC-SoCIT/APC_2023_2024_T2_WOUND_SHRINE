@@ -106,7 +106,7 @@ export default {
 </script>
 
 <style scoped>
-/* Styles for all components */
+/* Styles for About page */
 
 .menu {
   display: flex;
@@ -145,15 +145,17 @@ h2 {
 .vision-mission-container {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap; /* Add this line to wrap items when there's not enough space */
   margin-top: 30px;
   padding: 20px;
   color: #ffaa2b;
 }
 
 .vision-mission-item {
-  flex: 1;
+  flex-basis: calc(50% - 20px); /* Adjusted to occupy half the container with margin */
   border-radius: 5px;
   padding: 15px;
+  margin-bottom: 20px; /* Add margin between items */
 }
 
 .vision-mission-item h4, .vision-mission-item p {
@@ -162,7 +164,7 @@ h2 {
 
 .vision-mission-item p {
   text-align: justify;
-  width: 600px;
+  width: 100%; /* Adjusted width to occupy full width */
 }
 
 .contact-container {
@@ -176,18 +178,15 @@ h2 {
   text-align: center;
   margin-top: 50px;
   color: #ffaa2b;
-
 }
 
 .contact-details {
   margin-top: 20px;
   color: white;
-  text-decoration: white;
-  
 }
+
 .contact-details a:hover {
   text-decoration: underline; /* Add underline on hover for better UX */
 }
-  
-
 </style>
+
