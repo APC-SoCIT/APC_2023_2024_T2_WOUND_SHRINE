@@ -42,11 +42,11 @@
 
       <q-btn-dropdown flat class="q-mr-xs" size="10px" color="white" text-color="black">
         <q-list>
-          <q-item clickable v-close-popup @click="onItemClick">
+          <!-- <q-item clickable v-close-popup @click="onItemClick">
             <q-item-section>
               <q-item-label>My Profile</q-item-label>
             </q-item-section>
-          </q-item>
+          </q-item> -->
           <q-item clickable v-close-popup @click="login">
             <q-item-section>
               <q-item-label>Login</q-item-label>

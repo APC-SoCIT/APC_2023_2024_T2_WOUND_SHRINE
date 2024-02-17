@@ -22,8 +22,18 @@ const leftDrawerOpen = ref(false)
 const router = useRouter()
 const links = [
   {
-    title: 'Dashboard',
+    title: 'My Profile',
+    icon: 'Profile',
+    link: '/home'
+  },
+  {
+    title: 'Request Status',
     icon: 'dashboard',
+    link: '/home'
+  },
+  {
+    title: 'Account Settings',
+    icon: 'Settings',
     link: '/home'
   },
 ]
