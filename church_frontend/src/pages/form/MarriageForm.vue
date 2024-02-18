@@ -37,7 +37,7 @@
     methods: {
       submitForm() {
         // Handle form submission logic specific to the baptism form
-        console.log('Baptism form submitted with data:', this.formData);
+        console.log('Marriage form submitted with data:', this.formData);
           // Emit an event to notify the parent component (Services.vue) about the form submission
          this.$emit('formSubmitted');
       }

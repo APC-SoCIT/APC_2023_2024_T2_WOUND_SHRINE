@@ -37,7 +37,7 @@
     methods: {
       submitForm() {
         // Handle form submission logic specific to the baptism form
-        console.log('Baptism form submitted with data:', this.formData);
+        console.log('House Blessing form submitted with data:', this.formData);
           // Emit an event to notify the parent component (Services.vue) about the form submission
          this.$emit('formSubmitted');
       }
@@ -49,7 +49,7 @@
   /* Button styling */
   .custom-btn {
     margin-top: 20px; /* Adjust the margin as needed */
-    width: 30%; /* Set the width to 100% */
+    width: 40%; /* Set the width to 100% */
     background-color: #ffaa2b; /* Set the button color */
     color: white; /* Set the text color */
   }
