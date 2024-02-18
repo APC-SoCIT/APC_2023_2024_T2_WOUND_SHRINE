@@ -53,12 +53,23 @@
 
 <script>
 import BaptismForm from "./form/BaptismForm.vue";
+import MarriageForm from "./form/MarriageForm.vue";
+import ConfessionForm from "./form/ConfessionForm.vue";
+import ConfirmationForm from "./form/ConfirmationForm.vue";
+import HouseBlessingForm from "./form/HouseBlessingForm.vue";
+import AnointingForm from "./form/AnointingForm.vue";
 // Import other service form components here
 
 export default {
   name: "Services",
   components: {
-    BaptismForm
+    BaptismForm,
+    MarriageForm,
+    ConfessionForm,
+    ConfirmationForm,
+    HouseBlessingForm,
+    AnointingForm
+
     // Register other service form components here
   },
   data() {
@@ -75,6 +86,71 @@ export default {
             'Godparents'
           ],
           formComponent: 'BaptismForm'
+          // Add formComponent property to other services with corresponding form component names
+        },
+        {
+          name: 'Marriage',
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ],
+          formComponent: 'MarriageForm'
+          // Add formComponent property to other services with corresponding form component names
+        },
+        {
+          name: 'Confession',
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ],
+          formComponent: 'ConfessionForm'
+          // Add formComponent property to other services with corresponding form component names
+        },
+        {
+          name: 'Confirmation',
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ],
+          formComponent: 'ConfirmationForm'
+          // Add formComponent property to other services with corresponding form component names
+        },
+        {
+          name: 'House Blessing',
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ],
+          formComponent: 'HouseBlessingForm'
+          // Add formComponent property to other services with corresponding form component names
+        },
+        {
+          name: 'Anointing of the sick',
+          process: [
+            'Contact the church.',
+            'Schedule the baptism.'
+          ],
+          requirements: [
+            'Birth certificate',
+            'Godparents'
+          ],
+          formComponent: 'AnointingForm'
           // Add formComponent property to other services with corresponding form component names
         },
         // Add other service objects here
