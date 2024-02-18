@@ -45,20 +45,7 @@
       </button>
       <h3>Request Form for {{ selectedService.name }}</h3>
       <!-- Integrated request form here -->
-      <form @submit.prevent="submitForm(selectedService)">
-        <div v-for="(field, index) in selectedService.formFields" :key="index">
-          <label :for="field.id">{{ field.label }}:</label>
-          <template v-if="field.type === 'text' || field.type === 'email' || field.type === 'datetime-local' || field.type === 'file' || field.type === 'number'">
-            <input :type="field.type" :id="field.id" v-model="formData[field.id]" :required="field.required">
-          </template>
-          <template v-else-if="field.type === 'select'">
-            <select :id="field.id" v-model="formData[field.id]" :required="field.required">
-              <option v-for="(option, index) in field.options" :key="index" :value="option.value">{{ option.label }}</option>
-            </select>
-          </template>
-        </div>
-        <button type="submit">Submit Information Form</button>
-      </form>
+      <component :is="selectedServiceFormComponent" BaptismForm @formSubmitted="handleFormSubmitted" />
     </div>
 
     <!-- Message after submitting the form -->
@@ -74,30 +61,18 @@
 </template>
 
 <script>
+import BaptismForm from "./form/BaptismForm.vue";
+// Import other service form components here
+
 export default {
-  name: 'Services',
+  name: "Services",
+  components: {
+    BaptismForm
+    // Register other service form components here
+  },
   data() {
     return {
       services: [
-        {
-          name: 'Wedding',
-          process: [
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-            'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
-          ],
-          requirements: [
-            'Marriage license',
-            'Church approval'
-          ],
-          formFields: [
-            { id: 'name', label: 'Name', type: 'text', required: true },
-            { id: 'fatherName', label: "Father's Name", type: 'text', required: true },
-            { id: 'motherName', label: "Mother's Name", type: 'text', required: true },
-            { id: 'phoneNumber', label: 'Phone Number', type: 'text', required: true },
-            { id: 'email', label: 'Email', type: 'email', required: true },
-            // Add more fields as needed
-          ]
-        },
         {
           name: 'Baptism',
           process: [
@@ -107,68 +82,28 @@ export default {
           requirements: [
             'Birth certificate',
             'Godparents'
-          ]
-        },
-        {
-          name: 'Confession',
-          process: [
-            'Contact the church.',
-            'Schedule the baptism.'
           ],
-          requirements: [
-            'Birth certificate',
-            'Godparents'
-          ]
+          formComponent: 'BaptismForm'
+          // Add formComponent property to other services with corresponding form component names
         },
-        {
-          name: 'Confirmation',
-          process: [
-            'Contact the church.',
-            'Schedule the baptism.'
-          ],
-          requirements: [
-            'Birth certificate',
-            'Godparents'
-          ]
-        },
-        {
-          name: 'House Blessing',
-          process: [
-            'Contact the church.',
-            'Schedule the baptism.'
-          ],
-          requirements: [
-            'Birth certificate',
-            'Godparents'
-          ]
-        },
-        {
-          name: 'Anointing of the Sick',
-          process: [
-            'Contact the church.',
-            'Schedule the baptism.'
-          ],
-          requirements: [
-            'Birth certificate',
-            'Godparents'
-          ]
-        },
-        // Add more services with their respective form fields
+        // Add other service objects here
       ],
       selectedService: null,
       showRequestForm: false,
-      formData: {},
-      formSubmitted: false, // New state to track form submission
+      formSubmitted: false
     };
+  },
+  computed: {
+    selectedServiceFormComponent() {
+      return this.selectedService ? this.selectedService.formComponent : null;
+    }
   },
   methods: {
     showServiceDetails(service) {
       this.selectedService = service;
     },
-    submitForm(selectedService) {
-      // Mocking form submission logic here
-      console.log(this.formData);
-      this.formSubmitted = true; // Set formSubmitted to true after form submission
+    handleFormSubmitted() {
+      this.formSubmitted = true;
     },
     reviewReservation() {
       // Handle logic to review the reservation form. For now, log a message.
@@ -180,8 +115,8 @@ export default {
       this.formSubmitted = false;
       this.selectedService = null; // Reset the selected service
       this.showRequestForm = false; // Hide the request form
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -287,3 +222,4 @@ form {
   color: #ffaa2b;
 }
 </style>
+
