@@ -18,6 +18,10 @@ import './assets/main.css'
 import VueApexCharts from "vue3-apexcharts";
 
 
+import { boot } from 'quasar/wrappers'
+import Plugin from '@quasar/quasar-ui-qcalendar/src/QCalendarDay.js'
+import '@quasar/quasar-ui-qcalendar/src/css/calendar-day.sass'
+
 const app = createApp(App)
 
 app.use(VueApexCharts);

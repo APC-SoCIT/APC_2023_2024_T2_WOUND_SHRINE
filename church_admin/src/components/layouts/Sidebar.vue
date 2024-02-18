@@ -26,6 +26,11 @@ const links = [
     icon: 'dashboard',
     link: '/home'
   },
+  {
+    title: 'Schedule',
+    icon: 'schedule',
+    link: '/schedule'
+  },
   
   {
     title: 'Service Requests',
