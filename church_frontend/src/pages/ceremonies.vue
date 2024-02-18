@@ -1,17 +1,17 @@
 <template>
   <div class="services">
     <!-- Display header only if no service is selected -->
-    <h2 v-if="!selectedService">SERVICES</h2>
+    <h2 v-if="!selectedService && !formSubmitted">SERVICES</h2>
 
     <!-- List of Services -->
-    <div v-if="!selectedService && !showRequestForm">
+    <div v-if="!selectedService && !showRequestForm && !formSubmitted">
       <div class="box" v-for="service in services" :key="service.name" @click="showServiceDetails(service)">
         {{ service.name }}
       </div>
     </div>
 
     <!-- Display selected service details -->
-    <div v-if="selectedService && !showRequestForm">
+    <div v-if="selectedService && !showRequestForm && !formSubmitted">
       <h2>Details for {{ selectedService.name }}</h2>
       <div>
         <!-- Left side: FAQ & Process -->
@@ -33,23 +33,14 @@
       <button class="back-button" @click="selectedService = null">
         <q-icon name="arrow_back" color="#ffaa2b"></q-icon>Go Back
       </button>
-      <!-- Next button -->
-      <button class="next-button" @click="showRequestForm = true">Next</button>
-    </div>
-
-    <!-- Request Form for selected service -->
-    <div v-if="selectedService && showRequestForm && !formSubmitted">
-      <!-- Additional Go Back button here -->
-      <button class="back-button" @click="showRequestForm = false">
-        <q-icon name="arrow_back" color="#ffaa2b"></q-icon>Go Back
-      </button>
-      <h3>Request Form for {{ selectedService.name }}</h3>
+      <!-- Title of the form -->
+      <h3>{{ selectedService.name }} Form</h3>
       <!-- Integrated request form here -->
-      <component :is="selectedServiceFormComponent"  @formSubmitted="handleFormSubmitted" />
+      <component :is="selectedServiceFormComponent" @formSubmitted="handleFormSubmitted" />
     </div>
 
     <!-- Message after submitting the form -->
-    <div v-if="formSubmitted">
+    <div v-if="formSubmitted" class="message">
       <h3>Your request has been submitted.</h3>
       <p>Please wait for our confirmation through your email address!</p>
       <!-- Button to review the reservation form -->
@@ -104,6 +95,8 @@ export default {
     },
     handleFormSubmitted() {
       this.formSubmitted = true;
+      this.selectedService = null; // Hide selected service details
+      this.showRequestForm = false; // Hide request form
     },
     reviewReservation() {
       // Handle logic to review the reservation form. For now, log a message.
@@ -113,8 +106,6 @@ export default {
     exitReservation() {
       // Reset formSubmitted to false and navigate back to services.
       this.formSubmitted = false;
-      this.selectedService = null; // Reset the selected service
-      this.showRequestForm = false; // Hide the request form
     }
   }
 };
@@ -222,4 +213,3 @@ form {
   color: #ffaa2b;
 }
 </style>
-
