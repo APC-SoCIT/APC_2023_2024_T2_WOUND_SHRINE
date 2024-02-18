@@ -45,7 +45,7 @@
       </button>
       <h3>Request Form for {{ selectedService.name }}</h3>
       <!-- Integrated request form here -->
-      <component :is="selectedServiceFormComponent" BaptismForm @formSubmitted="handleFormSubmitted" />
+      <component :is="selectedServiceFormComponent"  @formSubmitted="handleFormSubmitted" />
     </div>
 
     <!-- Message after submitting the form -->
@@ -146,7 +146,7 @@ export default {
 }
 
 .box:hover {
-  background-color: #e2e6ea;
+  background-color: #ffaa2b;
 }
 
 .details-left, .details-right {
