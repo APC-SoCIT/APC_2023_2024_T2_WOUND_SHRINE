@@ -33,11 +33,11 @@
             <div class="label">Contact Number</div>
             <q-input
               filled
-              v-model="contactNumber"
-              dense
+              v-model="age"
               outlined
               required
-              :rules="[val => !!val && val.length === 11 || 'Contact number must be 11 digits']"
+              lazy-rules
+              :rules="[ val => val && val.length === 11 || 'please type your number']"
               style="background-color: white;"
             />
           </div>
@@ -80,12 +80,12 @@
           </div>
         </div>
         <!-- Right Side -->
-        <div style="max-width: 400px; margin-right: 19%; margin-top: 0%;">
+        <div style="max-width: 460px; margin-right: 19%; margin-top: 0%;">
           <!-- Preferred Date/Time -->
           <div class="input-wrapper">
             <div class="label">Preferred Date/Time</div>
-            <div class="q-pa-md" style="max-width: 300px">
-              <q-input filled v-model="date" mask="date" :rules="['date']" style="background-color: white;">
+            <div class="q-pa-md" style="max-width: 500px">
+              <q-input filled v-model="date" mask="date" style="background-color: white;">
                 <template v-slot:append>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -121,7 +121,7 @@
               filled
               counter
               :counter-label="counterLabelFn"
-              max-files="3"
+              max-files="1"
               multiple
               style="max-width: 300px; background-color: lightblue;"
             >
@@ -139,7 +139,7 @@
               filled
               counter
               :counter-label="counterLabelFn"
-              max-files="3"
+              max-files="1"
               multiple
               style="max-width: 300px; background-color: lightblue;"
             >
@@ -228,4 +228,6 @@ export default {
   width: 200px; /* Adjust as needed */
   text-align: right;
 }
+
+
 </style>
