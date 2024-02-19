@@ -27,6 +27,15 @@ const router = createRouter({
             children: [
               // Users Maintenance Route
               {
+                path: '/schedule',
+                name: 'schedule',
+                component: () => import('../views/Schedule.vue'),
+                meta:{
+                    title: `Schedule | ${import.meta.env.VITE_FE_TITLE}`,
+                },
+                beforeEnter: middleware.guest,
+            },
+              {
                 path: '/home',
                 name: 'home',
                 component: () => import('../views/HomeView.vue'),
