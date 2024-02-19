@@ -33,10 +33,12 @@
       <button class="back-button" @click="selectedService = null" style="color: #ffaa2b;">
         <q-icon name="arrow_back" color="#ffaa2b"></q-icon>Go Back
       </button>
-      <!-- Title of the form -->
-      <h3 style="color: black;">{{ selectedService.name }} Form</h3>
-      <!-- Integrated request form here -->
-      <component :is="selectedServiceFormComponent" @formSubmitted="handleFormSubmitted" />
+      <!-- Title of the form inside the box -->
+      <div class="form-box">
+        <h3 style="color: black; background-color: white; padding: 10px;">{{ selectedService.name }} Form</h3>
+        <!-- Integrated request form here -->
+        <component :is="selectedServiceFormComponent" @formSubmitted="handleFormSubmitted" />
+      </div>
     </div>
 
     <!-- Message after submitting the form -->
@@ -188,10 +190,7 @@ export default {
 </script>
 
 <style scoped>
-/* All text color set to black */
-.services * {
-  color: black !important;
-}
+/* Your existing styles */
 
 .services {
   text-align: center;
@@ -201,9 +200,9 @@ export default {
 }
 
 .box {
-  background-color: #ffaa2b;
+  background-color: #760e0e;
   text-align: center;
-  color: black;
+  color: #ffaa2b !important;
   padding: 20px;
   margin: 20px;
   border-radius: 5px;
@@ -218,7 +217,7 @@ export default {
 }
 
 .box:hover {
-  background-color: #ffaa2b;
+  background-color: #760e0e;
 }
 
 .details-left, .details-right {
@@ -292,5 +291,21 @@ form {
 .exit-button:hover {
   background-color: #e2e6ea;
   color: #ffaa2b;
+}
+
+
+/* Add new styles for the form box */
+.form-box {
+  background-color: white;
+  padding: 20px;
+  margin: 10px auto !important;
+  margin-top: -50%;
+  margin-bottom: -50%; /* Add bottom margin */
+  border-radius: 10px; /* Adjust border radius */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06); /* Adjust box shadow */
+  width: 97%; /* Adjust width */
+  max-width: 1000%; /* Adjust maximum width */
+  height: -50%; /* Adjust height */
+  
 }
 </style>

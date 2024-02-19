@@ -16,32 +16,26 @@
     </div>
     
     <!-- Document Request Form -->
-    <div v-if="selectedDocument && !showPaymentForm && !showConfirmation" class="request-form">
+    <q-form v-if="selectedDocument && !showPaymentForm && !showConfirmation" class="request-form">
       <!-- Back button with the icon and text "GO BACK" -->
-      <button @click="selectedDocument = null" class="back-button bigger-button">
-        <q-icon name="arrow_back" color="#ffaa2b"></q-icon> GO BACK
-      </button>
+      <q-btn @click="selectedDocument = null" class="back-button" color="primary">
+        <q-icon name="arrow_back"></q-icon> GO BACK
+      </q-btn>
       
       <!-- Displaying the document request form -->
-      <div class="request-content">
-        <h3 style="margin-bottom: 20px;">Requesting {{ selectedDocument.title }}</h3>
-        <form @submit.prevent="submitRequest">
-          <label for="name">Name:</label>
-          <input type="text" id="name" v-model="name" required>
-          
-          <label for="number">Number:</label>
-          <input type="text" id="number" v-model="number" required>
-          
-          <label for="email">Email:</label>
-          <input type="email" id="email" v-model="email" required>
-          
-          <label for="address">Address:</label>
-          <input type="text" id="address" v-model="address" required>
-                
-          <button type="submit">Submit</button>
-        </form>
-      </div>
-    </div>
+      <q-card class="request-content">
+        <q-card-section>
+          <h3 style="margin-bottom: 20px;">Requesting {{ selectedDocument.title }}</h3>
+          <q-form @submit="submitRequest">
+            <q-input v-model="name" label="Name" outlined required></q-input>
+            <q-input v-model="number" label="Number" outlined required></q-input>
+            <q-input v-model="email" label="Email" outlined required></q-input>
+            <q-input v-model="address" label="Address" outlined required></q-input>
+            <q-btn type="submit" label="Submit" color="primary"></q-btn>
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </q-form>
 
     <!-- New Form for Payment Details -->
     <div v-if="showPaymentForm && !showConfirmation" class="payment-form">
@@ -130,6 +124,11 @@ export default {
 </script>
 
 <style>
+/* Your existing CSS styles */
+</style>
+
+
+<style>
 #app {
 font-family: Avenir, Helvetica, Arial, sans-serif;
 -webkit-font-smoothing: antialiased;
@@ -155,8 +154,8 @@ margin-top: 50px;
 
 .document-card {
 border: 1px solid #ccc;
-background-color: #ffaa2b;
-color: black;
+background-color: #760e0e;
+color: #ffaa2b;
 border-radius: 4px;
 padding: 15px;
 text-align: center;
@@ -176,7 +175,7 @@ align-items: center;
 }
 
 .document-card:hover {
-background-color: #ffaa2b;
+background-color: #760e0e;
 }
 
 .request-form {
@@ -193,7 +192,7 @@ background-color: #760e0e; /* Setting background color to #ffaa2b */
 .back-button {
 color: #ffaa2b;
 position: absolute;
-top: -20px;
+top: -5px;
 left: -20px;
 z-index: 1;
 background-color: transparent;
