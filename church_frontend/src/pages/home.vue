@@ -51,13 +51,15 @@
 
     <!-- Replace the welcome message with an image -->
     <div style="margin-top: 50px; text-align: center;">
-      <q-img 
-        src="/img/church.png" 
-        lazy-src="/img/church.png"
-        height="550px"  
-        style="max-width: 3000px;"
-      />
-    </div>
+    <q-img 
+      src="/img/church.png" 
+      lazy-src="/img/church.png"
+      height="550px"  
+      style="max-width: 100%; margin-top: 10px;"
+      img-css-class="borderless-img" 
+    />
+  </div>
+
   </div>
 </template>
 
@@ -71,7 +73,7 @@
   border-radius: 25px;
   height: 20em;
   width: 90%;
-  background-color: #ffaa2b;
+  background-color: #711213;
   margin: auto;
   margin-top: 30px;
 }
@@ -88,7 +90,7 @@
   justify-content: center;
   text-align: center;
   display: inline;
-  color: black;
+  color: #ffaa2b;
 }
 
 /* Styles for the new logo-info section */
@@ -115,6 +117,12 @@
   margin-top: 0; 
   width: 70%; /* Adjust the width as per your design */
   line-height: 1.6; /* Adjust the line height for better readability */
-  color: white;
+  color: black; /* Changed text color to black */
 }
+
+/* Add this CSS in your Quasar application */
+.borderless-img {
+  border: none !important; /* Remove the border */
+}
+
 </style>

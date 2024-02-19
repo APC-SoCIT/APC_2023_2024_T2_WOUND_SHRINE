@@ -107,7 +107,7 @@
               <q-option-group
                 v-model="group"
                 :options="options"
-                color="white"
+                color="black"
                 left-label
               />
             </div>
@@ -139,7 +139,7 @@
               filled
               counter
               :counter-label="counterLabelFn"
-              max-files="1"
+              max-files=""
               multiple
               style="max-width: 300px; background-color: lightblue;"
             >

@@ -1,52 +1,52 @@
 <template>
   <div class="services">
     <!-- Display header only if no service is selected -->
-    <h2 v-if="!selectedService && !formSubmitted">SERVICES</h2>
+    <h2 v-if="!selectedService && !formSubmitted" style="color: black;">SERVICES</h2>
 
     <!-- List of Services -->
     <div v-if="!selectedService && !showRequestForm && !formSubmitted">
-      <div class="box" v-for="service in services" :key="service.name" @click="showServiceDetails(service)">
+      <div class="box" v-for="service in services" :key="service.name" @click="showServiceDetails(service)" style="color: black;">
         {{ service.name }}
       </div>
     </div>
 
     <!-- Display selected service details -->
     <div v-if="selectedService && !showRequestForm && !formSubmitted">
-      <h2>Details for {{ selectedService.name }}</h2>
+      <h2 style="color: black;">Details for {{ selectedService.name }}</h2>
       <div>
         <!-- Left side: FAQ & Process -->
         <div class="details-left">
-          <h3>FAQ & Process</h3>
+          <h3 style="color: black;">FAQ & Process</h3>
           <ul>
-            <li v-for="(step, index) in selectedService.process" :key="index">{{ step }}</li>
+            <li v-for="(step, index) in selectedService.process" :key="index" style="color: black;">{{ step }}</li>
           </ul>
         </div>
         <!-- Right side: Requirements -->
         <div class="details-right">
-          <h3>Requirements</h3>
+          <h3 style="color: black;">Requirements</h3>
           <ul>
-            <li v-for="(requirement, index) in selectedService.requirements" :key="index">{{ requirement }}</li>
+            <li v-for="(requirement, index) in selectedService.requirements" :key="index" style="color: black;">{{ requirement }}</li>
           </ul>
         </div>
       </div>
       <!-- Go Back button -->
-      <button class="back-button" @click="selectedService = null">
+      <button class="back-button" @click="selectedService = null" style="color: #ffaa2b;">
         <q-icon name="arrow_back" color="#ffaa2b"></q-icon>Go Back
       </button>
       <!-- Title of the form -->
-      <h3>{{ selectedService.name }} Form</h3>
+      <h3 style="color: black;">{{ selectedService.name }} Form</h3>
       <!-- Integrated request form here -->
       <component :is="selectedServiceFormComponent" @formSubmitted="handleFormSubmitted" />
     </div>
 
     <!-- Message after submitting the form -->
     <div v-if="formSubmitted" class="message">
-      <h3>Your request has been submitted.</h3>
-      <p>Please wait for our confirmation through your email address!</p>
+      <h3 style="color: black;">Your request has been submitted.</h3>
+      <p style="color: black;">Please wait for our confirmation through your email address!</p>
       <!-- Button to review the reservation form -->
-      <button class="review-button" @click="reviewReservation">Review Reservation</button>
+      <button class="review-button" @click="reviewReservation" style="color: black;">Review Reservation</button>
       <!-- Button to exit and go back to services -->
-      <button class="exit-button" @click="exitReservation">Exit</button>
+      <button class="exit-button" @click="exitReservation" style="color: black;">Exit</button>
     </div>
   </div>
 </template>
@@ -188,6 +188,11 @@ export default {
 </script>
 
 <style scoped>
+/* All text color set to black */
+.services * {
+  color: black !important;
+}
+
 .services {
   text-align: center;
   color: #ffaa2b;

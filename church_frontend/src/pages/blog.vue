@@ -25,10 +25,12 @@
       
       <!-- Displaying the selected event's details -->
       <div class="detailed-content">
-        <h3>{{ selectedEvent.title }}</h3>
-        <div class="content-wrapper">
-          <img :src="selectedEvent.image" :alt="selectedEvent.title" class="event-image">
-          <p class="description">{{ selectedEvent.description }}</p>
+        <div class="borderless-box"> <!-- Add borderless-box class -->
+          <h3>{{ selectedEvent.title }}</h3>
+          <div class="content-wrapper">
+            <img :src="selectedEvent.image" :alt="selectedEvent.title" class="event-image">
+            <p class="description">{{ selectedEvent.description }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -112,7 +114,7 @@ h2 {
 }
 
 .event-card {
- 
+ background-color: #760e0e;
   border-radius: 4px;
   padding: 15px;
   text-align: center;
@@ -134,7 +136,7 @@ h2 {
 .detailed-view {
   text-align: center;
   padding: 20px;
-  
+  color: #ffaa2b;
   margin-top: 20px;
   border-radius: 4px;
   position: relative;
@@ -143,8 +145,8 @@ h2 {
 .back-button {
   color: #ffaa2b;
   position: absolute;
-  top: -10px;
-  left: -10px;
+  top: 20px;
+  left: -0px;
   z-index: 1;
   background-color: transparent;
   border: none;
@@ -181,6 +183,13 @@ h2 {
   text-align: justify;
   margin-left: 20px;
   max-width: 40%;
+}
+
+.borderless-box {
+  background-color: #760e0e; /* Set background color to transparent */
+  border: none; /* Remove the border */
+  padding: 20px; /* Add padding to the box */
+  border-radius: 4px; /* Optionally, add border radius for rounded corners */
 }
 
 @media (max-width: 768px) {
