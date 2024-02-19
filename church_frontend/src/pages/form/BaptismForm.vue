@@ -80,16 +80,16 @@
           </div>
         </div>
         <!-- Right Side -->
-        <div style="max-width: 400px; margin-right: 19%; margin-top: -1%;">
+        <div style="max-width: 400px; margin-right: 19%; margin-top: 0%;">
           <!-- Preferred Date/Time -->
           <div class="input-wrapper">
             <div class="label">Preferred Date/Time</div>
-            <div class="q-pa-md">
-              <q-input filled v-model="date" style="background-color: white;">
-                <template v-slot:prepend>
+            <div class="q-pa-md" style="max-width: 300px">
+              <q-input filled v-model="date" mask="date" :rules="['date']" style="background-color: white;">
+                <template v-slot:append>
                   <q-icon name="event" class="cursor-pointer">
                     <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                      <q-date v-model="date" mask="YYYY-MM-DD HH:mm">
+                      <q-date v-model="date">
                         <div class="row items-center justify-end">
                           <q-btn v-close-popup label="Close" color="primary" flat />
                         </div>
@@ -101,13 +101,13 @@
             </div>
           </div>
           <!-- Type -->
-          <div class="input-wrapper">
+          <div class="input-wrapper" style="margin-right: 25%; margin-top: -10%; margin-bottom: -3%;">
             <div class="label">Type</div>
             <div class="q-pa-lg">
               <q-option-group
                 v-model="group"
                 :options="options"
-                color="red"
+                color="white"
                 left-label
               />
             </div>
@@ -123,7 +123,7 @@
               :counter-label="counterLabelFn"
               max-files="3"
               multiple
-              style="max-width: 300px"
+              style="max-width: 300px; background-color: lightblue;"
             >
               <template v-slot:prepend>
                 <q-icon name="attach_file" />
@@ -141,7 +141,7 @@
               :counter-label="counterLabelFn"
               max-files="3"
               multiple
-              style="max-width: 300px"
+              style="max-width: 300px; background-color: lightblue;"
             >
               <template v-slot:prepend>
                 <q-icon name="attach_file" />
@@ -174,7 +174,7 @@ export default {
       email: '',
       childName: '',
       principalSponsors: '',
-      date: ref('2019-02-01 12:44'),
+      date: ref('2019/02/01'),
       type: '',
       group: ref('op1'),
 
