@@ -73,7 +73,7 @@
   border-radius: 25px;
   height: 20em;
   width: 90%;
-  background-color: #711213;
+  background-color: #ffaa2b;
   margin: auto;
   margin-top: 30px;
 }
@@ -90,7 +90,7 @@
   justify-content: center;
   text-align: center;
   display: inline;
-  color: #ffaa2b;
+  color: black;
 }
 
 /* Styles for the new logo-info section */
@@ -117,7 +117,7 @@
   margin-top: 0; 
   width: 70%; /* Adjust the width as per your design */
   line-height: 1.6; /* Adjust the line height for better readability */
-  color: black; /* Changed text color to black */
+  color: white; /* Changed text color to black */
 }
 
 /* Add this CSS in your Quasar application */

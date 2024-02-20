@@ -1,7 +1,7 @@
 <template>
   <div class="services">
     <!-- Display header only if no service is selected -->
-    <h2 v-if="!selectedService && !formSubmitted" style="color: black;">SERVICES</h2>
+    <h2 v-if="!selectedService && !formSubmitted" style="color: #ffaa2b;">SERVICES</h2>
 
     <!-- List of Services -->
     <div v-if="!selectedService && !showRequestForm && !formSubmitted">
@@ -194,15 +194,15 @@ export default {
 
 .services {
   text-align: center;
-  color: #ffaa2b;
+  color: black;
   margin: auto;
   margin-top: 50px;
 }
 
 .box {
-  background-color: #760e0e;
+  background-color: #ffaa2b;
   text-align: center;
-  color: #ffaa2b !important;
+  color: black !important;
   padding: 20px;
   margin: 20px;
   border-radius: 5px;
@@ -217,7 +217,7 @@ export default {
 }
 
 .box:hover {
-  background-color: #760e0e;
+  background-color: #ffaa2b;
 }
 
 .details-left, .details-right {
@@ -298,7 +298,7 @@ form {
 .form-box {
   background-color: white;
   padding: 20px;
-  margin: 10px auto !important;
+  margin: 10px !important;
   margin-top: -50%;
   margin-bottom: -50%; /* Add bottom margin */
   border-radius: 10px; /* Adjust border radius */

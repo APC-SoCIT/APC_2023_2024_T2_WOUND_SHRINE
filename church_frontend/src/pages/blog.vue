@@ -97,7 +97,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #ffaa2b;
+  color: white;
   margin-top: 30px;
 }
 
@@ -130,7 +130,7 @@ h2 {
 }
 
 .event-card:hover {
-  background-color: #760e0e;
+  background-color: #ffaa2b;
 }
 
 .detailed-view {
