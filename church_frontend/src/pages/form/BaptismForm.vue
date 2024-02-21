@@ -218,7 +218,7 @@ export default {
 }
 
 .date-picker {
-  max-width: 150px;
+  max-width: 300px;
 
 }
 
