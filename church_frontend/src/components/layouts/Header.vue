@@ -1,7 +1,7 @@
 <template>
   <q-header class="text-white" style="background-color: #ffaa2b; border-bottom: 1px solid #e0e0e0!important;">
     <q-toolbar>
-      <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" />
+      <!-- <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" /> -->
 
       <q-toolbar-title>
         <q-img 
@@ -42,14 +42,24 @@
 
       <q-btn-dropdown flat class="q-mr-xs" size="10px" color="white" text-color="black">
         <q-list>
-          <!-- <q-item clickable v-close-popup @click="onItemClick">
+          <q-item clickable @click="accountsettings">
             <q-item-section>
-              <q-item-label>My Profile</q-item-label>
+              <q-item-label>Account Settings</q-item-label>
             </q-item-section>
-          </q-item> -->
-          <q-item clickable v-close-popup @click="login">
+          </q-item>
+          <q-item clickable @click="requeststatus">
+            <q-item-section>
+              <q-item-label>Request Status</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable @click="login">
             <q-item-section>
               <q-item-label>Login</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable @click="home">
+            <q-item-section>
+              <q-item-label>Logout</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -64,6 +74,28 @@ import { ref, inject, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
+const links = [
+  {
+    title: 'My Profile',
+    icon: 'Profile',
+    link: '/myprofile'
+  },
+  {
+    title: 'Request Status',
+    icon: 'dashboard',
+    link: '/requeststatus'
+  },
+  {
+    title: 'Account Settings',
+    icon: 'Settings',
+    link: '/accountsettings'
+  },
+  {
+    title: 'Home',
+    icon: 'Settings',
+    link: '/home'
+  },
+]
 const store = useAuthStore();
 const emitter = inject('emitter')
 const userData = ref('')
@@ -87,6 +119,20 @@ function login(){
   router.push(path)
 }
 
+function accountsettings() {
+  const path = `/accountsettings`
+  router.push(path)
+}
+
+function requeststatus() {
+  const path = `/requeststatus`
+  router.push(path)
+}
+
+function home() {
+  const path = `/`
+  router.push(path)
+}
 // Navigation function for the buttons
 function navigateTo(routeName) {
   // Check if clicking on the same page

@@ -1,7 +1,7 @@
 <template>
     <q-layout view="hHh Lpr lFf" style="background-color: #760e0e;">
       <AppHeader />
-      <AppSidebar /> 
+      <!-- <AppSidebar />  -->
       <q-page-container>
         <router-view />
       </q-page-container>
@@ -10,6 +10,6 @@
   
   <script setup>
   import AppHeader from '../components/layouts/Header.vue'
-  import AppSidebar from'../components/layouts/Sidebar.vue'
+  // import AppSidebar from'../components/layouts/Sidebar.vue'
 
   </script>

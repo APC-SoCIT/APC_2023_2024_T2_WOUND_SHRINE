@@ -193,10 +193,11 @@ export default {
 /* Your existing styles */
 
 .services {
+
   text-align: center;
   color: black;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .box {
