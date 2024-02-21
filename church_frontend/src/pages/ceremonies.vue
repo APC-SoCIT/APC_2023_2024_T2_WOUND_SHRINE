@@ -12,20 +12,20 @@
 
     <!-- Display selected service details -->
     <div v-if="selectedService && !showRequestForm && !formSubmitted">
-      <h2 style="color: black;">Details for {{ selectedService.name }}</h2>
+      <h2 style="color: #ffaa2b;">Details for {{ selectedService.name }}</h2>
       <div>
         <!-- Left side: FAQ & Process -->
         <div class="details-left">
-          <h3 style="color: black;">FAQ & Process</h3>
+          <h3 style="color: #ffaa2b;">FAQ & Process</h3>
           <ul>
-            <li v-for="(step, index) in selectedService.process" :key="index" style="color: black;">{{ step }}</li>
+            <li v-for="(step, index) in selectedService.process" :key="index" style="color: white;">{{ step }}</li>
           </ul>
         </div>
         <!-- Right side: Requirements -->
         <div class="details-right">
-          <h3 style="color: black;">Requirements</h3>
+          <h3 style="color: #ffaa2b;">Requirements</h3>
           <ul>
-            <li v-for="(requirement, index) in selectedService.requirements" :key="index" style="color: black;">{{ requirement }}</li>
+            <li v-for="(requirement, index) in selectedService.requirements" :key="index" style="color: white;">{{ requirement }}</li>
           </ul>
         </div>
       </div>
@@ -35,7 +35,7 @@
       </button>
       <!-- Title of the form inside the box -->
       <div class="form-box">
-        <h3 style="color: black; background-color: white; padding: 10px;">{{ selectedService.name }} Form</h3>
+        <h3 style="color: black; background-color: #f0ebf8; padding: 10px;">{{ selectedService.name }} Form</h3>
         <!-- Integrated request form here -->
         <component :is="selectedServiceFormComponent" @formSubmitted="handleFormSubmitted" />
       </div>
@@ -297,16 +297,13 @@ form {
 
 /* Add new styles for the form box */
 .form-box {
-  background-color: white;
+  background-color: #f0ebf8;
   padding: 20px;
-  margin: 10px !important;
-  margin-top: -50%;
-  margin-bottom: -50%; /* Add bottom margin */
-  border-radius: 10px; /* Adjust border radius */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06); /* Adjust box shadow */
-  width: 97%; /* Adjust width */
-  max-width: 1000%; /* Adjust maximum width */
-  height: -50%; /* Adjust height */
-  
+  margin: auto; /* Center horizontally and vertically */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06);
+  width: 800px;
+  max-width: 100%;
+  height: 50%;
 }
 </style>
