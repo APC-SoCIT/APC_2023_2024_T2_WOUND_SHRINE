@@ -1,7 +1,7 @@
 <template>
   <q-header class="text-white" style="background-color: #ffaa2b; border-bottom: 1px solid #e0e0e0!important;">
     <q-toolbar>
-      <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" />
+      <!-- <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" /> -->
 
       <q-toolbar-title>
         <q-img 
@@ -42,11 +42,11 @@
 
       <q-btn-dropdown flat class="q-mr-xs" size="10px" color="white" text-color="black">
         <q-list>
-          <!-- <q-item clickable v-close-popup @click="onItemClick">
+          <q-item clickable v-close-popup @click="onItemClick">
             <q-item-section>
               <q-item-label>My Profile</q-item-label>
             </q-item-section>
-          </q-item> -->
+          </q-item>
           <q-item clickable v-close-popup @click="login">
             <q-item-section>
               <q-item-label>Login</q-item-label>
@@ -89,13 +89,6 @@ function login(){
 
 // Navigation function for the buttons
 function navigateTo(routeName) {
-  // Check if clicking on the same page
-  if (router.currentRoute.value.name === routeName.toLowerCase()) {
-    // Go back to the top of the page or refresh it
-    window.scrollTo(0, 0);
-    return;
-  }
-  
   const path = `/${routeName.toLowerCase()}`
   router.push(path)
 }
