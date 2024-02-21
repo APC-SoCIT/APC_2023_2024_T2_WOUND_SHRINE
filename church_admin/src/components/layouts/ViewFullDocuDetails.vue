@@ -1,6 +1,6 @@
 <template>
     <div>
-      <q-btn @click="openDialog" color="green">View Full Details</q-btn>
+      <q-btn class="button" @click="openDialog">View Full Details</q-btn>
   
       <q-dialog v-model="dialogVisible">
         <q-card>
@@ -127,4 +127,9 @@ export default {
 .decline-box {
   width: 450px;
 }
+
+.button{
+    background-color: #ffaa2b;
+}
+
 </style>

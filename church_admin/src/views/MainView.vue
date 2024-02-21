@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="hHh Lpr lFf" style="background-color: #F8F9FA;">
+  <q-layout view="hHh Lpr lFf" style="background-color: #800000;">
     <AppHeader />
     <AppSidebar />
     <q-page-container>

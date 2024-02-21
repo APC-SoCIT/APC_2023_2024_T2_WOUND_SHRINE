@@ -1,20 +1,18 @@
 <template>
-  <div class="container">
-    <h1 class="page-header">{{ title }}</h1>
-
-    <q-btn-dropdown label="View">
+  <div class="q-pa-md">
+    <q-btn-dropdown label="View" class="bg-white">
       <q-list link>
         <q-item clickable @click="changeStatus('all')">
           <q-item-main>
             <q-item-tile label>All Requests</q-item-tile>
           </q-item-main>
         </q-item>
-        <q-item clickable @click="changeStatus('approved')">
+        <q-item clickable @click="changeStatus('Approved')">
           <q-item-main>
             <q-item-tile label>Approved Requests</q-item-tile>
           </q-item-main>
         </q-item>
-        <q-item clickable @click="changeStatus('pending')">
+        <q-item clickable @click="changeStatus('Pending')">
           <q-item-main>
             <q-item-tile label>Pending Requests</q-item-tile>
           </q-item-main>
@@ -22,79 +20,129 @@
       </q-list>
     </q-btn-dropdown>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Member ID</th>
-          <th>Name</th>
-          <th># of Copies</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="request in filteredRequests" :key="request.documentId">
-          <td>{{ request.memberId }}</td>
-          <td>{{ request.name }}</td>
-          <td>{{ request.copies }}</td>
-          <td>{{ request.status }}</td>
-          <td>
-            <ViewFullDocuDetails :formData="request" />
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <q-table
+    table-class="bg-white text-black"
+      card-class="bg-white text-black"
+      table-header-class="text-black"
+      flat
+      bordered
+      title="Baptism Certificate Requests"
+      :rows="filteredRows"
+      :columns="columns"
+      row-key="name"
+    >
+      <template v-slot:body-cell-details="props">
+        <q-td :props="props">
+          <ViewFullDocuDetails :formData="props.row" />
+        </q-td>
+      </template>
+    </q-table>
   </div>
 </template>
 
 <script>
 import ViewFullDocuDetails from '@/components/layouts/ViewFullDocuDetails.vue';
+import { ref, computed } from 'vue';
 
 export default {
-  props: {
-    title: {
-      type: String,
-      default: "Baptism Certificate Requests",
-    },
-    requests: {
-      type: Array,
-      default: () => [
-        {
+  setup() {
+    const columns = [
+      { name: 'memberId', label: 'Member ID', align: 'left', field: 'memberId', sortable: true },
+      { name: 'name', label: 'Name', align: 'left', field: 'name', sortable: true },
+      { name: 'copies', label: '# of Copies', align: 'center', field: 'copies', sortable: true },
+      { name: 'status', label: 'Status', align: 'center', field: 'status', sortable: true },
+      { name: 'details', label: 'Details', align: 'center' },
+    ];
+
+
+    const rows = [
+      {
         memberId: 12345,
-        name: 'Jarvis V. Carpo',
-        copies: '1',
-        status: 'approved',
-        },
-        {
-         memberId: 67890,
+        name: 'Jarvis Carpo',
+        copies: 5,
+        status: 'Approved',
+      },
+      {
+        memberId: 67890,
         name: 'Kim Altea',
-        copies:'10',
-        status: 'pending',
-        },
-      ],
-    },
-  },
-  data() {
-    return {
-      requestStatus: "all",
+        copies: 10,
+        status: 'Pending',
+      },
+      {
+        memberId: 13579,
+        name: 'Reiner John',
+        copies: 3,
+        status: 'Approved',
+      },
+      {
+        memberId: 24680,
+        name: 'Bon Daggao',
+        copies: 8,
+        status: 'Pending',
+      },
+      {
+        memberId: 11223,
+        name: 'Vince Tan',
+        copies: 6,
+        status: 'Approved',
+      },
+      {
+        memberId: 33445,
+        name: 'Carlo Santos',
+        copies: 12,
+        status: 'Pending',
+      },
+      {
+        memberId: 55667,
+        name: 'John Slay',
+        copies: 7,
+        status: 'Approved',
+      },
+      {
+        memberId: 77889,
+        name: 'Eme Eme',
+        copies: 9,
+        status: 'Pending',
+      },
+      {
+        memberId: 99000,
+        name: 'Rina Sawayama',
+        copies: 4,
+        status: 'Approved',
+      },
+      {
+        memberId: 11234,
+        name: 'Slay',
+        copies: 11,
+        status: 'Pending',
+      },
+    ];
+    const viewFullDetails = (row) => {
+      console.log('View Full Details:', row);
     };
-  },
-  computed: {
-    filteredRequests() {
-      if (this.requestStatus === "all") {
-        return this.requests;
+
+    const selectedStatus = ref('all');
+
+    const filteredRows = computed(() => {
+      if (selectedStatus.value === 'all') {
+        return rows;
       } else {
-        return this.requests.filter((request) => request.status === this.requestStatus);
+        return rows.filter((row) => row.status === selectedStatus.value);
       }
-    },
-  },
-  methods: {
-    changeStatus(status) {
-      // Handle the click event for each status in the dropdown
-      this.requestStatus = status;
-      console.log(`Changed status to: ${status}`);
-      // You can perform additional logic based on the selected status
-    },
+    });
+
+    const changeStatus = (status) => {
+      selectedStatus.value = status;
+    };
+
+    return {
+      columns,
+      rows,
+      viewFullDetails,
+      selectedStatus,
+      changeStatus,
+      filteredRows,
+    };
   },
   components: {
     ViewFullDocuDetails,
@@ -102,57 +150,12 @@ export default {
 };
 </script>
 
-<style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 0 10px;
+<style>
+.q-btn-dropdown{
+  margin-bottom: 10px;
 }
-
-.page-header {
-  text-align: left;
-  color: black;
-  margin-bottom: 0px;
-  font-size: 45px;
+.q-table th {
   font-weight: bold;
-}
-
-.table {
-  border: 1px solid DarkOrange;
-  border-radius: 8px;
-  border-spacing: 0;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 10px;
-}
-
-.table th {
-  background-color: #f2af5e;
-}
-
-.table td,
-.table th {
-  border-bottom: 1px solid DarkOrange;
-  padding: 8px;
-  text-align: left;
-}
-
-.roundedCorners tr:last-child > td {
-  border-bottom: none;
-}
-
-select {
-  padding: 6px;
-}
-
-.details-btn {
-  padding: 6px 12px;
-  background-color: #af5e4c;
-  color: white;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  margin: 0; /* Add this line to remove margin */
+  font-size: 1.2em;
 }
 </style>

@@ -313,9 +313,9 @@ export default {
 }
 
 .service-table{
-  width: 700px;
+  width: 699px;
   height: 380px;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 10px;
   margin-right:10px;
   margin-bottom: 10px;
