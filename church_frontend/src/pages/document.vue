@@ -27,52 +27,46 @@
         <q-card-section>
           <h3 style="margin-bottom: 20px;">Requesting {{ selectedDocument.title }}</h3>
           <q-form @submit="submitRequest">
-            <q-input v-model="name" label="Name" outlined required></q-input>
-            <q-input v-model="number" label="Number" outlined required></q-input>
-            <q-input v-model="email" label="Email" outlined required></q-input>
-            <q-input v-model="address" label="Address" outlined required></q-input>
-            <q-btn type="submit" label="Submit" color="primary"></q-btn>
+            <div class="q-gutter-md">
+              <q-input v-model="name" label="Name" outlined required></q-input>
+              <q-input v-model="number" label="Number" outlined required type="number"></q-input>
+              <q-input v-model="email" label="Email" outlined required type="email"></q-input>
+              <q-input v-model="address" label="Address" outlined required></q-input>
+            </div>
+            <div class="q-gutter-md">
+              <q-btn type="submit" label="Submit" color="primary"></q-btn>
+            </div>
           </q-form>
         </q-card-section>
       </q-card>
     </q-form>
 
     <!-- New Form for Payment Details -->
-    <div v-if="showPaymentForm && !showConfirmation" class="payment-form">
-      <h3 style="margin-bottom: 20px;">Payment Details</h3>
-      <form @submit.prevent="submitPayment">
-        <label for="paymentOption">Payment Option:</label>
-        <select id="paymentOption" v-model="paymentOption" required>
-          <option value="creditCard">online</option>
-          <option value="debitCard">bank transfer</option>
-          <option value="paypal">F2F</option>
-        </select>
-
-        <label for="paymentChannel">Payment Channel:</label>
-        <select id="paymentChannel" v-model="paymentChannel" required>
-          <option value="online">gcash</option>
-          <option value="offline">over the counter</option>
-        </select>
-
-        <label for="fee">Fee:</label>
-        <input type="number" id="fee" v-model="fee" required>
-
-        <label for="shippingOption">Shipping Option:</label>
-        <select id="shippingOption" v-model="shippingOption" required>
-          <option value="standard">Pick Up</option>
-          <option value="express">Delivery</option>
-        </select>
-        
-        <button type="submit">Submit Payment</button>
-      </form>
-    </div>
+    <q-form v-if="showPaymentForm && !showConfirmation" class="payment-form">
+      <q-card class="payment-content">
+        <q-card-section>
+          <h3 style="margin-bottom: 20px;">Payment Details</h3>
+          <form @submit.prevent="submitPayment">
+            <div class="q-gutter-md">
+              <q-select v-model="paymentOption" label="Payment Option" outlined :options="paymentOptions" required></q-select>
+              <q-select v-model="paymentChannel" label="Payment Channel" outlined :options="paymentChannels" required></q-select>
+              <q-input v-model="fee" label="Fee" outlined required type="number"></q-input>
+              <q-select v-model="shippingOption" label="Shipping Option" outlined :options="shippingOptions" required></q-select>
+            </div>
+            <div class="q-gutter-md">
+              <q-btn type="submit" label="Submit Payment" color="primary"></q-btn>
+            </div>
+          </form>
+        </q-card-section>
+      </q-card>
+    </q-form>
 
     <!-- Confirmation Message after Payment -->
     <div v-if="showConfirmation" class="confirmation-message">
       <h3>Your document request has been confirmed.</h3>
       <p>Please wait for your updates through your email address!</p>
-      <button @click="showDocumentSelection">Review</button>
-      <button @click="exit">Exit</button>
+      <q-btn @click="showDocumentSelection" label="Review" color="primary"></q-btn>
+      <q-btn @click="exit" label="Exit" color="primary"></q-btn>
     </div>
   </div>
 </template>
@@ -88,6 +82,7 @@ export default {
       ],
       selectedDocument: null,
       name: '',
+      number: '',
       email: '',
       address: '',
       showPaymentForm: false,
@@ -95,7 +90,10 @@ export default {
       paymentOption: '',
       paymentChannel: '',
       fee: '',
-      shippingOption: ''
+      shippingOption: '',
+      paymentOptions: ['Credit Card', 'Debit Card', 'PayPal'],
+      paymentChannels: ['Online', 'Offline'],
+      shippingOptions: ['Pick Up', 'Delivery']
     };
   },
   methods: {
@@ -122,11 +120,6 @@ export default {
   }
 }
 </script>
-
-<style>
-/* Your existing CSS styles */
-</style>
-
 
 <style>
 #app {
@@ -247,3 +240,4 @@ text-align: center;
     color: #760e0e;
   }
 </style>
+
