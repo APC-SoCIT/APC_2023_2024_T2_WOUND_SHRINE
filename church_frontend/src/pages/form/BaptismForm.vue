@@ -99,7 +99,7 @@
         </div>
         <!-- First File Input -->
         <div class="input-wrapper">
-          <div class="label">Files 1</div>
+          <div class="label">Marriage Certificate</div>
           <q-file
             v-model="files1"
             label="Pick files"
@@ -116,7 +116,7 @@
         </div>
         <!-- Second File Input -->
         <div class="input-wrapper">
-          <div class="label">Files 2</div>
+          <div class="label">Birth Certificate</div>
           <q-file
             v-model="files2"
             label="Pick files"
@@ -197,14 +197,17 @@ export default {
 <style scoped>
 .google-form {
   font-family: Arial, sans-serif;
-  background-color: #f0ebf8;
+  background-color: white;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 700px;
+  text-align: center;
+  margin: 0 auto; /* Center horizontally */
 }
 
 .form-content {
-  max-width: 500px;
+  max-width: 700px;
   margin: auto;
 }
 
@@ -218,7 +221,7 @@ export default {
 }
 
 .date-picker {
-  max-width: 150px;
+  max-width: 300px;
 
 }
 
