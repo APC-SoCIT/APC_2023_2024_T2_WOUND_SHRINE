@@ -4,8 +4,8 @@
     <h2 v-if="!selectedService && !formSubmitted" style="color: #ffaa2b;">SERVICES</h2>
 
     <!-- List of Services -->
-    <div v-if="!selectedService && !showRequestForm && !formSubmitted">
-      <div class="box" v-for="service in services" :key="service.name" @click="showServiceDetails(service)" style="color: black;">
+    <div v-if="!selectedService && !showRequestForm && !formSubmitted" class="service-boxes">
+      <div class="box" v-for="service in services" :key="service.name" @click="showServiceDetails(service)">
         {{ service.name }}
       </div>
     </div>
@@ -193,28 +193,38 @@ export default {
 /* Your existing styles */
 
 .services {
-
   text-align: center;
   color: black;
   margin: auto;
-  margin-top: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.service-boxes {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .box {
+  border: 1px solid #ccc;
   background-color: #ffaa2b;
+  color: black;
+  border-radius: 4px;
+  padding: 15px;
   text-align: center;
-  color: black !important;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 5px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  width: 450px;
-  height: 150px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  display: inline-block;
+  margin-top: 30px;
+  
+  width: calc(33.33% - 40px);
+  max-width: 400px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 30px;
+  font-size: 24px; /* Adjust the font size as needed */
 }
 
 .box:hover {
