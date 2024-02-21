@@ -42,12 +42,17 @@
 
       <q-btn-dropdown flat class="q-mr-xs" size="10px" color="white" text-color="black">
         <q-list>
-          <!-- <q-item clickable v-close-popup @click="onItemClick">
+          <q-item clickable @click="accountsettings">
+            <q-item-section>
+              <q-item-label>Account Settings</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable @click="requeststatus">
             <q-item-section>
               <q-item-label>Request Status</q-item-label>
             </q-item-section>
-          </q-item> -->
-          <q-item clickable v-close-popup @click="login">
+          </q-item>
+          <q-item clickable @click="login">
             <q-item-section>
               <q-item-label>Login</q-item-label>
             </q-item-section>
@@ -130,6 +135,13 @@ function home() {
 }
 // Navigation function for the buttons
 function navigateTo(routeName) {
+  // Check if clicking on the same page
+  if (router.currentRoute.value.name === routeName.toLowerCase()) {
+    // Go back to the top of the page or refresh it
+    window.scrollTo(0, 0);
+    return;
+  }
+  
   const path = `/${routeName.toLowerCase()}`
   router.push(path)
 }
