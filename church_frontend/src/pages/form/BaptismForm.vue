@@ -218,7 +218,8 @@ export default {
 }
 
 .date-picker {
-  max-width: 300px;
+  max-width: 150px;
+
 }
 
 .submit-button {
