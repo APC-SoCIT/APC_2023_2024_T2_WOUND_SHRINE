@@ -1,57 +1,219 @@
 <template>
-    <form @submit.prevent="submitForm">
-      <div>
-        <label for="childName">Child's Name:</label>
-        <input type="text" id="childName" v-model="formData.childName" required>
+  <div class="google-form">
+    <q-form @submit.prevent="submitForm">
+      <div class="form-content">
+        <!-- Name of the Girl -->
+        <div class="input-wrapper">
+          <div class="label">Name</div>
+          <q-input
+            filled
+            v-model="girlName"
+            dense
+            outlined
+            required
+          />
+        </div>
+        <!-- Contact Number -->
+        <div class="input-wrapper">
+          <div class="label">Contact Number</div>
+          <q-input
+            filled
+            v-model="contactNumber"
+            outlined
+            required
+            :rules="[ val => val && val.length === 11 || 'Please type your number']"
+          />
+        </div>
+        <!-- Email -->
+        <div class="input-wrapper">
+          <div class="label">Email</div>
+          <q-input
+            filled
+            v-model="email"
+            dense
+            outlined
+            required
+            type="email"
+          />
+        </div>
+        <!-- Preferred Date -->
+        <div class="input-wrapper">
+          <div class="label">Preferred Date</div>
+          <div class="date-picker">
+            <q-input filled v-model="date" mask="date">
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date v-model="date">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </div>
+        <!-- Preferred Time -->
+        <div class="input-wrapper">
+          <div class="label">Preferred Time</div>
+          <div class="time-picker">
+            <q-input filled v-model="time" mask="time">
+              <template v-slot:append>
+                <q-icon name="access_time" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-time v-model="time">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </div>
+        <!-- First File Input -->
+        <div class="input-wrapper">
+          <div class="label">Letter of Intent</div>
+          <q-file
+            v-model="files1"
+            label="Pick files"
+            filled
+            counter
+            :counter-label="counterLabelFn"
+            max-files=""
+            multiple
+          >
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
+        </div>
+        <!-- Second File Input -->
+        <div class="input-wrapper">
+          <div class="label">Baptismal Certificate</div>
+          <q-file
+            v-model="files2"
+            label="Pick files"
+            filled
+            counter
+            :counter-label="counterLabelFn"
+            max-files=""
+            multiple
+          >
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
+        </div>
+        <!-- Third File Input -->
+        <div class="input-wrapper">
+          <div class="label">Birth Certificate</div>
+          <q-file
+            v-model="files3"
+            label="Pick files"
+            filled
+            counter
+            :counter-label="counterLabelFn"
+            max-files=""
+            multiple
+          >
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
+        </div>
       </div>
-      <div>
-        <label for="fatherName">Father's Name:</label>
-        <input type="text" id="fatherName" v-model="formData.fatherName" required>
-      </div>
-      <div>
-        <label for="motherName">Mother's Name:</label>
-        <input type="text" id="motherName" v-model="formData.motherName" required>
-      </div>
-      <div>
-        <label for="kuyaName">Kuya Name:</label>
-        <input type="text" id="kuyaName" v-model="formData.kuyaName" required>
-      </div>
-      <!-- Add more fields specific to the baptism form -->
-      <q-btn type="submit" label="Submit Request" size="lg" class="custom-btn" />
-    </form>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        formData: {
-          childName: '',
-          fatherName: '',
-          motherName: '',
-          kuyaName: '',
-          // Add more fields as needed
-        }
-      };
+      <!-- Submit Button -->
+      <q-btn
+        type="submit"
+        label="Submit"
+        color="primary"
+        class="submit-button"
+      />
+    </q-form>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue'
+
+export default {
+  data() {
+    return {
+      girlName: '',
+      contactNumber: '',
+      email: '',
+      date: ref('2019/02/01'),
+      time: ref('12:00'), // Default time value
+      files1: [],
+      files2: [],
+      files3: []
+    };
+  },
+  methods: {
+    submitForm() {
+      // Handle form submission
+      console.log('Form submitted:', {
+        girlName: this.girlName,
+        contactNumber: this.contactNumber,
+        email: this.email,
+        preferredDate: this.date,
+        preferredTime: this.time,
+        certificateOfNoMarriage: this.files1,
+        additionalDocument1: this.files2,
+        additionalDocument2: this.files3
+      });
+      this.$emit('formSubmitted');
     },
-    methods: {
-      submitForm() {
-        // Handle form submission logic specific to the baptism form
-        console.log('Confirmation form submitted with data:', this.formData);
-          // Emit an event to notify the parent component (Services.vue) about the form submission
-         this.$emit('formSubmitted');
-      }
+    fileUploadFailed(err) {
+      // Handle file upload failure
+      console.error('File upload failed:', err);
+    },
+    counterLabelFn ({ totalSize, filesNumber, maxFiles }) {
+      return `${filesNumber} files of ${maxFiles} | ${totalSize}`
     }
-  };
-  </script>
-  
-  <style scoped>
-  /* Button styling */
-  .custom-btn {
-    margin-top: 20px; /* Adjust the margin as needed */
-    width: 40%; /* Set the width to 100% */
-    background-color: #ffaa2b; /* Set the button color */
-    color: white; /* Set the text color */
   }
-  </style>
-  
+};
+</script>
+
+<style scoped>
+.google-form {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 700px;
+  text-align: center;
+  margin: 0 auto; /* Center horizontally */
+}
+
+.form-content {
+  max-width: 700px;
+  margin: auto;
+}
+
+.input-wrapper {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: bold;
+  text-align: left;
+}
+
+.date-picker, .time-picker {
+  max-width: 300px;
+}
+
+.submit-button {
+  margin-top: 10px;
+}
+
+.left-aligned {
+  text-align: left; /* Align q-option-group to the left */
+}
+</style>

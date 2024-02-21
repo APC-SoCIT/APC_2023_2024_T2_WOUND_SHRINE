@@ -1,4 +1,4 @@
-<template>
+`<template>
   <div id="app">
     <h2 v-if="!selectedDocument">Available Documents</h2>
 
@@ -142,6 +142,7 @@ export default {
   text-align: center;
   color: #ffaa2b;
   margin-top: 30px;
+  margin-bottom: 0; /* Add this line to remove bottom margin */
 }
 
 h2 {
@@ -179,26 +180,25 @@ h2 {
 }
 
 .document-card:hover {
-  background-color: #760e0e;
+  background-color: #ffaa2b;
 }
 
 .google-form {
-  margin-top: 10px;
+  margin-top: 0;
+  color: black;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .back-button {
   margin-bottom: 20px;
+  position: absolute;
+  top: 0;
+  left: -75%;
 }
 
-.request-content, .payment-content {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
+
+
 
 .input-wrapper {
   margin-bottom: 20px;
@@ -206,6 +206,8 @@ h2 {
 
 .label {
   font-weight: bold;
+  color: black;
+  text-align: left;
 }
 
 .form-actions {
@@ -221,3 +223,4 @@ h2 {
   margin: 0 10px;
 }
 </style>
+`

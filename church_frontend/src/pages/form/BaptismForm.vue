@@ -226,7 +226,7 @@ export default {
 }
 
 .submit-button {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .left-aligned {

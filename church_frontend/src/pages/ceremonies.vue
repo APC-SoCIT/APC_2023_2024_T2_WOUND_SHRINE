@@ -30,21 +30,27 @@
         </div>
       </div>
       <!-- Go Back button -->
-      <button class="back-button" @click="selectedService = null" style="color: #ffaa2b;">
-        <q-icon name="arrow_back" color="#ffaa2b"></q-icon>Go Back
+      <button class="back-button" @click="selectedService = null" style="color: black !important;">
+        <q-icon name="arrow_back" color="black"></q-icon>Go Back
       </button>
       <!-- Title of the form inside the box -->
       <div class="form-box">
         <h3 style="color: black; background-color: #f0ebf8; padding: 10px;">{{ selectedService.name }} Form</h3>
         <!-- Integrated request form here -->
-        <component :is="selectedServiceFormComponent" @formSubmitted="handleFormSubmitted" />
+        <component v-if="!formSubmitted" :is="selectedServiceFormComponent" @formSubmitted="handleFormSubmitted" />
+        <!-- Display submitted form data -->
+        <div v-if="formSubmitted">
+          <h3 style="color: black;">Review Your {{ selectedService.name }} Form</h3>
+          <p>Submitted Data:</p>
+          <pre>{{ submittedFormData }}</pre>
+        </div>
       </div>
     </div>
 
     <!-- Message after submitting the form -->
     <div v-if="formSubmitted" class="message">
-      <h3 style="color: black;">Your request has been submitted.</h3>
-      <p style="color: black;">Please wait for our confirmation through your email address!</p>
+      <h3 style="color: #ffaa2b;">Your request has been submitted.</h3>
+      <p style="color: #ffaa2b;">Please wait for our confirmation through your email address!</p>
       <!-- Button to review the reservation form -->
       <button class="review-button" @click="reviewReservation" style="color: black;">Review Reservation</button>
       <!-- Button to exit and go back to services -->
@@ -81,11 +87,17 @@ export default {
           name: 'Baptism',
           process: [
             'Contact the church.',
+            'Schedule the baptism.',
+            'Schedule the baptism.',
+            'Schedule the baptism.',
             'Schedule the baptism.'
           ],
           requirements: [
             'Birth certificate',
-            'Godparents'
+            'Godparents',
+            'Schedule the baptism.',
+            'Schedule the baptism.',
+            'Schedule the baptism.'
           ],
           formComponent: 'BaptismForm'
           // Add formComponent property to other services with corresponding form component names
@@ -159,7 +171,8 @@ export default {
       ],
       selectedService: null,
       showRequestForm: false,
-      formSubmitted: false
+      formSubmitted: false,
+      submittedFormData: null // Store submitted form data
     };
   },
   computed: {
@@ -171,19 +184,23 @@ export default {
     showServiceDetails(service) {
       this.selectedService = service;
     },
-    handleFormSubmitted() {
+    handleFormSubmitted(formData) {
       this.formSubmitted = true;
+      this.submittedFormData = formData; // Store submitted form data
       this.selectedService = null; // Hide selected service details
       this.showRequestForm = false; // Hide request form
     },
     reviewReservation() {
-      // Handle logic to review the reservation form. For now, log a message.
-      console.log('Reviewing reservation form...');
-      // You can navigate to another route or display more detailed information here.
+      // Handle logic to review the reservation form.
+      // For now, just keep formSubmitted as true.
+      // You can add more detailed logic here.
+      this.formSubmitted = true;
     },
     exitReservation() {
-      // Reset formSubmitted to false and navigate back to services.
+      // Reset formSubmitted, submittedFormData, and selectedService
       this.formSubmitted = false;
+      this.submittedFormData = null;
+      this.selectedService = null;
     }
   }
 };
@@ -216,7 +233,6 @@ export default {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   margin-top: 30px;
-  
   width: calc(33.33% - 40px);
   max-width: 400px;
   height: 200px;
@@ -256,17 +272,16 @@ export default {
 .back-button {
   position: absolute;
   top: -10px;
-  left: -10px;
-  color: #ffaa2b;
+  left: 10px;
+  background-color: #ffaa2b;
+  color: black !important;
+  padding: 15px 25px; /* Adjust padding to make the button bigger */
+  font-size: 16px; /* Adjust font size as needed */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.next-button {
-  background-color: #ffaa2b;
-  color: black;
-  position: absolute;
-  bottom: -100px;
-  right: 10px;
-}
 
 form {
   display: grid;
@@ -315,5 +330,6 @@ form {
   width: 800px;
   max-width: 100%;
   height: 50%;
+  margin-top: auto;
 }
 </style>
