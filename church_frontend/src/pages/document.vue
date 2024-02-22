@@ -1,4 +1,4 @@
-`<template>
+<template>
   <div id="app">
     <h2 v-if="!selectedDocument">Available Documents</h2>
 
@@ -25,7 +25,9 @@
       <!-- Displaying the document request form -->
       <q-card class="request-content">
         <q-card-section>
-          <h3 style="margin-bottom: 20px;">Requesting {{ selectedDocument.title }}</h3>
+          <div class="request-heading">
+            <h3>Requesting {{ selectedDocument.title }}</h3>
+          </div>
           <q-form @submit="submitRequest">
             <div class="form-content">
               <div class="input-wrapper">
@@ -190,15 +192,16 @@ h2 {
   margin: 0 auto;
 }
 
+.request-heading {
+  margin-bottom: 20px;
+}
+
 .back-button {
   margin-bottom: 20px;
   position: absolute;
   top: 0;
   left: -75%;
 }
-
-
-
 
 .input-wrapper {
   margin-bottom: 20px;
@@ -223,4 +226,3 @@ h2 {
   margin: 0 10px;
 }
 </style>
-`
