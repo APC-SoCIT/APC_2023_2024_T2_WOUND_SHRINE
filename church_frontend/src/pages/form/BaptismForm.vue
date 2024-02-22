@@ -24,6 +24,17 @@
             required
           />
         </div>
+        <!-- Name of Child -->
+        <div class="input-wrapper">
+          <div class="label">Name of Child</div>
+          <q-input
+            filled
+            v-model="childName"
+            dense
+            outlined
+            required
+          />
+        </div>
         <!-- Contact Number -->
         <div class="input-wrapper">
           <div class="label">Contact Number</div>
@@ -45,17 +56,6 @@
             outlined
             required
             type="email"
-          />
-        </div>
-        <!-- Name of Child -->
-        <div class="input-wrapper">
-          <div class="label">Name of Child</div>
-          <q-input
-            filled
-            v-model="childName"
-            dense
-            outlined
-            required
           />
         </div>
         <!-- List of Principal Sponsors -->
@@ -142,6 +142,7 @@
     </q-form>
   </div>
 </template>
+
 
 <script>
 import { ref } from 'vue'
