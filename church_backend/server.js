@@ -14,7 +14,7 @@ const db = mysql.createConnection({
   port: 3306,
   user: 'root',
   password: 'church',
-  database: 'churchweb'
+  database: 'churchdata'
 });
 
 // Connect
