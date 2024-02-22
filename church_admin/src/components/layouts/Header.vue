@@ -4,16 +4,15 @@
       <q-btn dense flat round icon="menu" color="black" @click="toggleLeftDrawer" />
       <q-toolbar-title>
           <q-img 
-              src="/img/church_icon.png" 
-              lazy-src="/img/church_icon.png"
+              src="" 
+              lazy-src=""
               height="10px"
-              style="max-width:180px; margin: 10px;"
+              style="width:180px; margin: 10px;"
           />
+          <div style="font-weight: bold; margin-bottom: 30px; color:black;">Shrine of Five Wounds of our Lord Jesus Christ</div>
+
       </q-toolbar-title>
-      <q-icon style="color: black; font-weight: 600; font-size: 20px;" class="q-mr-xs" name="notifications"></q-icon>
-      <q-avatar class="q-ma-md">
-        <img src="https://cdn.quasar.dev/img/avatar.png">
-      </q-avatar>
+  
       <label style="color: black; font-weight: 600;" class="q-ma-xs">{{ store.userData.email }}</label>
       <q-btn-dropdown flat class="q-mr-xs" size="10px" color="white" text-color="black">
         <q-list>

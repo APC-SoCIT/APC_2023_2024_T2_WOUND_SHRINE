@@ -2,7 +2,7 @@
   <div>
     <q-btn @click="openDialog" color="green">View Full Details</q-btn>
 
-    <q-dialog v-if="dialogVisible" @hide="closeDialog">
+    <q-dialog v-if="dialogVisible" v-model="dialogVisible">
       <q-card>
         <q-card-section>
           <q-card-title class="title">
@@ -19,6 +19,7 @@
             <q-input v-model="formData.date" label="Date" />
             <q-input v-model="formData.time" label="Time" />
             <q-input v-model="formData.address" label="Address" />
+
             <div class="q-mt-md row justify-end">
               <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />
               <q-btn type="button" color="orange" label="Accept" @click="confirmAccept" />
@@ -28,12 +29,12 @@
       </q-card>
     </q-dialog>
 
-    <q-dialog v-if="confirmRejectVisible" @hide="cancelReject" class="decline-box" persistent>
+    <q-dialog v-if="confirmRejectVisible" v-model="confirmRejectVisible" class="confirmation-box" persistent>
       <q-card>
         <q-card-section>
-          <q-card-title>Confirm Decline</q-card-title>
+          <q-card-title>Confirm Reject</q-card-title>
           <q-card-main>
-            Are you sure you want to decline this request?
+            Are you sure you want to reject this request?
           </q-card-main>
           <q-card-actions align="right">
             <q-btn label="Cancel" @click="cancelReject" />
@@ -43,7 +44,7 @@
       </q-card>
     </q-dialog>
 
-    <q-dialog v-if="assignPriestVisible" @hide="cancelAssignPriest" class="priest-assign-box" persistent>
+    <q-dialog v-if="assignPriestVisible" v-model="assignPriestVisible" class="priest-assign-box" persistent>
       <q-card>
         <q-card-section>
           <q-card-title>Assign Priest</q-card-title>
@@ -68,12 +69,13 @@ export default {
       confirmRejectVisible: false,
       assignPriestVisible: false,
       formData: {
-        name: 'Jarvis',
+        name: '',
         contactNumber: '',
         email: '',
+        address: '',
         date: '',
         time: '',
-        address: '',
+        approvalStatus: null,
       },
       priestOptions: [
         // Add your priest options here
@@ -96,24 +98,30 @@ export default {
       this.confirmRejectVisible = false;
     },
     rejectRequest() {
+      // Handle reject logic
       console.log('Request rejected');
+      // Close the dialog after rejecting
       this.closeDialog();
       this.confirmRejectVisible = false;
     },
     confirmAccept() {
+      this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
       this.dialogVisible = false;
       this.assignPriestVisible = true;
     },
     assignPriest() {
       console.log('Assigned priest:', this.selectedPriest);
       this.assignPriestVisible = false;
+      // Close the main dialog after assigning priest
       this.closeDialog();
     },
     cancelAssignPriest() {
       this.assignPriestVisible = false;
     },
     submitForm() {
+      // Handle form submission logic (e.g., send data to server)
       console.log('Form submitted with data:', this.formData);
+      // Close the dialog after submission
       this.closeDialog();
     },
   },
@@ -139,4 +147,5 @@ export default {
   width: 400px;
 }
 </style>
+
 
