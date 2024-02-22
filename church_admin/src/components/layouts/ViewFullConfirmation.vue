@@ -19,14 +19,10 @@
               <q-input v-model="formData.date" label="Date" />
               <q-input v-model="formData.time" label="Time" />
               <q-input v-model="formData.address" label="Address" />
-              <q-input v-model="formData.groomName" label="Groom's Name" />
-              <q-input v-model="formData.brideName" label="Bride's Name" />
-              <q-input v-model="formData.principalSponsors" label="List of Principal Sponsors" />
-              <q-input v-model="formData.preferredDateTime" label="Preferred Date/Time" />
   
               <q-file
                 v-model="formData.files1"
-                label="Confirmation Ceritficate"
+                label="Letter of Intnent"
                 filled
                 counter
                 :counter-label="counterLabelFn"
@@ -40,7 +36,7 @@
   
               <q-file
                 v-model="formData.files2"
-                label="Baptismal Ceritficate"
+                label="Birth Certificate"
                 filled
                 counter
                 :counter-label="counterLabelFn"
@@ -54,7 +50,7 @@
 
               <q-file
                 v-model="formData.files3"
-                label="Birth Ceritficate"
+                label="Files 3"
                 filled
                 counter
                 :counter-label="counterLabelFn"
@@ -67,19 +63,6 @@
                 </template>
               </q-file>
 
-              <q-file
-                v-model="formData.files4"
-                label="Ceritficate of No Marriage"
-                filled
-                counter
-                :counter-label="counterLabelFn"
-                max-files="1"
-                multiple
-              >
-                <template v-slot:prepend>
-                  <q-icon name="attach_file" />
-                </template>
-              </q-file>
   
               <div class="q-mt-md row justify-end">
                 <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />
@@ -137,15 +120,9 @@
           date: '',
           time: '',
           approvalStatus: null,
-          groomName: '',
-          brideName: '',
-          principalSponsors: '',
-          preferredDateTime: '',
-          type: '',
           files1: [],
           files2: [],
           files3: [],
-          files4: [],
         },
         priestOptions: [
           // Add your priest options here
