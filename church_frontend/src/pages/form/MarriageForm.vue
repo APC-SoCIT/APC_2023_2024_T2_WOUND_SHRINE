@@ -4,7 +4,7 @@
       <div class="form-content">
         <!-- Mothers Name -->
         <div class="input-wrapper">
-          <div class="label">Name of the girl</div>
+          <div class="label">Wife</div>
           <q-input
             filled
             v-model="motherName"
@@ -15,7 +15,7 @@
         </div>
         <!-- Fathers Name -->
         <div class="input-wrapper">
-          <div class="label">Name of the man</div>
+          <div class="label">Husband</div>
           <q-input
             filled
             v-model="fatherName"

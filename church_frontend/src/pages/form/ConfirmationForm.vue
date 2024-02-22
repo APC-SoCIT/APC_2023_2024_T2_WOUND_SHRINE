@@ -13,6 +13,17 @@
             required
           />
         </div>
+        <!-- Sponsor Name -->
+        <div class="input-wrapper">
+          <div class="label">Sponsor Name</div>
+          <q-input
+            filled
+            v-model="sponsorName"
+            dense
+            outlined
+            required
+          />
+        </div>
         <!-- Contact Number -->
         <div class="input-wrapper">
           <div class="label">Contact Number</div>
@@ -144,6 +155,7 @@ export default {
   data() {
     return {
       girlName: '',
+      sponsorName: '', // Added sponsorName field
       contactNumber: '',
       email: '',
       date: ref('2019/02/01'),
@@ -158,6 +170,7 @@ export default {
       // Handle form submission
       console.log('Form submitted:', {
         girlName: this.girlName,
+        sponsorName: this.sponsorName, // Included sponsorName
         contactNumber: this.contactNumber,
         email: this.email,
         preferredDate: this.date,

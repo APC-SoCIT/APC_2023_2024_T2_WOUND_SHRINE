@@ -25,45 +25,32 @@
   <div class="vision-mission-container">
     <div class="vision-mission-item">
       <h4 style="text-align: left;">VISION</h4>
-      <h5 style="text-align: left;">English:</h5>
+      <h5 style="text-align: left;"></h5>
       <p style="text-align: justify; color: white;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
-        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
-        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
-        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
-        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
-      </p>
-      <h5 style="text-align: left; margin-top: 20px;">Tagalog:</h5>
-      <p style="text-align: justify; color: white;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
-        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
-        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
-        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
-        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
+        We, the parishioners of the Shrine of the Five Wounds of Our Lord Jesus Christ in Las Pinas, are on a journey to the kingdom of the Father's pilgrim; healed and redeemed by the Most Precious Wounds of jesus and empowered by the holy Spirit.
+
       </p>
     </div>
     <div class="vision-mission-item">
       <h4 style="text-align: left;">MISSION</h4>
-      <h5 style="text-align: left;">English:</h5>
-      <p style="text-align: justify; color: white;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
-        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
-        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
-        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
-        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
-      </p>
-      <h5 style="text-align: left; margin-top: 20px;">Tagalog:</h5>
-      <p style="text-align: justify; color: white;">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
-        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
-        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
-        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
-        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
-      </p>
+      <h5 style="text-align: left; color: white;">is to transform the Parish into:</h5>
+      <li style="text-align: justify; color: white;">
+      A Shrine under the Stigmatine Father & Brothers at the service of the local church  
+      </li>
+      <li style="text-align: justify; color: white;">                                              
+      A center of devotion and healing emanating from the Five Wounds of Our Lord Jesus
+      </li>    
+      
+      <h5 style="text-align: left; margin-top: 20px; color: white;">We commit ourselves to:</h5>
+      <li style="text-align: justify; color: white;">
+      Promoting Basic Ecclesial Communities as a new way of being church;
+      </li>
+      <li style="text-align: justify; color: white;">
+      Prioritizing the excluded and the wounded especially families and young people in difficult circumtances of life, and
+      </li>
+      <li style="text-align: justify; color: white;">
+      Enkindling the gifts of hope and coutage through the Holy Spirit.
+      </li>
     </div>
   </div>
   <!-- End of Vision and Mission Section -->
@@ -162,9 +149,9 @@ h2 {
   margin: 0;
 }
 
-.vision-mission-item p {
+.vision-mission-item li {
   text-align: justify;
-  width: 100%; /* Adjusted width to occupy full width */
+  width: 80%; /* Adjusted width to occupy full width */
 }
 
 .contact-container {

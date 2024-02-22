@@ -131,7 +131,7 @@ function navigateToLogin() {
 
 <style lang="scss" scoped>
 #btn-color{
-  background-color: #00B85D!important;
+  background-color: #ffaa2b!important;
   color: white!important;;
 }
 

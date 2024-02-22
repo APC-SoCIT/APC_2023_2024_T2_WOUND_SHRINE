@@ -212,7 +212,7 @@ function goToRegister() {
   color: #00B85D !important;
 }
 #btn-color {
-  background-color: #00B85D !important;
+  background-color: #ffaa2b !important;
   color: white !important;
 }
 #login {
