@@ -13,7 +13,6 @@
   </div>
   <q-card-section class="q-pt-xs">
     <q-input
-      v-on:keyup.enter="onNext"
       class="q-mb-md"
       name="login"
       type="text"
@@ -25,7 +24,6 @@
       label="Username"
       dense
       :input-style="{ fontSize: '15px'}"
-      :readonly="!!checker"
     />
     <q-input
       v-if="checker"
@@ -88,7 +86,7 @@ let ErrorMessage = ref('')
 let ErrorMessageUsername = ref('')
 let ErrorMessagePassword = ref('')
 
-const checker = ref(false)
+const checker = ref(true)
 
 const formData = reactive({
   username: '',
@@ -101,54 +99,50 @@ notifErrorFromAuth(authStore.isError, authStore.ErrorMessage)
 onMounted(() => {
   sessionStorage.clear()
 })
-async function onNext() {
-  loading.value = true
+// async function onNext() {
+//   loading.value = true
 
-  try {
-    const data = await authStore.userNameCheker({ username: formData.username })
-    data.status === 'inactive' ? (router.push('/otp')) : (checker.value = true)
-    loading.value = false
+//   try {
+//     const data = await authStore.userNameCheker({ username: formData.username })
+//     data.status === 'inactive' ? (router.push('/otp')) : (checker.value = true)
+//     loading.value = false
 
-  } catch (error) {
-    if (error.response && (error.response.status == 400 || error.response.status == 401)) {
+//   } catch (error) {
+//     if (error.response && (error.response.status == 400 || error.response.status == 401)) {
 
-      loading.value = false
-      isError.value = true;
-      ErrorMessage.value = error.response.data.message;
-      setTimeout(() => {
-        isError.value = false;
-      }, 3000);
-    }
-    if (error.response && error.response.status == 422) {
+//       loading.value = false
+//       isError.value = true;
+//       ErrorMessage.value = error.response.data.message;
+//       setTimeout(() => {
+//         isError.value = false;
+//       }, 3000);
+//     }
+//     if (error.response && error.response.status == 422) {
 
-      if (formData.username === '') {
+//       if (formData.username === '') {
 
-        loading.value = false
-        isError.value = true;
-        ErrorMessage.value = error.response.data.errors.username[0];
-        console.log(ErrorMessage.value)
-        setTimeout(() => {
-          isError.value = false;
-        }, 3000);
-      }
+//         loading.value = false
+//         isError.value = true;
+//         ErrorMessage.value = error.response.data.errors.username[0];
+//         console.log(ErrorMessage.value)
+//         setTimeout(() => {
+//           isError.value = false;
+//         }, 3000);
+//       }
 
-    }
-    return false
-  }
-}
+//     }
+//     return false
+//   }
+// }
 async function onSubmit() {
   loading.value = true
   try {
     const data = await authStore.login(formData)
-    console.log("result", data)
-    // data.force_change_password ? (router.push('/otp')) : (router.push('/webapps'))
-    if (data.force_change_password === true) {
-      router.push('/change-password')
-      loading.value = false
-    } else {
-      router.push('/webapps')
-      loading.value = false
+    if (data.status === 200 ){
+      sessionStorage.setItem('authenticated', true)
+      router.push('/')
     }
+    // data.force_change_password ? (router.push('/otp')) : (router.push('/webapps'))
   } catch (error) {
 
     if (error.response && error.response.status == 401) {

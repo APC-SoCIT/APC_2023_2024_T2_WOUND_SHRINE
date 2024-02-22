@@ -42,22 +42,22 @@
 
       <q-btn-dropdown flat class="q-mr-xs" size="10px" color="white" text-color="black">
         <q-list>
-          <q-item clickable @click="accountsettings">
+          <q-item v-if="isAuthenticated" clickable @click="accountsettings">
             <q-item-section>
               <q-item-label>Account Settings</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable @click="requeststatus">
+          <q-item v-if="isAuthenticated" clickable @click="requeststatus">
             <q-item-section>
               <q-item-label>Request Status</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable @click="login">
+          <q-item v-if="!isAuthenticated" clickable @click="login">
             <q-item-section>
               <q-item-label>Login</q-item-label>
             </q-item-section>
           </q-item>
-          <q-item clickable @click="home">
+          <q-item v-if="isAuthenticated" clickable @click="home">
             <q-item-section>
               <q-item-label>Logout</q-item-label>
             </q-item-section>
@@ -101,13 +101,20 @@ const emitter = inject('emitter')
 const userData = ref('')
 const notifications = ref(['Notification 1', 'Notification 2', 'Notification 3']) // Example notifications
 
+const isAuthenticated = ref(false);
+
 function toggleLeftDrawer() {
   emitter.emit('toggleDrawer')
 }
 
-onMounted( async () => {
-  userData.value =  await store.isAuthenticated()
-})
+onMounted(async () => {
+  // Set the value of isAuthenticated based on sessionStorage
+  isAuthenticated.value = sessionStorage.getItem('authenticated') === 'true';
+});
+
+// onMounted( async () => {
+//   userData.value =  await store.isAuthenticated()
+// })
 
 async function logout() {
   await store.logout()
@@ -130,8 +137,10 @@ function requeststatus() {
 }
 
 function home() {
-  const path = `/`
-  router.push(path)
+  sessionStorage.setItem('authenticated', false)
+  // const path = `/`
+  router.push('/')
+  location.reload()
 }
 // Navigation function for the buttons
 function navigateTo(routeName) {

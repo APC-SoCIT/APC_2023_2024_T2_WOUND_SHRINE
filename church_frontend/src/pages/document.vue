@@ -16,62 +16,64 @@
     </div>
     
     <!-- Document Request Form -->
-    <q-form v-if="selectedDocument && !showPaymentForm && !showConfirmation" class="google-form">
-      <!-- Back button with the icon and text "GO BACK" -->
-      <q-btn @click="selectedDocument = null" class="back-button" color="primary">
-        <q-icon name="arrow_back"></q-icon> GO BACK
-      </q-btn>
-      
-      <!-- Displaying the document request form -->
-      <q-card class="request-content">
-        <q-card-section>
-          <div class="request-heading">
-            <h3>Requesting {{ selectedDocument.title }}</h3>
-          </div>
-          <q-form @submit="submitRequest">
-            <div class="form-content">
-              <div class="input-wrapper">
-                <div class="label">Name</div>
-                <q-input v-model="name" filled outlined dense required></q-input>
-              </div>
-              <div class="input-wrapper">
-                <div class="label">Number</div>
-                <q-input v-model="number" filled outlined dense required></q-input>
-              </div>
-              <div class="input-wrapper">
-                <div class="label">Email</div>
-                <q-input v-model="email" filled outlined dense required></q-input>
-              </div>
-              <div class="input-wrapper">
-                <div class="label">Address</div>
-                <q-input v-model="address" filled outlined dense required></q-input>
-              </div>
-              <!-- Move the Shipping Option section here -->
-              <div class="input-wrapper">
-                <div class="label">Shipping Option</div>
-                <q-select v-model="shippingOption" filled outlined :options="shippingOptions" required></q-select>
-              </div>
-              <div class="input-wrapper">
-                <div class="label">Payment Option:</div>
-                <q-select v-model="paymentOption" filled outlined :options="paymentOptions" required></q-select>
-              </div>
-              <div class="input-wrapper">
-                <div class="label">Payment Channel:</div>
-                <q-select v-model="paymentChannel" filled outlined :options="paymentChannels" required></q-select>
-              </div>
-              <div class="input-wrapper">
-                <div class="label">Fee:</div>
-                <q-input v-model="fee" filled outlined type="number" required></q-input>
-              </div>
+    <div v-if="selectedDocument && !showPaymentForm && !showConfirmation" class="form-box"> <!-- Add this div with the form-box class -->
+      <q-form class="google-form">
+        <!-- Back button with the icon and text "GO BACK" -->
+        <q-btn @click="selectedDocument = null" class="back-button" color="primary">
+          <q-icon name="arrow_back"></q-icon> GO BACK
+        </q-btn>
+        
+        <!-- Displaying the document request form -->
+        <q-card class="request-content">
+          <q-card-section>
+            <div class="request-heading">
+              <h3>Requesting {{ selectedDocument.title }}</h3>
             </div>
-            <!-- Add Next button to proceed to shipping options -->
-            <div class="form-actions">
-              <q-btn type="submit" label="Submit" color="primary"></q-btn>
-            </div>
-          </q-form>
-        </q-card-section>
-      </q-card>
-    </q-form>
+            <q-form @submit="submitRequest">
+              <div class="form-content">
+                <div class="input-wrapper">
+                  <div class="label">Name</div>
+                  <q-input v-model="name" filled outlined dense required></q-input>
+                </div>
+                <div class="input-wrapper">
+                  <div class="label">Number</div>
+                  <q-input v-model="number" filled outlined dense required></q-input>
+                </div>
+                <div class="input-wrapper">
+                  <div class="label">Email</div>
+                  <q-input v-model="email" filled outlined dense required></q-input>
+                </div>
+                <div class="input-wrapper">
+                  <div class="label">Address</div>
+                  <q-input v-model="address" filled outlined dense required></q-input>
+                </div>
+                <!-- Move the Shipping Option section here -->
+                <div class="input-wrapper">
+                  <div class="label">Shipping Option</div>
+                  <q-select v-model="shippingOption" filled outlined :options="shippingOptions" required></q-select>
+                </div>
+                <div class="input-wrapper">
+                  <div class="label">Payment Option:</div>
+                  <q-select v-model="paymentOption" filled outlined :options="paymentOptions" required></q-select>
+                </div>
+                <div class="input-wrapper">
+                  <div class="label">Payment Channel:</div>
+                  <q-select v-model="paymentChannel" filled outlined :options="paymentChannels" required></q-select>
+                </div>
+                <div class="input-wrapper">
+                  <div class="label">Fee:</div>
+                  <q-input v-model="fee" filled outlined type="number" required></q-input>
+                </div>
+              </div>
+              <!-- Add Next button to proceed to shipping options -->
+              <div class="form-actions">
+                <q-btn type="submit" label="Submit" color="primary"></q-btn>
+              </div>
+            </q-form>
+          </q-card-section>
+        </q-card>
+      </q-form>
+    </div> <!-- Close the div with the form-box class -->
 
     <!-- Confirmation Message after Payment -->
     <div v-if="showConfirmation" class="confirmation-message">
@@ -88,9 +90,9 @@ export default {
   data() {
     return {
       documents: [
-        { title: "MARRIAGE CERTIFICATE"},
-        { title: "BAPTISMAL CERTIFICATE"},
-        { title: "MASS CARDS"}
+        { title: "Marriage Certificate"},
+        { title: "Baptismal Cerificate"},
+        { title: "Mass Card"}
       ],
       selectedDocument: null,
       name: '',
@@ -188,7 +190,7 @@ h2 {
 .google-form {
   margin-top: 0;
   color: black;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
 }
 
@@ -199,8 +201,8 @@ h2 {
 .back-button {
   margin-bottom: 20px;
   position: absolute;
-  top: 0;
-  left: -75%;
+  top: -5%;
+  left: -55%;
 }
 
 .input-wrapper {
@@ -224,5 +226,18 @@ h2 {
 
 .confirmation-message q-btn {
   margin: 0 10px;
+}
+
+/* Add the style for the form-box class */
+.form-box {
+  background-color: #f0ebf8;
+  padding: 20px;
+  margin: auto; /* Center horizontally and vertically */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06);
+  width: 800px;
+  max-width: 100%;
+  height: 50%;
+  margin-top: auto;
 }
 </style>

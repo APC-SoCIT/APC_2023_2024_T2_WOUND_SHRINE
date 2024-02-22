@@ -86,11 +86,12 @@ export default {
         {
           name: 'Baptism',
           process: [
-            'Contact the church.',
-            'Schedule the baptism.',
-            'Schedule the baptism.',
-            'Schedule the baptism.',
-            'Schedule the baptism.'
+          'FAQs',
+            'What is Catholic baptism?',
+            'Catholic baptism is a sacrament where a person is initiated into the Catholic Church through water and the invocation of the Holy Trinity.',
+
+            'Who can be baptized in the Catholic Church?',
+            'Individuals of all ages seeking to become Catholic or to receive the sacrament.',
           ],
           requirements: [
             'Birth certificate',
@@ -282,13 +283,6 @@ export default {
   cursor: pointer;
 }
 
-
-form {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
 .review-button {
   background-color: #ffaa2b;
   color: black;
@@ -330,6 +324,6 @@ form {
   width: 800px;
   max-width: 100%;
   height: 50%;
-  margin-top: auto;
+  margin-bottom: 10px;
 }
 </style>

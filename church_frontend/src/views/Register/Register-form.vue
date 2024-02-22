@@ -101,11 +101,12 @@ const formData = reactive({
   username: '',
   email: '',
   password: '',
-  confirmPassword: ''
+  // confirmPassword: ''
 })
 
 async function onSubmit(){
-  loading.value = true
+  // loading.value = true
+  console.log(formData)
   try {
     const data = await authStore.register(formData)
     router.push('/login')
