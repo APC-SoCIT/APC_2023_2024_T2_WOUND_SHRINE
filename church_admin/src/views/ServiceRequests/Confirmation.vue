@@ -33,7 +33,7 @@
     >
       <template v-slot:body-cell-details="props">
         <q-td :props="props">
-          <ViewFullDocuDetails :formData="props.row" />
+          <ViewFullConfirmation :formData="props.row" />
         </q-td>
       </template>
     </q-table>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import ViewFullDocuDetails from '@/components/layouts/ViewFullDocuDetails.vue';
+import ViewFullConfirmation from '@/components/layouts/ViewFullConfirmation.vue';
 import { ref, computed } from 'vue';
 
 export default {
@@ -100,7 +100,7 @@ export default {
     };
   },
   components: {
-    ViewFullDocuDetails,
+    ViewFullConfirmation,
   },
 };
 </script>

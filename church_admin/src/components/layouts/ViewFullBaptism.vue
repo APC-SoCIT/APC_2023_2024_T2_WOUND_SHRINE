@@ -19,57 +19,28 @@
               <q-input v-model="formData.date" label="Date" />
               <q-input v-model="formData.time" label="Time" />
               <q-input v-model="formData.address" label="Address" />
-              <q-input v-model="formData.groomName" label="Groom's Name" />
-              <q-input v-model="formData.brideName" label="Bride's Name" />
+              <q-input v-model="formData.childName" label="Name of Child" />
               <q-input v-model="formData.principalSponsors" label="List of Principal Sponsors" />
               <q-input v-model="formData.preferredDateTime" label="Preferred Date/Time" />
+              <q-option-group v-model="formData.type" :options="typeOptions" label="Type" />
   
               <q-file
                 v-model="formData.files1"
-                label="Confirmation Ceritficate"
+                label="Files 1"
                 filled
                 counter
                 :counter-label="counterLabelFn"
                 max-files="1"
                 multiple
               >
-             <template v-slot:prepend>
+                <template v-slot:prepend>
                   <q-icon name="attach_file" />
                 </template>
               </q-file>
   
               <q-file
                 v-model="formData.files2"
-                label="Baptismal Ceritficate"
-                filled
-                counter
-                :counter-label="counterLabelFn"
-                max-files="1"
-                multiple 
-              >
-              <template v-slot:prepend>
-                  <q-icon name="attach_file" />
-                </template>
-              </q-file>
-
-              <q-file
-                v-model="formData.files3"
-                label="Birth Ceritficate"
-                filled
-                counter
-                :counter-label="counterLabelFn"
-                max-files="1"
-                multiple
-              >
-
-              <template v-slot:prepend>
-                  <q-icon name="attach_file" />
-                </template>
-              </q-file>
-
-              <q-file
-                v-model="formData.files4"
-                label="Ceritficate of No Marriage"
+                label="Files 2"
                 filled
                 counter
                 :counter-label="counterLabelFn"
@@ -130,25 +101,26 @@
         confirmRejectVisible: false,
         assignPriestVisible: false,
         formData: {
-          name: '',
-          contactNumber: '',
-          email: '',
-          address: '',
-          date: '',
-          time: '',
+          name: 'Jarvis V. Carpo',
+          contactNumber: '099999999',
+          email: 'jvcarpo@student.apc.edu.ph',
+          address: '06 Dalupang Street, Zone 2, Central Signal Village, Taguig City',
+          date: 'Ocotber 08, 2002',
+          time: '8:00 pm',
           approvalStatus: null,
-          groomName: '',
-          brideName: '',
-          principalSponsors: '',
+          childName: 'Lisa Carpo',
+          principalSponsors: 'Grace Valdez, Marlon Mendoza, Mario Valdez',
           preferredDateTime: '',
           type: '',
           files1: [],
           files2: [],
-          files3: [],
-          files4: [],
         },
+        typeOptions: [
+          { label: 'Adult', value: 'adult' },
+          { label: 'Child', value: 'child' },
+        ],
         priestOptions: [
-          // Add your priest options here
+          'Rev. Fr. Abel Maglines'
         ],
         selectedPriest: null,
       };
