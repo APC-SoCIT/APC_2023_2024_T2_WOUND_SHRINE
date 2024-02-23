@@ -23,28 +23,32 @@
     <div class="logo-info-section" style="margin-top: 50px; display: flex; align-items: flex-start;">
       <!-- Logo placed beside the name -->
       <q-img 
-        src="/img/pope.png" 
-        lazy-src="/img/pope.png"
+        src="/img/pari.png" 
+        lazy-src="/img/pari.png"
         height="600px"  
         style="max-width: 500px; margin-right: 100px;"
       />
       <div class="message">
-        <h4>A Message From Our Parish Priest</h4>
+        <h4>A Message From The Church</h4>
         <p class="paragraph-text">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
-        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
-        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
-        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
-        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
+          God first loved us -- that's the message, the core message of the Gospel. I feel pretty certain that many of us grew up thinking that somehow 
+          if we did the right things, if we obeyed the commandments, if we went to church faithfully, we said our prayers every day, if we tried to 
+          follow the teachings of the church, that we would make it. Somehow, God would then reward us. We would be taken into heaven.
+          But it's not like that. This is the message: God first loved us. God doesn't demand that we do anything to earn that love. 
+          We can't earn that love. It's God drawing us into existence because God loves us. God drawing all of the universe into existence 
+          because God loves what God has made. God is love, and where there is love, there is God. That love of God reaches out to us first.
         </p>
         <p class="paragraph-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-        Dignissim diam quis enim lobortis. Volutpat est velit egestas dui id ornare. Bibendum est ultricies integer quis auctor elit sed vulputate mi. 
-        Parturient montes nascetur ridiculus mus mauris vitae ultricies leo integer. Massa sed elementum tempus egestas sed sed risus pretium quam. 
-        Molestie at elementum eu facilisis sed odio morbi quis. Porta non pulvinar neque laoreet. Magna ac placerat vestibulum lectus mauris ultrices eros. 
-        Tellus cras adipiscing enim eu turpis. Interdum velit laoreet id donec ultrices tincidunt arcu. Ornare lectus sit amet est placerat in. 
-        Faucibus interdum posuere lorem ipsum dolor sit amet consectetur adipiscing.
+          God takes the initiative. God loves us. This is the message of the Gospel that once we grasp it, it can mean tremendous changes in our 
+          own lives in how we relate to God. But then, as Jesus says in the Gospel, it's also how we relate to one another, "This is my one 
+          commandment: That you love one another as I have loved you." Some people say at times, "Oh, that's making everything easy. What about 
+          the commandments? Don't do this. Don't do that. You must do this. You must do that."
+          No, it's not easy when you understand what Jesus is saying, "Love one another as I have loved you." Then, notice his example: 
+          "There is no greater love than this, than to lay down your life for another." No greater love than to lay down your life for those 
+          you love, which includes even your enemies. Don't just love those who love you, love your enemies. It does take great courage and 
+          conviction to understand that we really must love one another as Jesus loves us.
+
+
         </p>
       </div>
     </div>
