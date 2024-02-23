@@ -19,7 +19,7 @@
       <q-btn flat dense label="HOME" @click="navigateTo('')" class="black-text" />
       <q-btn flat dense label="ABOUT" @click="navigateTo('about')" class="black-text" />
       <q-btn flat dense label="BLOG" @click="navigateTo('blog')" class="black-text" />
-      <q-btn flat dense label="CEREMONIES" @click="navigateTo('ceremonies')" class="black-text" />
+      <q-btn flat dense label="SERVICES" @click="navigateTo('ceremonies')" class="black-text" />
       <q-btn flat dense label="DOCUMENT" @click="navigateTo('document')" class="black-text" />
 
       <!-- Spacing for even distribution -->
