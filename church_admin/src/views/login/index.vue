@@ -5,13 +5,13 @@
         <div class="row">
           <q-card id="login-card" square bordered class="q-pa-lg">
             <q-card-section>
-              <q-img
+              <!-- <q-img
                 id="logo"
                 src="/img/novadeci-logo.svg"
                 lazy-src="/img/novadeci-logo.svg"
                 max-height="10"
                 max-width="20"
-              />
+              /> -->
             </q-card-section>
             <q-card-section>
               <div class="text-h6" id="login-title">Login to Account</div>
@@ -50,7 +50,7 @@ export default {
   padding: 10px 15px;
 }
 #auth-view {
-  background-image: url("/img/loginBG.png");
+  background-image: url("/img/fivewounds.png");
   background-size: 100% 100%;
   height: 100vh;
   display: flex;
