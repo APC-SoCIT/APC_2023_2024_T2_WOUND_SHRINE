@@ -22,6 +22,11 @@ import { boot } from 'quasar/wrappers'
 import Plugin from '@quasar/quasar-ui-qcalendar/src/QCalendarDay.js'
 import '@quasar/quasar-ui-qcalendar/src/css/calendar-day.sass'
 
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+
 const app = createApp(App)
 
 app.use(VueApexCharts);
@@ -37,5 +42,12 @@ app.use(Quasar, {
     } // import Quasar plugins and add here
 })
 app.provide('emitter', emitter)
+
+// Use Vuetify
+const vuetify = createVuetify({
+    components,
+    directives,
+})
+app.use(vuetify)
 
 app.mount('#app')
