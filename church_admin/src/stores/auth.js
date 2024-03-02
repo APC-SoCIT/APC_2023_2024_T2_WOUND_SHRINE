@@ -45,16 +45,26 @@ const actions = {
   async login(params) {
 
       const data = await authRepository.login(params)
-      this.user = data.data.result.authorization.access_token;
-      this.modules = data.data.result.user.modules;
-      this.forgot = data.data.result.user.force_change_password;
-      this.data = data.data.result.user;
-      this.authenticated = true;
-      sessionStorage.setItem("user", JSON.stringify(this.user));
-      sessionStorage.setItem("authenticated", true);
-      
-      return data.data.result
+      // this.user = data.data.result.authorization.access_token;
+      // this.modules = data.data.result.user.modules;
+      // this.forgot = data.data.result.user.force_change_password;
+      // this.data = data.data.result.user;
+      // this.authenticated = true;
+      // sessionStorage.setItem("user", JSON.stringify(this.user));
+      // sessionStorage.setItem("authenticated", true);
+      console.log('store', data)
+      return data
   },
+  async register(payload){
+    try {
+      console.log('store', payload)
+      const data = await authRepository.register(payload)
+      return data
+    }catch(error){
+      cosnole.log(error)
+    }
+  },
+
   async logout() {
     try {
       const data = await authRepository.logout()  

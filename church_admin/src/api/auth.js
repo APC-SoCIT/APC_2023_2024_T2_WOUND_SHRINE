@@ -7,8 +7,11 @@ export default {
   otpValidation(params){
     return api.post("/api/v1/otp/verify", params);
   },
+  register(payload) {
+    return api.post('/api/register', payload)
+  },
   login(params) {
-    return api.post("/api/v1/login", params);
+    return api.post("/api/login", params);
   },
   logout() {
     return api.get("/api/v1/logout");
