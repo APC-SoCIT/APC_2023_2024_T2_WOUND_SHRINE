@@ -1,25 +1,5 @@
 <template>
-  <div class="q-pa-md">
-    <q-btn-dropdown label="View" class="bg-white">
-      <q-list link>
-        <q-item clickable @click="changeStatus('all')">
-          <q-item-main>
-            <q-item-tile label>All Requests</q-item-tile>
-          </q-item-main>
-        </q-item>
-        <q-item clickable @click="changeStatus('Approved')">
-          <q-item-main>
-            <q-item-tile label>Approved Requests</q-item-tile>
-          </q-item-main>
-        </q-item>
-        <q-item clickable @click="changeStatus('Pending')">
-          <q-item-main>
-            <q-item-tile label>Pending Requests</q-item-tile>
-          </q-item-main>
-        </q-item>
-      </q-list>
-    </q-btn-dropdown>
-  </div>
+  
   <div>
     <div v-for="index in 5" :key="index" class="q-pa-md row items-start q-gutter-md">
       <q-card class="my-card">
@@ -34,13 +14,14 @@
           <div class="action-word">Word {{ index }}</div>
           <div>
             <q-btn flat label="Edit" color="black" @click="inception = true" />
-            <q-btn flat>cancel</q-btn>
+            <!-- Cancel button triggering a confirmation dialog -->
+            <q-btn flat label="Cancel" color="black" @click="showCancelDialog = true" />
           </div>
         </q-card-actions>
       </q-card>
     </div>
   </div>
-  
+
   <!-- First Dialog Component -->
   <q-dialog v-model="inception" class="custom-dialog" style="max-width: 700px">
     <q-card class="bg-white">
@@ -189,7 +170,24 @@
 
       <q-card-actions align="right" class="text-primary">
         <q-btn flat label="Confirm Edit" @click="secondDialog = true" />
-        <q-btn flat label="Close" @click="inception = false" /> <!-- Close the dialog -->
+        <!-- Cancel button using the provided Quasar component -->
+        <q-btn flat label="Close" @click="cancelAction" />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
+  <!-- Confirmation Dialog for Cancel Action -->
+  <q-dialog v-model="showCancelDialog">
+    <q-card class="bg-warning text-white" style="width: 300px">
+      <q-card-section>
+        <div class="text-h6">Cancel Action</div>
+      </q-card-section>
+      <q-card-section class="q-pt-none">
+        Are you sure you want to cancel?
+      </q-card-section>
+      <q-card-actions align="right" class="bg-white text-warning">
+        <q-btn flat label="Yes" @click="cancelActionConfirmed" v-close-popup />
+        <q-btn flat label="No" @click="showCancelDialog = false" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -220,6 +218,7 @@ export default {
   setup() {
     const inception = ref(false);
     const secondDialog = ref(false);
+    const showCancelDialog = ref(false);
     const motherName = ref('');
     const fatherName = ref('');
     const contactNumber = ref('');
@@ -258,6 +257,17 @@ export default {
       
     };
 
+    const cancelAction = () => {
+      showCancelDialog.value = true;
+      // Add any additional cancel action logic here
+    };
+
+    const cancelActionConfirmed = () => {
+      inception.value = false;
+      showCancelDialog.value = false;
+      // Add any additional logic after cancel confirmation
+    };
+
     const fileUploadFailed = (err) => {
       // Handle file upload failure
       console.error('File upload failed:', err);
@@ -270,6 +280,7 @@ export default {
     return {
       inception,
       secondDialog,
+      showCancelDialog,
       motherName,
       fatherName,
       contactNumber,
@@ -283,13 +294,14 @@ export default {
       files2,
       changeStatus,
       submitForm,
+      cancelAction,
+      cancelActionConfirmed,
       fileUploadFailed,
       counterLabelFn
     };
   },
 };
 </script>
-
 
 <style lang="sass" scoped>
 .my-card
