@@ -16,14 +16,14 @@
       <label style="color: black; font-weight: 600;" class="q-ma-xs">{{ store.userData.email }}</label>
       <q-btn-dropdown flat class="q-mr-xs" size="10px" color="white" text-color="black">
         <q-list>
-          <q-item clickable v-close-popup @click="onItemClick">
+          <!-- <q-item clickable v-close-popup @click="onItemClick">
             <q-item-section>
               <q-item-label>My Profile</q-item-label>
             </q-item-section>
-          </q-item>
+          </q-item> -->
           <q-item clickable v-close-popup @click="logout">
             <q-item-section>
-              <q-item-label>Logout</q-item-label>
+              <q-item-label>Login</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
