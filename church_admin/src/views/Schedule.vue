@@ -1,48 +1,100 @@
 <template>
   <div>
-    <v-sheet
-      class="d-flex"
-      height="54"
-      tile
-    >
-      <v-select
-        v-model="type"
-        :items="types"
-        class="ma-2"
-        label="View Mode"
-        variant="outlined"
-        dense
-        hide-details
-      ></v-select>
-      <v-select
-        v-model="weekday"
-        :items="weekdays"
-        class="ma-2"
-        label="weekdays"
-        variant="outlined"
-        dense
-        hide-details
-      ></v-select>
+    <v-sheet class="d-flex" height="100%" tile>
+      <q-btn @click="openDialog" text-color="white" label="Add New Schedule" />
+      <q-btn-dropdown label="View" color="primary" class="dropdown">
+        <q-list>
+          <q-item clickable v-close-popup @click="onItemClick">
+            <q-item-section>
+              <q-item-label>Scheduled Requests</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-close-popup @click="onItemClick">
+            <q-item-section>
+              <q-item-label>Fr. Maglines</q-item-label>
+            </q-item-section>
+          </q-item>
+          <q-item clickable v-close-popup @click="onItemClick">
+            <q-item-section>
+              <q-item-label>Fr. Jerson</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown>
     </v-sheet>
-    <v-sheet>
-      <v-calendar
-        ref="calendar"
-        v-model="value"
-        :events="events"
-        :view-mode="type"
-        :weekdays="weekday"
-      ></v-calendar>
+    <v-sheet class="d-flex" height="100%" tile>
+      <v-select v-model="type" :items="types" class="ma-2" label="View Mode" variant="outlined" dense hide-details></v-select>
+      <v-select v-model="weekday" :items="weekdays" class="ma-2" label="weekdays" variant="outlined" dense hide-details></v-select>
     </v-sheet>
+    <v-sheet class="calendar">
+      <v-calendar ref="calendar" v-model="value" :events="events" :view-mode="type" :weekdays="weekday"></v-calendar>
+    </v-sheet>
+
+    <q-dialog v-model="dialogVisible">
+      <q-card class="dialog">
+        <q-card-section class="q-dialog-title">
+          <q-card-title class="text-h6">Add New Schedule</q-card-title>
+        </q-card-section>
+        <q-card-section>
+          <q-input v-model="schedule.title" label="Title" />
+
+          <div class="input-wrapper">
+            <div class="label">Start Date</div>
+            <div class="date-picker">
+              <q-input v-model="schedule.startDate" mask="date" outlined dense type="date">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer" />
+                </template>
+              </q-input>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <div class="label">Start Time</div>
+            <div class="time-picker">
+              <q-input v-model="schedule.startTime" mask="time" outlined dense type="time">
+                <template v-slot:append>
+                  <q-icon name="access_time" class="cursor-pointer" />
+                </template>
+              </q-input>
+            </div>
+          </div>
+
+          <div class="input-wrapper">
+            <div class="label">End Date</div>
+            <div class="date-picker">
+              <q-input v-model="schedule.endDate" mask="date" outlined dense type="date">
+                <template v-slot:append>
+                  <q-icon name="event" class="cursor-pointer" />
+                </template>
+              </q-input>
+            </div>
+          </div>
+          <div class="input-wrapper">
+            <div class="label">End Time</div>
+            <div class="time-picker">
+              <q-input v-model="schedule.endTime" mask="time" outlined dense type="time">
+                <template v-slot:append>
+                  <q-icon name="access_time" class="cursor-pointer" />
+                </template>
+              </q-input>
+            </div>
+          </div>
+        </q-card-section>
+        <q-card-actions align="right">
+          <q-btn label="Cancel" color="primary" @click="closeDialog" />
+          <q-btn label="Add" color="positive" @click="saveSchedule" />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
   </div>
 </template>
 
 <script>
-import { useDate } from 'vuetify'
 import { VCalendar } from 'vuetify/labs/VCalendar'
 
 export default {
   components: {
-    VCalendar, 
+    VCalendar,
   },
   data: () => ({
     type: 'month',
@@ -54,51 +106,49 @@ export default {
       { title: 'Mon - Fri', value: [1, 2, 3, 4, 5] },
       { title: 'Mon, Wed, Fri', value: [1, 3, 5] },
     ],
-    value: [new Date()],
+    value: [],
     events: [],
-    colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
-    titles: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
+    dialogVisible: false,
+    schedule: {
+      title: '',
+      startDate: '',
+      startTime: '',
+      endDate: '',
+      endTime: '',
+    },
   }),
-  mounted() {
-    const adapter = useDate()
-    this.getEvents({
-      start: adapter.startOfDay(adapter.startOfMonth(new Date())),
-      end: adapter.endOfDay(adapter.endOfMonth(new Date())),
-    })
-  },
+
   methods: {
-    getEvents({ start, end }) {
-      const events = []
-
-      const min = start
-      const max = end
-      const days = (max.getTime() - min.getTime()) / 86400000
-      const eventCount = this.rnd(days, days + 20)
-
-      for (let i = 0; i < eventCount; i++) {
-        const allDay = this.rnd(0, 3) === 0
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime())
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000))
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000
-        const second = new Date(first.getTime() + secondTimestamp)
-
-        events.push({
-          title: this.titles[this.rnd(0, this.titles.length - 1)],
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          allDay: !allDay,
-        })
-      }
-
-      this.events = events
+    openDialog() {
+      this.dialogVisible = true;
     },
-    getEventColor(event) {
-      return event.color
+    closeDialog() {
+      this.dialogVisible = false;
     },
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a
+    saveSchedule() {
+      this.closeDialog();
     },
   },
-}
+};
 </script>
+
+<style scoped>
+.q-btn {
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  background-color: #ffaa2b;
+  color: black;
+}
+
+.dialog {
+  width: 300px;
+}
+
+.q-dialog-title {
+  background-color: #ffaa2b;
+  color: white;
+}
+
+</style>
+
