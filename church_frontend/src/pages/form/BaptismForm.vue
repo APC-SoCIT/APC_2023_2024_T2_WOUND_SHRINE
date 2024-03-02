@@ -1,6 +1,6 @@
 <template>
   <div class="google-form">
-    <q-form @submit.prevent="submitForm">
+    <q-form @submit.prevent="onSubmit">
       <div class="form-content">
         <!-- Mothers Name -->
         <div class="input-wrapper">
@@ -146,6 +146,9 @@
 
 <script>
 import { ref } from 'vue'
+import { mapActions } from "pinia";
+import { useBaptismStore } from "@/stores/baptism";
+
 
 export default {
   data() {
@@ -159,31 +162,56 @@ export default {
       date: ref('2019/02/01'),
       type: '',
       options: [
-        { label: 'Adult', value: 'op1' },
-        { label: 'Child', value: 'op2' },
+        { label: 'Adult', value: 'Adult' },
+        { label: 'Child', value: 'Child' },
       ],
       files1: [],
       files2: []
     };
   },
+
   methods: {
-    submitForm() {
-      // Handle form submission
-      console.log('Form submitted:', {
-        motherName: this.motherName,
-        fatherName: this.fatherName,
-        contactNumber: this.contactNumber,
+    ...mapActions(useBaptismStore,["create"]),
+
+    async onSubmit () {
+      let payload = {
+        user_id: '1',
+        mother_name: this.motherName,
+        father_name: this.fatherName,
+        schedule: this.date,
+        contact_number: this.contactNumber,
         email: this.email,
-        childName: this.childName,
-        principalSponsors: this.principalSponsors,
-        preferredDate: this.preferredDate,
-        preferredTime: this.preferredTime,
-        type: this.type,
-        files1: this.files1,
-        files2: this.files2
-      });
-      this.$emit('formSubmitted');
+        child_name: this.childName,
+        email: this.email,
+        sponsors: this.principalSponsors,
+        type: this.type
+      }
+      console.log(payload)
+      const result = await this.create(payload)
+      console.log(result.message)
+      if(result.message === 'Success.'){
+        console.log
+        this.$emit('formSubmitted');
+      }
     },
+    
+    // submitForm() {
+    //   // Handle form submission
+    //   console.log('Form submitted:', {
+    //     motherName: this.motherName,
+    //     fatherName: this.fatherName,
+    //     contactNumber: this.contactNumber,
+    //     email: this.email,
+    //     childName: this.childName,
+    //     principalSponsors: this.principalSponsors,
+    //     preferredDate: this.preferredDate,
+    //     preferredTime: this.preferredTime,
+    //     type: this.type,
+    //     files1: this.files1,
+    //     files2: this.files2
+    //   });
+    //   this.$emit('formSubmitted');
+    // },
     fileUploadFailed(err) {
       // Handle file upload failure
       console.error('File upload failed:', err);
