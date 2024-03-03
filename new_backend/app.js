@@ -11,9 +11,12 @@ db.connect()
   .then(data => data)
   .catch(error => error);
 
+  const allowedOrigins = [process.env.CLIENT_URL, process.env.ADMIN_URL];
+
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL,
+    origin: allowedOrigins,
     credentials: true
   })
 );
@@ -21,15 +24,14 @@ app.use(
 app.use(helmet());
 
 // for parsing application/json
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
 
 // for parsing application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // setup success/error handler
 app.use(function(req, res, next) {
   res.success = function(response) {
-    // console.log('Success', response);
     logger.log('info', `[${res.req.method}][${req.originalUrl}]`, response);
     res.status(response.status).json(response.body);
   };
@@ -44,24 +46,16 @@ app.use(function(req, res, next) {
 });
 
 // consolidated endpoints for version one
-
 app.use('/', routes);
 
-//Handle production
-if(process.env.NODE_ENV === 'production'){
+// Handle production
+if (process.env.NODE_ENV === 'production') {
   app.use(express.static(__dirname + '/public/'));
-  app.get(/.*/, (req, res)=>res.sendFile(__dirname + '/public/index.html'))
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'))
 }
 
 app.get('.*', (req, res) => {
   res.error(response(ENDPOINT_NOT_FOUND));
 });
-
-/**
- * Remove this code later.
- */
-
-// const mail = require('./src/core/mail');
-// mail.createTransport();
 
 module.exports = app;

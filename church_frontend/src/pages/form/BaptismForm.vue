@@ -101,7 +101,7 @@
         <div class="input-wrapper">
           <div class="label">Marriage Certificate</div>
           <q-file
-            v-model="files1"
+            v-model="marriage_certificate"
             label="Pick files"
             filled
             counter
@@ -118,12 +118,12 @@
         <div class="input-wrapper">
           <div class="label">Birth Certificate</div>
           <q-file
-            v-model="files2"
+            v-model="birth_certificate"
             label="Pick files"
             filled
             counter
             :counter-label="counterLabelFn"
-            max-files=""
+            max-files="1"
             multiple
           >
             <template v-slot:prepend>
@@ -153,6 +153,7 @@ import { useBaptismStore } from "@/stores/baptism";
 export default {
   data() {
     return {
+      user_id: sessionStorage.getItem("user_id"),
       motherName: '',
       fatherName: '',
       contactNumber: '',
@@ -165,36 +166,48 @@ export default {
         { label: 'Adult', value: 'Adult' },
         { label: 'Child', value: 'Child' },
       ],
-      files1: [],
-      files2: []
+      marriage_certificate: [],
+      birth_certificate: []
     };
   },
 
   methods: {
     ...mapActions(useBaptismStore,["create"]),
 
-    async onSubmit () {
-      let payload = {
-        user_id: '1',
-        mother_name: this.motherName,
-        father_name: this.fatherName,
-        schedule: this.date,
-        contact_number: this.contactNumber,
-        email: this.email,
-        child_name: this.childName,
-        email: this.email,
-        sponsors: this.principalSponsors,
-        type: this.type
-      }
-      console.log(payload)
-      const result = await this.create(payload)
-      console.log(result.message)
-      if(result.message === 'Success.'){
-        console.log
-        this.$emit('formSubmitted');
-      }
-    },
-    
+    async onSubmit() {
+  let payload = {
+    user_id: this.user_id,
+    mother_name: this.motherName,
+    father_name: this.fatherName,
+    schedule: this.date,
+    contact_number: this.contactNumber,
+    email: this.email,
+    child_name: this.childName,
+    sponsors: this.principalSponsors,
+    type: this.type,
+    marriage_certificate: await this.readFileAsBase64(this.marriage_certificate[0]),
+    birth_certificate: await this.readFileAsBase64(this.birth_certificate[0])
+  };
+
+  console.log(payload);
+  const result = await this.create(payload);
+  console.log(result.message);
+  if (result.message === 'Success.') {
+    this.$emit('formSubmitted');
+  }
+}, 
+
+readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result.split(',')[1]); // Extracting base64 data from result
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  },
+
     // submitForm() {
     //   // Handle form submission
     //   console.log('Form submitted:', {

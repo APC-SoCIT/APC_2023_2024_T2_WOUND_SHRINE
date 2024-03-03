@@ -107,8 +107,10 @@ const formData = reactive({
 async function onSubmit(){
   // loading.value = true
   console.log(formData)
+  const { confirmPassword, ...formDataWithoutConfirmPassword } = formData;
+
   try {
-    const data = await authStore.register(formData)
+    const data = await authStore.register(formDataWithoutConfirmPassword)
     router.push('/login')
     loading.value = false
   } catch (error) {

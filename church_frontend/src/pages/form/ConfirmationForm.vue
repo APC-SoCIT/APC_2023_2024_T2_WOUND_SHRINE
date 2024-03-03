@@ -7,7 +7,7 @@
           <div class="label">Name</div>
           <q-input
             filled
-            v-model="girlName"
+            v-model="Name"
             dense
             outlined
             required
@@ -18,7 +18,7 @@
           <div class="label">Sponsor Name</div>
           <q-input
             filled
-            v-model="sponsorName"
+            v-model="sponsor"
             dense
             outlined
             required
@@ -150,12 +150,14 @@
 
 <script>
 import { ref } from 'vue'
+import { mapActions } from "pinia";
+import { useConfirmationStore } from "@/stores/confirmation";
 
 export default {
   data() {
     return {
-      girlName: '',
-      sponsorName: '', // Added sponsorName field
+      Name: '',
+      sponsor: '', // Added sponsorName field
       contactNumber: '',
       email: '',
       date: ref('2019/02/01'),
@@ -166,21 +168,26 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      // Handle form submission
-      console.log('Form submitted:', {
-        girlName: this.girlName,
-        sponsorName: this.sponsorName, // Included sponsorName
-        contactNumber: this.contactNumber,
-        email: this.email,
-        preferredDate: this.date,
-        preferredTime: this.time,
-        certificateOfNoMarriage: this.files1,
-        additionalDocument1: this.files2,
-        additionalDocument2: this.files3
-      });
-      this.$emit('formSubmitted');
-    },
+    ...mapActions(useConfirmationStore,["create"]),
+
+    async submitForm() {
+  let payload = {
+    user_id: sessionStorage.getItem("user_id"),
+    Name: this.Name,
+    ContactNumber: this.contactNumber,
+    preferred_date: this.date,
+    preferred_time: this.time,
+    Email: this.email,
+    sponsor: this.sponsor,
+  };
+
+  console.log(payload);
+  const result = await this.create(payload);
+  console.log(result.message);
+  if (result.message === 'Success.') {
+    this.$emit('formSubmitted');
+  }
+}, 
     fileUploadFailed(err) {
       // Handle file upload failure
       console.error('File upload failed:', err);

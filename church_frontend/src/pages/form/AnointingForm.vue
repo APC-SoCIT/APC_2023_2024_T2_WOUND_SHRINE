@@ -105,6 +105,8 @@
 
 <script>
 import { ref } from 'vue'
+import { mapActions } from "pinia";
+import { useAnointingStore } from '../../stores/anointing';
 
 export default {
   data() {
@@ -118,18 +120,25 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      // Handle form submission
-      console.log('Form submitted:', {
-        girlName: this.girlName,
-        contactNumber: this.contactNumber,
-        email: this.email,
-        preferredDate: this.date,
-        preferredTime: this.time,
-        certificateOfNoMarriage: this.files1
-      });
-      this.$emit('formSubmitted');
-    },
+    ...mapActions(useAnointingStore,["create"]),
+
+async submitForm() {
+let payload = {
+user_id: sessionStorage.getItem("user_id"),
+name: this.name,
+contact_number: this.contactNumber,
+preferred_date: this.date,
+preferred_time: this.time,
+email: this.email,
+};
+
+console.log(payload);
+const result = await this.create(payload);
+console.log(result.message);
+if (result.message === 'Success.') {
+this.$emit('formSubmitted');
+}
+}, 
     fileUploadFailed(err) {
       // Handle file upload failure
       console.error('File upload failed:', err);

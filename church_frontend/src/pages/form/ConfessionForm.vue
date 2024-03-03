@@ -7,7 +7,7 @@
           <div class="label">Name</div>
           <q-input
             filled
-            v-model="girlName"
+            v-model="name"
             dense
             outlined
             required
@@ -105,11 +105,13 @@
 
 <script>
 import { ref } from 'vue'
+import { mapActions } from "pinia";
+import { useConfessionStore } from "@/stores/confession";
 
 export default {
   data() {
     return {
-      girlName: '',
+      name: '',
       contactNumber: '',
       email: '',
       date: ref('2019/02/01'),
@@ -118,18 +120,26 @@ export default {
     };
   },
   methods: {
-    submitForm() {
-      // Handle form submission
-      console.log('Form submitted:', {
-        girlName: this.girlName,
-        contactNumber: this.contactNumber,
-        email: this.email,
-        preferredDate: this.date,
-        preferredTime: this.time,
-        certificateOfNoMarriage: this.files1
-      });
-      this.$emit('formSubmitted');
-    },
+
+    ...mapActions(useConfessionStore,["create"]),
+
+    async submitForm() {
+  let payload = {
+    user_id: sessionStorage.getItem("user_id"),
+    name: this.name,
+    contact_number: this.contactNumber,
+    preferred_date: this.date,
+    preferred_time: this.time,
+    email: this.email,
+  };
+
+  console.log(payload);
+  const result = await this.create(payload);
+  console.log(result.message);
+  if (result.message === 'Success.') {
+    this.$emit('formSubmitted');
+  }
+}, 
     fileUploadFailed(err) {
       // Handle file upload failure
       console.error('File upload failed:', err);

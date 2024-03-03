@@ -7,7 +7,7 @@
           <div class="label">Wife</div>
           <q-input
             filled
-            v-model="motherName"
+            v-model="wife_name"
             dense
             outlined
             required
@@ -18,7 +18,7 @@
           <div class="label">Husband</div>
           <q-input
             filled
-            v-model="fatherName"
+            v-model="father_name"
             dense
             outlined
             required
@@ -29,7 +29,7 @@
           <div class="label">Contact Number</div>
           <q-input
             filled
-            v-model="contactNumber"
+            v-model="contact_number"
             outlined
             required
             :rules="[ val => val && val.length === 11 || 'Please type your number']"
@@ -52,7 +52,7 @@
           <div class="label">address</div>
           <q-input
             filled
-            v-model="childName"
+            v-model="address"
             dense
             outlined
             required
@@ -63,7 +63,7 @@
           <div class="label">List of Principal Sponsors (Ninong/Ninang)</div>
           <q-input
             filled
-            v-model="principalSponsors"
+            v-model="sponsors"
             dense
             outlined
             required
@@ -111,7 +111,24 @@
         <div class="input-wrapper">
           <div class="label">Confirmation Certificate</div>
           <q-file
-            v-model="files1"
+            v-model="confirmation_certificate"
+            label="Pick files"
+            filled
+            counter
+            :counter-label="counterLabelFn"
+            max-files="4"
+            multiple
+          >
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
+        </div>
+        <!-- Second File Input -->
+        <div class="input-wrapper">
+          <div class="label">Baptismal Certificate</div>
+          <q-file
+            v-model="baptismal_certificate"
             label="Pick files"
             filled
             counter
@@ -124,33 +141,16 @@
             </template>
           </q-file>
         </div>
-        <!-- Second File Input -->
-        <div class="input-wrapper">
-          <div class="label">Baptismal Certificate</div>
-          <q-file
-            v-model="files2"
-            label="Pick files"
-            filled
-            counter
-            :counter-label="counterLabelFn"
-            max-files=""
-            multiple
-          >
-            <template v-slot:prepend>
-              <q-icon name="attach_file" />
-            </template>
-          </q-file>
-        </div>
         <!-- Third File Input -->
         <div class="input-wrapper">
           <div class="label">Birth Certificate</div>
           <q-file
-            v-model="files3"
+            v-model="psa_birth_certificate"
             label="Pick files"
             filled
             counter
             :counter-label="counterLabelFn"
-            max-files=""
+            max-files="1"
             multiple
           >
             <template v-slot:prepend>
@@ -162,12 +162,12 @@
         <div class="input-wrapper">
           <div class="label">Certificate of No Marriage</div>
           <q-file
-            v-model="files4"
+            v-model="psa_certificate_of_no_marriage"
             label="Pick files"
             filled
             counter
             :counter-label="counterLabelFn"
-            max-files=""
+            max-files="1"
             multiple
           >
             <template v-slot:prepend>
@@ -189,43 +189,64 @@
 
 <script>
 import { ref } from 'vue'
+import { mapActions } from 'pinia';
+import { useMarriageStore } from "@/stores/marriage";
 
 export default {
   data() {
     return {
-      motherName: '',
-      fatherName: '',
-      contactNumber: '',
+      wife_name: '',
+      father_name: '',
+      contact_number: '',
       email: '',
-      childName: '',
-      principalSponsors: '',
+      address:'',
+      sponsors: '',
       date: ref('2019/02/01'),
       time: ref('12:00'), // Default time value
-      files1: [],
-      files2: [],
-      files3: [],
-      files4: []
+      confirmation_certificate: [],
+      baptismal_certificate: [],
+      psa_birth_certificate: [],
+      psa_certificate_of_no_marriage: []
     };
   },
   methods: {
-    submitForm() {
+    ...mapActions(useMarriageStore, ["create"]),
+
+    async submitForm() {
       // Handle form submission
-      console.log('Form submitted:', {
-        motherName: this.motherName,
-        fatherName: this.fatherName,
-        contactNumber: this.contactNumber,
+      let payload = {
+        user_id: sessionStorage.getItem("user_id"),
+        wife_name: this.wife_name,
+        husband_name: this.husband_name,
+        contact_number: this.contact_number,
         email: this.email,
-        childName: this.childName,
-        principalSponsors: this.principalSponsors,
-        preferredDate: this.date,
-        preferredTime: this.time,
-        files1: this.files1,
-        files2: this.files2,
-        files3: this.files3,
-        files4: this.files4
-      });
-      this.$emit('formSubmitted');
+        address: this.address,
+        sponsors: this.sponsors,
+        preferred_date: this.preferred_date,
+        preferred_time: this.preferred_time,
+        confirmation_certificate: await this.readFileAsBase64(this.confirmation_certificate[0]),
+        // baptismal_certificate: await this.readFileAsBase64(this.baptismal_certificate[0]),
+        // psa_birth_certificate: await this.readFileAsBase64(this.psa_birth_certificate[0]),
+        // psa_certificate_of_no_marriage: await this.readFileAsBase64(this.psa_certificate_of_no_marriage[0])
+      }
+      const result = await this.create(payload);
+      console.log(result.message);
+      if (result.message === 'Success.') {
+        this.$emit('formSubmitted');
+      }
     },
+
+    readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result.split(',')[1]); // Extracting base64 data from result
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  },
+
     fileUploadFailed(err) {
       // Handle file upload failure
       console.error('File upload failed:', err);

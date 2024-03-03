@@ -5,7 +5,7 @@ const { SchemaValidator } = require('../core/validator');
 const userSchema = require('../validators/user-schema');
 
 router.post(
-  '/',
+  '/register',
   //SchemaValidator().setSchema(userSchema).scan,
 
   // Needs Admin Authentication for User Creation?

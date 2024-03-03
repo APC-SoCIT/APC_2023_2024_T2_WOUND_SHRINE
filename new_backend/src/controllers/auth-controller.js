@@ -12,6 +12,18 @@ module.exports.login = async (req, res) => {
   }
 };
 
+module.exports.register = (req, res) => {
+  const {username, email, password} = req.body
+  payload = {username, email, password}
+  User.create(payload)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
 module.exports.loginAdmin = (req, res) => {
   const { email, password } = req.body;
   /**

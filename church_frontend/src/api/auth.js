@@ -8,10 +8,10 @@ export default {
     return api.post("/api/v1/otp/verify", params);
   },
   register(payload) {
-    return api.post('/api/register', payload)
+    return api.post('/user/register', payload)
   },
   login(params) {
-    return api.post("/api/login", params);
+    return api.post("/user/login", params);
   },
   logout() {
     return api.get("/api/v1/logout");

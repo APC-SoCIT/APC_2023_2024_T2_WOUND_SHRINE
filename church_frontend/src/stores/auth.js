@@ -52,7 +52,8 @@ const actions = {
       // this.authenticated = true;
       // sessionStorage.setItem("user", JSON.stringify(this.user));
       // sessionStorage.setItem("authenticated", true);
-      console.log('store', data)
+      console.log('store', data.data.data[0])
+      sessionStorage.setItem('user_id', data.data.data[0].id)
       return data
   },
   async register(payload){

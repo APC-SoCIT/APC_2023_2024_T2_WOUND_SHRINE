@@ -4,32 +4,28 @@
 
     <!-- Show the documents grid if no document is selected -->
     <div v-if="!selectedDocument" class="documents-grid">
-      <div 
-        v-for="doc in documents" 
-        :key="doc.title"
-        class="document-card"
-        @click="selectDocument(doc)"
-      >
+      <div v-for="doc in documents" :key="doc.title" class="document-card" @click="selectDocument(doc)">
         <h4>{{ doc.title }}</h4>
         <p>{{ doc.status }}</p>
       </div>
     </div>
-    
+
     <!-- Document Request Form -->
-    <div v-if="selectedDocument && !showPaymentForm && !showConfirmation" class="form-box"> <!-- Add this div with the form-box class -->
+    <div v-if="selectedDocument && !showPaymentForm && !showConfirmation" class="form-box">
+      <!-- Add this div with the form-box class -->
       <q-form class="google-form">
         <!-- Back button with the icon and text "GO BACK" -->
         <q-btn @click="selectedDocument = null" class="back-button" color="primary">
           <q-icon name="arrow_back"></q-icon> GO BACK
         </q-btn>
-        
+
         <!-- Displaying the document request form -->
         <q-card class="request-content">
           <q-card-section>
             <div class="request-heading">
               <h3>Requesting {{ selectedDocument.title }}</h3>
             </div>
-            <q-form @submit="submitRequest">
+            <q-form @submit="onSubmit">
               <div class="form-content">
                 <div class="input-wrapper">
                   <div class="label">Name</div>
@@ -86,13 +82,19 @@
 </template>
 
 <script>
+import { mapActions } from "pinia";
+import { useBaptismalCertificateStore } from "@/stores/baptismal-certificate";
+import { useMarriageCertificateStore } from "@/stores/marriage-certificate";
+import { useMassCardStore } from "@/stores/mass-cards";
+
+
 export default {
   data() {
     return {
       documents: [
-        { title: "Marriage Certificate"},
-        { title: "Baptismal Cerificate"},
-        { title: "Mass Card"}
+        { title: "Marriage Certificate" },
+        { title: "Baptismal Certificate" },
+        { title: "Mass Card" }
       ],
       selectedDocument: null,
       name: '',
@@ -111,13 +113,59 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useBaptismalCertificateStore, ["Baptismalcreate"]),
+    ...mapActions(useMarriageCertificateStore, ["Marriagecreate"]),
+    ...mapActions(useMassCardStore, ["Masscardcreate"]),
+
+
+
     selectDocument(doc) {
       this.selectedDocument = doc;
+    },
+   async onSubmit() {
+      let payload = {
+        user_id: sessionStorage.getItem("user_id"),
+        name: this.name,
+        number: this.number,
+        email: this.email,
+        address: this.address,
+        payment_type: this.paymentOption,
+        shipping_type: this.shippingOption
+      }
+      if (this.selectedDocument.title === "Marriage Certificate") {
+        const result = await this.Marriagecreate(payload)
+        if (result.message === 'Success.') {
+          this.showConfirmation = true;
+        }
+      } else if (this.selectedDocument.title === "Baptismal Certificate") {
+        const result = await this.Baptismalcreate(payload)
+        console.log('Baptismal')
+        if (result.message === 'Success.') {
+          this.resetForm()
+          this.showConfirmation = true;
+        }
+      } else if (this.selectedDocument.title === "Mass Card") {
+        const result = await this.Masscardcreate(payload)
+        if (result.message === 'Success.') {
+          this.resetForm()
+          this.showConfirmation = true;
+        }
+      }
     },
     submitRequest() {
       console.log('Form submitted:', this.name, this.email, this.address);
       this.showConfirmation = true;
       // Reset form fields
+      this.name = '';
+      this.number = '';
+      this.email = '';
+      this.address = '';
+      this.shippingOption = '';
+      this.paymentOption = '';
+      this.paymentChannel = '';
+      this.fee = '';
+    },
+    resetForm(){
       this.name = '';
       this.number = '';
       this.email = '';
@@ -146,7 +194,8 @@ export default {
   text-align: center;
   color: #ffaa2b;
   margin-top: 30px;
-  margin-bottom: 0; /* Add this line to remove bottom margin */
+  margin-bottom: 0;
+  /* Add this line to remove bottom margin */
 }
 
 h2 {
@@ -157,9 +206,12 @@ h2 {
 .documents-grid {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* Centering the items horizontally */
-  padding-left: 20px;      /* Adding space on the left */
-  padding-right: 20px;     /* Adding space on the right */
+  justify-content: center;
+  /* Centering the items horizontally */
+  padding-left: 20px;
+  /* Adding space on the left */
+  padding-right: 20px;
+  /* Adding space on the right */
   margin-top: 50px;
 }
 
@@ -175,8 +227,10 @@ h2 {
   margin-bottom: 50px;
   margin-left: 20px;
   margin-right: 20px;
-  width: 400px;  /* You can adjust this value based on your preference */
-  height: 250px; /* You can adjust this value based on your preference */
+  width: 400px;
+  /* You can adjust this value based on your preference */
+  height: 250px;
+  /* You can adjust this value based on your preference */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -232,7 +286,8 @@ h2 {
 .form-box {
   background-color: #f0ebf8;
   padding: 20px;
-  margin: auto; /* Center horizontally and vertically */
+  margin: auto;
+  /* Center horizontally and vertically */
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 2px rgba(0, 0, 0, 0.06);
   width: 800px;
