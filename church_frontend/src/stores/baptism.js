@@ -13,5 +13,12 @@ export const useBaptismStore = defineStore('baptism', {
             return response.data
             
         },
+
+        async getAll() {
+            const response = await baptism.getAll()
+            console.log(response, 'res')
+            return response.data
+            
+        },
     }
 })
