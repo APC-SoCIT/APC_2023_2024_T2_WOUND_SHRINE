@@ -52,7 +52,7 @@
     padding: 10px 15px;
   }
   #auth-view {
-    background-image: url("/img/registerBG.png");
+    background-image: url("/img/fivewounds.png");
     background-size: 100% 100%;
     height: 100vh;
     display: flex;
