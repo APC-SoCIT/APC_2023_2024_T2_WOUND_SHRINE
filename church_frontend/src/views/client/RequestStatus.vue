@@ -1,350 +1,114 @@
 <template>
-  
   <div>
-    <div v-for="index in 5" :key="index" class="q-pa-md row items-start q-gutter-md">
-      <q-card class="my-card">
-        <q-card-section class="bg-custom text-white">
-          <div class="text-h6">Our Changing Planet</div>
-          <div class="text-subtitle2">by John Doe</div>
-        </q-card-section>
-  
-        <q-separator />
-  
-        <q-card-actions class="action-container" align="right">
-          <div class="action-word">Word {{ index }}</div>
-          <div>
-            <q-btn flat label="Edit" color="black" @click="inception = true" />
-            <!-- Cancel button triggering a confirmation dialog -->
-            <q-btn flat label="Cancel" color="black" @click="showCancelDialog = true" />
-          </div>
-        </q-card-actions>
-      </q-card>
-    </div>
+    <q-card class="q-pa-md">
+      <q-btn-dropdown label="View" class="bg-white">
+        <q-list link>
+          <q-item clickable @click="changeStatus('Baptism')">
+            <q-item-main>
+              <q-item-tile label>Baptism</q-item-tile>
+            </q-item-main>
+          </q-item>
+          <q-item clickable @click="changeStatus('Marriage')">
+            <q-item-main>
+              <q-item-tile label>Marriage</q-item-tile>
+            </q-item-main>
+          </q-item>
+          <q-item clickable @click="changeStatus('Confession')">
+            <q-item-main>
+              <q-item-tile label>Confession</q-item-tile>
+            </q-item-main>
+          </q-item>
+          <q-item clickable @click="changeStatus('Confirmation')">
+            <q-item-main>
+              <q-item-tile label>Confirmation</q-item-tile>
+            </q-item-main>
+          </q-item>
+          <q-item clickable @click="changeStatus('House Blessing')">
+            <q-item-main>
+              <q-item-tile label>House Blessing</q-item-tile>
+            </q-item-main>
+          </q-item>
+          <q-item clickable @click="changeStatus('Anointing of the Sick')">
+            <q-item-main>
+              <q-item-tile label>Anointing of the sick</q-item-tile>
+            </q-item-main>
+          </q-item>
+        </q-list>
+      </q-btn-dropdown>
+
+      <q-table
+        table-class="bg-white text-black"
+        card-class="bg-white text-black"
+        table-header-class="text-black"
+        flat
+        bordered
+        :title="selectedStatus === 'all' ? 'Baptism Requests' : `${selectedStatus} Requests`"
+        :rows="filteredRows"
+        :columns="columns"
+        row-key="memberId"
+      >
+        <template v-slot:body-cell-details="props">
+          <q-td :props="props">
+            <ViewFullBaptism :formData="props.row" />
+          </q-td>
+        </template>
+      </q-table>
+    </q-card>
   </div>
-
-  <!-- First Dialog Component -->
-  <q-dialog v-model="inception" class="custom-dialog" style="max-width: 700px">
-    <q-card class="bg-white">
-      <q-card-section>
-        <div class="text-h6">Edit Form</div>
-      </q-card-section>
-
-      <q-card-section class="q-pt-none">
-  
-      <div class="google-form">
-      <q-form @submit.prevent="submitForm">
-        <div class="form-content">
-          <!-- Mothers Name -->
-          <div class="input-wrapper">
-            <div class="label">Mother's Name</div>
-            <q-input
-              filled
-              v-model="motherName"
-              dense
-              outlined
-              required
-            />
-          </div>
-          <!-- Fathers Name -->
-          <div class="input-wrapper">
-            <div class="label">Father's Name</div>
-            <q-input
-              filled
-              v-model="fatherName"
-              dense
-              outlined
-              required
-            />
-          </div>
-          <!-- Name of Child -->
-          <div class="input-wrapper">
-            <div class="label">Name of Child</div>
-            <q-input
-              filled
-              v-model="childName"
-              dense
-              outlined
-              required
-            />
-          </div>
-          <!-- Contact Number -->
-          <div class="input-wrapper">
-            <div class="label">Contact Number</div>
-            <q-input
-              filled
-              v-model="contactNumber"
-              outlined
-              required
-              :rules="[ val => val && val.length === 11 || 'Please type your number']"
-            />
-          </div>
-          <!-- Email -->
-          <div class="input-wrapper">
-            <div class="label">Email</div>
-            <q-input
-              filled
-              v-model="email"
-              dense
-              outlined
-              required
-              type="email"
-            />
-          </div>
-          <!-- List of Principal Sponsors -->
-          <div class="input-wrapper">
-            <div class="label">List of Principal Sponsors (Ninong/Ninang)</div>
-            <q-input
-              filled
-              v-model="principalSponsors"
-              dense
-              outlined
-              required
-            />
-          </div>
-          <!-- Preferred Date/Time -->
-          <div class="input-wrapper">
-            <div class="label">Preferred Date/Time</div>
-            <div class="date-picker">
-              <q-input filled v-model="date" mask="date">
-                <template v-slot:append>
-                  <q-icon name="event" class="cursor-pointer">
-                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                      <q-date v-model="date">
-                        <div class="row items-center justify-end">
-                          <q-btn v-close-popup label="Close" color="primary" flat />
-                        </div>
-                      </q-date>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div>
-          </div>
-          <!-- Type -->
-          <div class="input-wrapper">
-            <div class="label">Type</div>
-            <q-option-group
-              v-model="type"
-              :options="options"
-              class="left-aligned"
-            />
-          </div>
-          <!-- First File Input -->
-          <div class="input-wrapper">
-            <div class="label">Marriage Certificate</div>
-            <q-file
-              v-model="files1"
-              label="Pick files"
-              filled
-              counter
-              :counter-label="counterLabelFn"
-              max-files="1"
-              multiple
-            >
-              <template v-slot:prepend>
-                <q-icon name="attach_file" />
-              </template>
-            </q-file>
-          </div>
-          <!-- Second File Input -->
-          <div class="input-wrapper">
-            <div class="label">Birth Certificate</div>
-            <q-file
-              v-model="files2"
-              label="Pick files"
-              filled
-              counter
-              :counter-label="counterLabelFn"
-              max-files=""
-              multiple
-            >
-              <template v-slot:prepend>
-                <q-icon name="attach_file" />
-              </template>
-            </q-file>
-          </div>
-        </div>
-      </q-form>
-    </div>
-    </q-card-section>
-
-      <q-card-actions align="right" class="text-primary">
-        <q-btn flat label="Confirm Edit" @click="secondDialog = true" />
-        <!-- Cancel button using the provided Quasar component -->
-        <q-btn flat label="Close" @click="cancelAction" />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
-
-  <!-- Confirmation Dialog for Cancel Action -->
-  <q-dialog v-model="showCancelDialog">
-    <q-card class="bg-warning text-white" style="width: 300px">
-      <q-card-section>
-        <div class="text-h6">Cancel Action</div>
-      </q-card-section>
-      <q-card-section class="q-pt-none">
-        Are you sure you want to cancel?
-      </q-card-section>
-      <q-card-actions align="right" class="bg-white text-warning">
-        <q-btn flat label="Yes" @click="cancelActionConfirmed" v-close-popup />
-        <q-btn flat label="No" @click="showCancelDialog = false" v-close-popup />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
-
-  <!-- Second Dialog Component -->
-  <q-dialog v-model="secondDialog">
-    <q-card class="bg-teal text-white" style="width: 300px">
-      <q-card-section>
-        <div class="text-h6">Persistent</div>
-      </q-card-section>
-
-      <q-card-section class="q-pt-none">
-        Are you sure you want to submit the edited form?
-      </q-card-section>
-
-      <q-card-actions align="right" class="bg-white text-teal">
-        <q-btn flat label="YES" v-close-popup />
-        <q-btn flat label="NO" v-close-popup />
-      </q-card-actions>
-    </q-card>
-  </q-dialog>
 </template>
 
-<script>
-import { ref } from 'vue';
+<script setup>
+import ViewFullBaptism from '@/views/detailview/ViewFullBaptism.vue';
+import { ref, computed } from 'vue';
 
-export default {
-  setup() {
-    const inception = ref(false);
-    const secondDialog = ref(false);
-    const showCancelDialog = ref(false);
-    const motherName = ref('');
-    const fatherName = ref('');
-    const contactNumber = ref('');
-    const email = ref('');
-    const childName = ref('');
-    const principalSponsors = ref('');
-    const date = ref('2019/02/01');
-    const type = ref('');
-    const options = [
-      { label: 'Adult', value: 'op1' },
-      { label: 'Child', value: 'op2' },
-    ];
-    const files1 = ref([]);
-    const files2 = ref([]);
+const columns = [
+  { name: 'memberId', label: 'Member ID', align: 'left', field: 'memberId', sortable: true },
+  { name: 'name', label: 'Name', align: 'left', field: 'name', sortable: true },
+  { name: 'dateOfRequest', label: 'Date of Request', align: 'center', field: 'dateOfRequest', sortable: true },
+  { name: 'timeOfRequest', label: 'Time of Request', align: 'center', field: 'timeOfRequest', sortable: true },
+  { name: 'status', label: 'Services', align: 'center', field: 'status', sortable: true },
+  { name: 'details', label: 'Details', align: 'center' },
+];
 
-    const changeStatus = () => {
-      // Add your changeStatus function logic here
-    };
-
-    const submitForm = () => {
-      // Handle form submission
-      console.log('Form submitted:', {
-        motherName: motherName.value,
-        fatherName: fatherName.value,
-        contactNumber: contactNumber.value,
-        email: email.value,
-        childName: childName.value,
-        principalSponsors: principalSponsors.value,
-        preferredDate: date.value,
-        type: type.value,
-        files1: files1.value,
-        files2: files2.value
-      });
-      secondDialog.value = false; // Close the second dialog
-      inception.value = false; // Close the first dialog
-      
-    };
-
-    const cancelAction = () => {
-      showCancelDialog.value = true;
-      // Add any additional cancel action logic here
-    };
-
-    const cancelActionConfirmed = () => {
-      inception.value = false;
-      showCancelDialog.value = false;
-      // Add any additional logic after cancel confirmation
-    };
-
-    const fileUploadFailed = (err) => {
-      // Handle file upload failure
-      console.error('File upload failed:', err);
-    };
-
-    const counterLabelFn = ({ totalSize, filesNumber, maxFiles }) => {
-      return `${filesNumber} files of ${maxFiles} | ${totalSize}`
-    };
-
-    return {
-      inception,
-      secondDialog,
-      showCancelDialog,
-      motherName,
-      fatherName,
-      contactNumber,
-      email,
-      childName,
-      principalSponsors,
-      date,
-      type,
-      options,
-      files1,
-      files2,
-      changeStatus,
-      submitForm,
-      cancelAction,
-      cancelActionConfirmed,
-      fileUploadFailed,
-      counterLabelFn
-    };
+const rows = [
+  {
+    memberId: 12345,
+    name: 'Jarvis Carpo',
+    dateOfRequest: '2024-02-21',
+    timeOfRequest: '12:30 PM',
+    status: 'Baptism',
   },
+  {
+    memberId: 67890,
+    name: 'Kim Altea',
+    dateOfRequest: '2024-02-20',
+    timeOfRequest: '03:45 PM',
+    status: 'Baptism',
+  },
+  // Add more rows for different statuses here
+];
+
+const selectedStatus = ref('all');
+
+const filteredRows = computed(() => {
+  if (selectedStatus.value === 'all') {
+    return rows;
+  } else {
+    return rows.filter((row) => row.status === selectedStatus.value);
+  }
+});
+
+const changeStatus = (status) => {
+  selectedStatus.value = status;
 };
 </script>
 
-<style lang="sass" scoped>
-.my-card
-  width: 1000%
-  max-width: 1000px
-  margin: auto
-  margin-top: 20px
-
-.action-container
-  display: flex
-  justify-content: space-between
-  align-items: center
-
-.action-word
-  margin-right: 10px
-
-.bg-custom
-  background-color: #ffaa2b
-
-.custom-dialog .q-dialog__inner 
-    max-width: 700px !important
-
-.google-form 
-    font-family: Arial, sans-serif
-    background-color: white
-    padding: 20px
-    border-radius: 5px
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
-    width: 500px
-    text-align: center
-    margin: 0 auto
-    
-    
-.form-content 
-    max-width: 400px
-    margin: auto
-  
-.label 
-    font-weight: bold
-    text-align: left
-    
-.left-aligned
-    text-align: left
-    
-    
+<style scoped>
+.q-btn-dropdown {
+  margin-bottom: 10px;
+}
+.q-table th {
+  font-weight: bold;
+  font-size: 1.2em;
+}
 </style>
