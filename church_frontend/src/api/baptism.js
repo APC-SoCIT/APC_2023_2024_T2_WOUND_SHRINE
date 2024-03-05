@@ -7,7 +7,6 @@ export default {
   },
 
   getAll(){
-    console.log('baptism')
-    return api.get('/baptism');
+    return api.get(`/baptism/${sessionStorage.getItem("user_id")}`);
   },
 };

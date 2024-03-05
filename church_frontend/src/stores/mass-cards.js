@@ -11,5 +11,12 @@ export const useMassCardStore = defineStore('mass-cards', {
             return response.data
             
         },
+
+        async getAll() {
+            const response = await useMassCardRepistory.getAll()
+            console.log(response, 'res')
+            return response.data
+            
+        },
     }
 })

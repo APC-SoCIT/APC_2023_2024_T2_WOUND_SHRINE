@@ -11,5 +11,12 @@ export const useBaptismalCertificateStore = defineStore('baptismal-certificate',
             return response.data
             
         },
+
+        async getAll() {
+            const response = await useBaptismalCertificateRepository.getAll()
+            console.log(response, 'res')
+            return response.data
+            
+        },
     }
 })

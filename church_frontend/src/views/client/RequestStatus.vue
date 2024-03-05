@@ -43,7 +43,7 @@
         flat
         bordered
         :title="selectedStatus === 'all' ? 'Baptism Requests' : `${selectedStatus} Requests`"
-        :rows="filteredRows"
+        :rows="rows"
         :columns="columns"
         row-key="memberId"
       >
@@ -71,19 +71,37 @@ import ViewFullAnointing from '@/views/detailview/ViewFullAnointing.vue';
 import ViewFullHouseBlessing from '@/views/detailview/ViewFullHouseBlessing.vue';
 
 import { useBaptismStore } from "@/stores/baptism";
+import { useMarriageStore } from "@/stores/marriage";
+import { useAnointingStore } from "@/stores/anointing";
+import { useConfessionStore } from "@/stores/confession";
+import { useConfirmationStore } from "@/stores/confirmation";
+import { useHouseBlessingStore } from "@/stores/houseBlessing";
+
+
+
+
+
+
 
 
 import { ref, computed, onMounted } from 'vue';
 
 const baptismStore = useBaptismStore();
+const marriageStore = useMarriageStore();
+const anointingStore = useAnointingStore();
+const confessionStore = useConfessionStore();
+const houseBlessingStore = useHouseBlessingStore();
+const confirmationStore = useConfirmationStore();
+
 
 
 const columns = [
   { name: 'memberId', label: 'Member ID', align: 'left', field: 'memberId', sortable: true },
   { name: 'name', label: 'Child Name', align: 'left', field: 'name', sortable: true },
   { name: 'dateOfRequest', label: 'Date of Request', align: 'center', field: 'dateOfRequest', sortable: true },
-  { name: 'timeOfRequest', label: 'Time of Request', align: 'center', field: 'timeOfRequest', sortable: true },
-  { name: 'status', label: 'Services', align: 'center', field: 'status', sortable: true },
+  { name: 'contact_number', label: 'Contact Number', align: 'center', field: 'contact_number', sortable: true },
+  { name: 'email', label: 'Email', align: 'center', field: 'email', sortable: true },
+  { name: 'status', label: 'Status', align: 'center', field: 'status', sortable: true },
   { name: 'details', label: 'Details', align: 'center' },
 ];
 
@@ -113,30 +131,38 @@ onMounted(() => {
   getData()
 })
 
-const filteredRows = computed(() => {
-  if (selectedStatus.value === 'all') {
-    return rows.value; // Accessing the array within the ref
-  } else {
-    return rows.value.filter((row) => row.status === selectedStatus.value); // Using rows.value.filter
-  }
-});
+// const filteredRows = computed(() => {
+//   if (selectedStatus.value === 'all') {
+//     return rows.value; // Accessing the array within the ref
+//   } else {
+//     return rows.value.filter((row) => row.status === selectedStatus.value); // Using rows.value.filter
+//   }
+// });
 
 async function getData(){
-  const response = await baptismStore.getAll();
-  console.log(response.data)
+  const statusToStoreMap = {
+    "Baptism": baptismStore,
+    "Marriage": marriageStore,
+    "Confession": confessionStore,
+    "Confirmation": confirmationStore,
+    "House Blessing": houseBlessingStore,
+    "Anointing of the Sick": anointingStore
+  };
+
+  const response = await statusToStoreMap[selectedStatus.value].getAll();
+  console.log(response.data);
   const data = response.data;
 
   rows.value = [];
 
-  
   // Assuming the data you provided is named `data`
   data.forEach((item) => {
     rows.value.push({
-      memberId: item.id,
-      name: item.child_name,
-      dateOfRequest: item.schedule.substring(0, 10),
-      timeOfRequest: new Date(item.schedule).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-      status: 'Baptism', // Assuming the status is always Baptism for this data
+      memberId: item.user_id,
+      contact_number: item.contact_number,
+      email: item.email,
+      dateOfRequest: item.preferred_date.substring(0, 10),
+      status: item.status, // Assuming the status is always Baptism for this data
     });
   });
 }

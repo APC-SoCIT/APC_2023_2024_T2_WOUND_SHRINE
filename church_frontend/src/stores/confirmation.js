@@ -12,5 +12,12 @@ export const useConfirmationStore = defineStore('confrimation', {
             return response.data
             
         },
+
+        async getAll() {
+            const response = await confrimationrepository.getAll()
+            console.log(response, 'res')
+            return response.data
+            
+        },
     }
 })

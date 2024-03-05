@@ -11,5 +11,12 @@ export const useMarriageCertificateStore = defineStore('marriage-certificate', {
             return response.data
             
         },
+
+        async getAll() {
+            const response = await useMarriageCertificateRepository.getAll()
+            console.log(response, 'res')
+            return response.data
+            
+        },
     }
 })

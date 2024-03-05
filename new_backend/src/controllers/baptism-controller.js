@@ -12,7 +12,7 @@ module.exports.create = (req, res) => {
 };
 
 module.exports.getAllBaptisms = (req, res) => {
-  Baptism.getAll()
+  Baptism.getAll(req.params.id)
     .then(result => {
       return res.success(response(SUCCESS, '', result));
     })

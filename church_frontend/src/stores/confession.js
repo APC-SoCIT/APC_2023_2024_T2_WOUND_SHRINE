@@ -12,5 +12,12 @@ export const useConfessionStore = defineStore('cofession', {
             return response.data
             
         },
+
+        async getAll() {
+            const response = await cofessionrepository.getAll()
+            console.log(response, 'res')
+            return response.data
+            
+        },
     }
 })

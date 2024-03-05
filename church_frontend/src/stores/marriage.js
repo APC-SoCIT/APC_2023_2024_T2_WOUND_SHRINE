@@ -12,5 +12,12 @@ export const useMarriageStore = defineStore('marriage', {
             return response.data
             
         },
+
+        async getAll() {
+            const response = await marriagerepository.getAll()
+            console.log(response, 'res')
+            return response.data
+            
+        },
     }
 })

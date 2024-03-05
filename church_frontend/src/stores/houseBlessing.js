@@ -12,5 +12,12 @@ export const useHouseBlessingStore = defineStore('houseBlessing', {
             return response.data
             
         },
+
+        async getAll() {
+            const response = await houseBlessingrepository.getAll()
+            console.log(response, 'res')
+            return response.data
+            
+        },
     }
 })

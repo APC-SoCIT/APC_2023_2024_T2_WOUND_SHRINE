@@ -179,7 +179,7 @@ export default {
     user_id: this.user_id,
     mother_name: this.motherName,
     father_name: this.fatherName,
-    schedule: this.date,
+    preferred_date: this.date,
     contact_number: this.contactNumber,
     email: this.email,
     child_name: this.childName,

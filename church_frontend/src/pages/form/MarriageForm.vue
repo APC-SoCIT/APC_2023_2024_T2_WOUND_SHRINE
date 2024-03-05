@@ -222,9 +222,9 @@ export default {
         email: this.email,
         address: this.address,
         sponsors: this.sponsors,
-        preferred_date: this.preferred_date,
-        preferred_time: this.preferred_time,
-        confirmation_certificate: await this.readFileAsBase64(this.confirmation_certificate[0]),
+        preferred_date: this.date,
+        preferred_time: this.time,
+        // confirmation_certificate: await this.readFileAsBase64(this.confirmation_certificate[0]),
         // baptismal_certificate: await this.readFileAsBase64(this.baptismal_certificate[0]),
         // psa_birth_certificate: await this.readFileAsBase64(this.psa_birth_certificate[0]),
         // psa_certificate_of_no_marriage: await this.readFileAsBase64(this.psa_certificate_of_no_marriage[0])

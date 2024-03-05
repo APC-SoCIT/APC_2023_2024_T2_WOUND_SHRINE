@@ -5,7 +5,7 @@ const employeeSchema = require('../validators/employee-schema');
 
 
 
-router.get('/', 
+router.get('/:id', 
 baptismcontroller.getAllBaptisms);
 
 router.post(
