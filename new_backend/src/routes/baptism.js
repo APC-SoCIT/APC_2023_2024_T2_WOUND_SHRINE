@@ -8,17 +8,16 @@ const employeeSchema = require('../validators/employee-schema');
 router.get('/:id', 
 baptismcontroller.getAllBaptisms);
 
+router.get('/details/:id', 
+baptismcontroller.getById);
+
+router.put(
+  '/:id',
+  baptismcontroller.updateByID
+);
+
 router.post(
   '/',
   baptismcontroller.create
 );
-
-router.put(
-  '/:id',
-  baptismcontroller.updateBaptismByID
-);
-
-router.delete('/:id', 
-baptismcontroller.deleteBaptismByID);
-
 module.exports = router;

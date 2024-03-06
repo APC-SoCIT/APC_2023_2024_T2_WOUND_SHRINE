@@ -18,7 +18,7 @@
           <div class="label">Husband</div>
           <q-input
             filled
-            v-model="father_name"
+            v-model="husband_name"
             dense
             outlined
             required
@@ -196,7 +196,7 @@ export default {
   data() {
     return {
       wife_name: '',
-      father_name: '',
+      husband_name: '',
       contact_number: '',
       email: '',
       address:'',

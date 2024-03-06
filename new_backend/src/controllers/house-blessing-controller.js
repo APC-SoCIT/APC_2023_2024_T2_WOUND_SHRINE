@@ -32,6 +32,17 @@ module.exports.updateHouseBlessingByID = (req, res) => {
   });
 };
 
+module.exports.getById = (req, res) => {
+  HouseBlessing.getByID(req.params.id)
+  .then(result => {
+    console.log(result, 'this is result')
+    res.success(response(SUCCESS, '', result));
+  })
+  .catch(err => {
+    res.error(err);
+  });
+};
+
 module.exports.deleteHouseBlessingByID = (req, res) => {
   Baptism.deleteByID(req.params.id)
   .then(result => {

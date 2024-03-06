@@ -19,5 +19,16 @@ export const useHouseBlessingStore = defineStore('houseBlessing', {
             return response.data
             
         },
+
+        async getByID(id) {
+            const response = await houseBlessingrepository.getById(id)
+            console.log(response, 'res')
+            return response.data
+        },
+        async updateByID(id, payload) {
+            const response = await houseBlessingrepository.updatetById(id, payload)
+            console.log(response, 'res')
+            return response.data
+        },
     }
 })

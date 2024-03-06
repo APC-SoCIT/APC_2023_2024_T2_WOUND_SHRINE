@@ -11,6 +11,16 @@ module.exports.create = (req, res) => {
     });
 };
 
+module.exports.getById = (req, res) => {
+  Anointing.getByID(req.params.id)
+  .then(result => {
+    res.success(response(SUCCESS, '', result));
+  })
+  .catch(err => {
+    res.error(err);
+  });
+};
+
 
 module.exports.getAllAnointings = (req, res) => {
     Anointing.getAll(req.params.id)
@@ -24,16 +34,6 @@ module.exports.getAllAnointings = (req, res) => {
 
 module.exports.updateAnointingByID = (req, res) => {
   Anointing.updateByID(req.params.id, req.body)
-  .then(result => {
-    res.success(response(SUCCESS, '', result));
-  })
-  .catch(err => {
-    res.error(err);
-  });
-};
-
-module.exports.deleteAnointingByID = (req, res) => {
-  Baptism.deleteByID(req.params.id)
   .then(result => {
     res.success(response(SUCCESS, '', result));
   })

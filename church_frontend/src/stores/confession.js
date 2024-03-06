@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import cofessionrepository from "../api/confession";
+import confessionRepository from "../api/confession";
 import router from "../router";
 
 export const useConfessionStore = defineStore('cofession', {
@@ -7,17 +7,28 @@ export const useConfessionStore = defineStore('cofession', {
 
         async create(payload) {
             console.log('cofession')
-            const response = await cofessionrepository.create(payload)
+            const response = await confessionRepository.create(payload)
             console.log(response, 'res')
             return response.data
             
         },
 
         async getAll() {
-            const response = await cofessionrepository.getAll()
+            const response = await confessionRepository.getAll()
             console.log(response, 'res')
             return response.data
             
+        },
+
+        async getByID(id) {
+            const response = await confessionRepository.getById(id)
+            console.log(response, 'res')
+            return response.data
+        },
+        async updateByID(id, payload) {
+            const response = await confessionRepository.updatetById(id, payload)
+            console.log(response, 'res')
+            return response.data
         },
     }
 })

@@ -138,6 +138,11 @@ export default {
   console.log(result.message);
   if (result.message === 'Success.') {
     this.$emit('formSubmitted');
+    this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
   }
 }, 
     fileUploadFailed(err) {

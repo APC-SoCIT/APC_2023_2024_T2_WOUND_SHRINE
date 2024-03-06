@@ -7,7 +7,7 @@
           <div class="label">Name</div>
           <q-input
             filled
-            v-model="girlName"
+            v-model="name"
             dense
             outlined
             required
@@ -111,7 +111,7 @@ import { useAnointingStore } from '../../stores/anointing';
 export default {
   data() {
     return {
-      girlName: '',
+      name: '',
       contactNumber: '',
       email: '',
       date: ref('2019/02/01'),

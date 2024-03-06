@@ -23,8 +23,19 @@ module.exports.getAllMarriages = (req, res) => {
   };
 
 module.exports.updateMarriageByID = (req, res) => {
-  Baptism.updateByID(req.params.id, req.body)
+  Marriage.updateByID(req.params.id, req.body)
   .then(result => {
+    res.success(response(SUCCESS, '', result));
+  })
+  .catch(err => {
+    res.error(err);
+  });
+};
+
+module.exports.getById = (req, res) => {
+  Marriage.getByID(req.params.id)
+  .then(result => {
+    console.log(result, 'this is result')
     res.success(response(SUCCESS, '', result));
   })
   .catch(err => {

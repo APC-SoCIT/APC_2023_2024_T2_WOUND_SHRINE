@@ -46,17 +46,21 @@
         :rows="rows"
         :columns="columns"
         row-key="memberId"
+        :loading="loading"
       >
         <template v-slot:body-cell-details="props">
           <q-td :props="props">
-            <ViewFullBaptism v-if="selectedStatus === 'Baptism'" :formData="props.row" />
-            <ViewFullMarriage v-if="selectedStatus === 'Marriage'" :formData="props.row" />
-            <ViewFullAnointing v-if="selectedStatus === 'Anointing of the Sick'" :formData="props.row" />
-            <ViewFullConfession v-if="selectedStatus === 'Confession'" :formData="props.row" />
-            <ViewFullConfirmation v-if="selectedStatus === 'Confirmation'" :formData="props.row" />
-            <ViewFullHouseBlessing v-if="selectedStatus === 'House Blessing'" :formData="props.row" />
+            <ViewFullBaptism v-if="selectedStatus === 'Baptism'" :row="props.row" @updated="getData()"/>
+            <ViewFullMarriage v-if="selectedStatus === 'Marriage'" :row="props.row"  @updated="getData()"/>
+            <ViewFullAnointing v-if="selectedStatus === 'Anointing of the Sick'" :row="props.row" @updated="getData()" />
+            <ViewFullConfession v-if="selectedStatus === 'Confession'" :row="props.row" @updated="getData()"/>
+            <ViewFullConfirmation v-if="selectedStatus === 'Confirmation'" :row="props.row" @updated="getData()" />
+            <ViewFullHouseBlessing v-if="selectedStatus === 'House Blessing'" :row="props.row" @updated="getData()"/>
           </q-td>
         </template>
+        <template v-slot:loading>
+        <q-inner-loading showing color="primary" />
+      </template>
       </q-table>
     </q-card>
   </div>
@@ -76,13 +80,6 @@ import { useAnointingStore } from "@/stores/anointing";
 import { useConfessionStore } from "@/stores/confession";
 import { useConfirmationStore } from "@/stores/confirmation";
 import { useHouseBlessingStore } from "@/stores/houseBlessing";
-
-
-
-
-
-
-
 
 import { ref, computed, onMounted } from 'vue';
 
@@ -104,7 +101,7 @@ const columns = [
   { name: 'status', label: 'Status', align: 'center', field: 'status', sortable: true },
   { name: 'details', label: 'Details', align: 'center' },
 ];
-
+let loading = ref(false)
 let rows = ref([])
 // const rows = [
 //   {
@@ -140,6 +137,7 @@ onMounted(() => {
 // });
 
 async function getData(){
+  loading = true
   const statusToStoreMap = {
     "Baptism": baptismStore,
     "Marriage": marriageStore,
@@ -159,12 +157,14 @@ async function getData(){
   data.forEach((item) => {
     rows.value.push({
       memberId: item.user_id,
+      item_id: item.id,
       contact_number: item.contact_number,
       email: item.email,
       dateOfRequest: item.preferred_date.substring(0, 10),
       status: item.status, // Assuming the status is always Baptism for this data
     });
   });
+  loading = false
 }
 
 const changeStatus = (status) => {

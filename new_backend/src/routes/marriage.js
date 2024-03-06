@@ -18,6 +18,9 @@ router.put(
   marriageController.updateMarriageByID
 );
 
+router.get('/details/:id', 
+marriageController.getById);
+
 router.delete('/:id', 
 marriageController.deleteMarriageByID);
 

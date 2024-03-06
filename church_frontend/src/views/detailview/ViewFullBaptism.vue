@@ -12,52 +12,147 @@
               </div>
             </q-card-title>
   
-            <q-form @submit.prevent="submitForm">
-              <q-input v-model="formData.name" label="Name" />
-              <q-input v-model="formData.contactNumber" label="Contact Number" />
-              <q-input v-model="formData.email" label="Email" />
-              <q-input v-model="formData.date" label="Date" />
-              <q-input v-model="formData.time" label="Time" />
-              <q-input v-model="formData.address" label="Address" />
-              <q-input v-model="formData.childName" label="Name of Child" />
-              <q-input v-model="formData.principalSponsors" label="List of Principal Sponsors" />
-              <q-input v-model="formData.preferredDateTime" label="Preferred Date/Time" />
-              <q-option-group v-model="formData.type" :options="typeOptions" label="Type" />
-  
-              <q-file
-                v-model="formData.files1"
-                label="Files 1"
-                filled
-                counter
-                :counter-label="counterLabelFn"
-                max-files="1"
-                multiple
-              >
-                <template v-slot:prepend>
-                  <q-icon name="attach_file" />
-                </template>
-              </q-file>
-  
-              <q-file
-                v-model="formData.files2"
-                label="Files 2"
-                filled
-                counter
-                :counter-label="counterLabelFn"
-                max-files="1"
-                multiple
-              >
-                <template v-slot:prepend>
-                  <q-icon name="attach_file" />
-                </template>
-              </q-file>
-  
-              <div class="q-mt-md row justify-end">
-                <q-btn label="Cancel" @click="confirmAccept" />
-                <span style="margin-right: 10px;"></span> <!-- Space between buttons -->
-                <q-btn  color="green" type="button" label="Confirm Edit" @click="confirmReject" class="q-mr-md" />
-              </div>
-            </q-form>
+            <div class="google-form">
+            <q-form @submit.prevent="onSubmit">
+            <div class="form-content">
+        <!-- Mothers Name -->
+        <div class="input-wrapper">
+          <div class="label">Mother's Name</div>
+          <q-input
+            filled
+            v-model="motherName"
+            dense
+            outlined
+            required
+          />
+        </div>
+        <!-- Fathers Name -->
+        <div class="input-wrapper">
+          <div class="label">Father's Name</div>
+          <q-input
+            filled
+            v-model="fatherName"
+            dense
+            outlined
+            required
+          />
+        </div>
+        <!-- Name of Child -->
+        <div class="input-wrapper">
+          <div class="label">Name of Child</div>
+          <q-input
+            filled
+            v-model="childName"
+            dense
+            outlined
+            required
+          />
+        </div>
+        <!-- Contact Number -->
+        <div class="input-wrapper">
+          <div class="label">Contact Number</div>
+          <q-input
+            filled
+            v-model="contactNumber"
+            outlined
+            required
+            :rules="[ val => val && val.length === 11 || 'Please type your number']"
+          />
+        </div>
+        <!-- Email -->
+        <div class="input-wrapper">
+          <div class="label">Email</div>
+          <q-input
+            filled
+            v-model="email"
+            dense
+            outlined
+            required
+            type="email"
+          />
+        </div>
+        <!-- List of Principal Sponsors -->
+        <div class="input-wrapper">
+          <div class="label">List of Principal Sponsors (Ninong/Ninang)</div>
+          <q-input
+            filled
+            v-model="principalSponsors"
+            dense
+            outlined
+            required
+          />
+        </div>
+        <!-- Preferred Date/Time -->
+        <div class="input-wrapper">
+          <div class="label">Preferred Date/Time</div>
+          <div class="date-picker">
+            <q-input filled v-model="date" mask="date">
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date v-model="date">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </div>
+        <!-- Type -->
+        <div class="input-wrapper">
+          <div class="label">Type</div>
+          <q-option-group
+            v-model="type"
+            :options="options"
+            class="left-aligned"
+          />
+        </div>
+        <!-- First File Input -->
+        <div class="input-wrapper">
+          <div class="label">Marriage Certificate</div>
+          <q-file
+            v-model="marriage_certificate"
+            label="Pick files"
+            filled
+            counter
+            :counter-label="counterLabelFn"
+            max-files="1"
+            multiple
+          >
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
+        </div>
+        <!-- Second File Input -->
+        <div class="input-wrapper">
+          <div class="label">Birth Certificate</div>
+          <q-file
+            v-model="birth_certificate"
+            label="Pick files"
+            filled
+            counter
+            :counter-label="counterLabelFn"
+            max-files="1"
+            multiple
+          >
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
+        </div>
+      </div>
+      <!-- Submit Button -->
+      <div class="q-mt-md row justify-end" style="margin-right: 10px;">
+          <q-btn type="button" label="Cancel" @click="confirmAccept" />
+          <div style="margin-right: 10px;"></div> <!-- This creates space between the buttons -->
+          <q-btn color="green" label="Confirm edit" @click="confirmReject" class="q-mr-md" />
+      </div>
+    </q-form>
+  </div>
           </q-card-section>
         </q-card>
       </q-dialog>
@@ -71,7 +166,7 @@
             </q-card-main>
             <q-card-actions align="right">
               <q-btn label="NO" @click="cancelReject" />
-              <q-btn color="green" label="YES" @click="rejectRequest" />
+              <q-btn color="green" label="YES" @click="onSubmit()" />
             </q-card-actions>
           </q-card-section>
         </q-card>
@@ -82,27 +177,34 @@
   </template>
   
   <script>
+  import { mapActions } from "pinia";
+  import { useBaptismStore } from "@/stores/baptism";
+  import { useQuasar } from 'quasar'
+
+
   export default {
+    props: {
+        row: Object // Define the prop that you are receiving from the parent component
+    },
     data() {
       return {
         dialogVisible: false,
         confirmRejectVisible: false,
         assignPriestVisible: false,
-        formData: {
-          name: 'Jarvis V. Carpo',
-          contactNumber: '099999999',
-          email: 'jvcarpo@student.apc.edu.ph',
-          address: '06 Dalupang Street, Zone 2, Central Signal Village, Taguig City',
-          date: 'Ocotber 08, 2002',
-          time: '8:00 pm',
-          approvalStatus: null,
-          childName: 'Lisa Carpo',
-          principalSponsors: 'Grace Valdez, Marlon Mendoza, Mario Valdez',
-          preferredDateTime: '',
+        options: [
+        { label: 'Adult', value: 'Adult' },
+        { label: 'Child', value: 'Child' },
+      ],
+        
+          motherName: '',
+          fatherName: '',
+          contactNumber: '',
+          email: '',
+          childName: '',
+          principalSponsors: '',
+          date: '',
           type: '',
-          files1: [],
-          files2: [],
-        },
+    
         typeOptions: [
           { label: 'Adult', value: 'adult' },
           { label: 'Child', value: 'child' },
@@ -114,15 +216,58 @@
       };
     },
     methods: {
+    ...mapActions(useBaptismStore, ["getByID", 'updateByID']),
+      async getData(){
+        let result = await this.getByID(this.row.item_id)
+        let data = result.data
+    this.motherName = data.mother_name,
+    this.fatherName = data.father_name,
+    this.date = data.preferred_date,
+    this.contactNumber = data.contact_number,
+    this.email = data.email,
+    this.childName = data.child_name,
+    this.principalSponsors = data.sponsors,
+    this.type = data.type,
+        console.log(result.data.child_name)
+      },
+
+      async onSubmit() {
+  let payload = {
+    mother_name: this.motherName,
+    father_name: this.fatherName,
+    preferred_date: this.date,
+    contact_number: this.contactNumber,
+    email: this.email,
+    child_name: this.childName,
+    sponsors: this.principalSponsors,
+    type: this.type,
+  };
+
+  console.log(payload);
+  const result = await this.updateByID(this.row.item_id, payload);
+  console.log(result.message, 'resulta');
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
+    this.confirmRejectVisible = false;
+        this.dialogVisible = false;
+        this.$emit('updated');
+  }
+}, 
+
       openDialog() {
         this.dialogVisible = true;
+        this.getData()
       },
       closeDialog() {
         this.dialogVisible = false;
       },
       confirmReject() {
         this.confirmRejectVisible = true;
-        this.dialogVisible = false;
+        // this.dialogVisible = false;
       },
       cancelReject() {
         this.confirmRejectVisible = false;
@@ -176,5 +321,43 @@
   .priest-assign-box {
     width: 400px;
   }
+
+  .google-form {
+  font-family: Arial, sans-serif;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 700px;
+  text-align: center;
+  margin: 0 auto; /* Center horizontally */
+}
+
+.form-content {
+  max-width: 700px;
+  margin: auto;
+}
+
+.input-wrapper {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: bold;
+  text-align: left;
+}
+
+.date-picker {
+  max-width: 300px;
+
+}
+
+.submit-button {
+  margin-top: 10px;
+}
+
+.left-aligned {
+  text-align: left; /* Align q-option-group to the left */
+}
   </style>
   

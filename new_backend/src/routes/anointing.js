@@ -13,12 +13,13 @@ router.post(
   anointingController.create
 );
 
+router.get('/details/:id', 
+  anointingController.getById);
+
 router.put(
   '/:id',
   anointingController.updateAnointingByID
 );
 
-router.delete('/:id', 
-anointingController.deleteAnointingByID);
 
 module.exports = router;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-btn @click="openDialog" color="green">View Full Details</q-btn>
+    <q-btn @click="openDialog" color="green">Edit Details</q-btn>
 
     <q-dialog v-if="dialogVisible" v-model="dialogVisible">
       <q-card>
@@ -12,39 +12,127 @@
             </div>
           </q-card-title>
 
-          <q-form @submit.prevent="submitForm">
-            <q-input v-model="formData.name" label="Name" />
-            <q-input v-model="formData.contactNumber" label="Contact Number" />
-            <q-input v-model="formData.email" label="Email" />
-            <q-input v-model="formData.date" label="Date" />
-            <q-input v-model="formData.time" label="Time" />
-            <q-input v-model="formData.address" label="Address" />
-
-            <div class="q-mt-md row justify-end">
-              <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />
-              <q-btn type="button" color="orange" label="Accept" @click="confirmAccept" />
-            </div>
-          </q-form>
+          <div class="google-form">
+    <q-form @submit.prevent="submitForm">
+      <div class="form-content">
+        <!-- Name of the Girl -->
+        <div class="input-wrapper">
+          <div class="label">Name</div>
+          <q-input
+            filled
+            v-model="name"
+            dense
+            outlined
+            required
+          />
+        </div>
+        <!-- Contact Number -->
+        <div class="input-wrapper">
+          <div class="label">Contact Number</div>
+          <q-input
+            filled
+            v-model="contactNumber"
+            outlined
+            required
+            :rules="[ val => val && val.length === 11 || 'Please type your number']"
+          />
+        </div>
+        <!-- Email -->
+        <div class="input-wrapper">
+          <div class="label">Email</div>
+          <q-input
+            filled
+            v-model="email"
+            dense
+            outlined
+            required
+            type="email"
+          />
+        </div>
+        <!-- Preferred Date -->
+        <div class="input-wrapper">
+          <div class="label">Preferred Date</div>
+          <div class="date-picker">
+            <q-input filled v-model="date" mask="date">
+              <template v-slot:append>
+                <q-icon name="event" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-date v-model="date">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </div>
+        <!-- Preferred Time -->
+        <div class="input-wrapper">
+          <div class="label">Preferred Time</div>
+          <div class="time-picker">
+            <q-input filled v-model="time" mask="time">
+              <template v-slot:append>
+                <q-icon name="access_time" class="cursor-pointer">
+                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                    <q-time v-model="time">
+                      <div class="row items-center justify-end">
+                        <q-btn v-close-popup label="Close" color="primary" flat />
+                      </div>
+                    </q-time>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </div>
+        <!-- First File Input -->
+        <div class="input-wrapper">
+          <div class="label">Letter of Intent</div>
+          <q-file
+            v-model="files1"
+            label="Pick files"
+            filled
+            counter
+            :counter-label="counterLabelFn"
+            max-files=""
+            multiple
+          >
+            <template v-slot:prepend>
+              <q-icon name="attach_file" />
+            </template>
+          </q-file>
+        </div>
+      </div>
+      <!-- Submit Button -->
+      <div class="q-mt-md row justify-end" style="margin-right: 10px;">
+          <q-btn type="button" label="Cancel" @click="confirmAccept" />
+          <div style="margin-right: 10px;"></div> <!-- This creates space between the buttons -->
+          <q-btn color="green" label="Confirm edit" @click="confirmReject" class="q-mr-md" />
+      </div>
+    </q-form>
+  </div>
         </q-card-section>
       </q-card>
     </q-dialog>
 
     <q-dialog v-if="confirmRejectVisible" v-model="confirmRejectVisible" class="confirmation-box" persistent>
-      <q-card>
-        <q-card-section>
-          <q-card-title>Confirm Reject</q-card-title>
-          <q-card-main>
-            Are you sure you want to reject this request?
-          </q-card-main>
-          <q-card-actions align="right">
-            <q-btn label="Cancel" @click="cancelReject" />
-            <q-btn color="negative" label="Reject" @click="rejectRequest" />
-          </q-card-actions>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
+        <q-card>
+          <q-card-section>
+            <q-card-title></q-card-title>
+            <q-card-main>
+              Are you sure you want sent this edited form?
+            </q-card-main>
+            <q-card-actions align="right">
+              <q-btn label="NO" @click="cancelReject" />
+              <q-btn color="green" label="YES" @click="onSubmit()" />
+            </q-card-actions>
+          </q-card-section>
+        </q-card>
+      </q-dialog>
 
-    <q-dialog v-if="assignPriestVisible" v-model="assignPriestVisible" class="priest-assign-box" persistent>
+    <!-- <q-dialog v-if="assignPriestVisible" v-model="assignPriestVisible" class="priest-assign-box" persistent>
       <q-card>
         <q-card-section>
           <q-card-title>Assign Priest</q-card-title>
@@ -57,26 +145,28 @@
           </q-form>
         </q-card-section>
       </q-card>
-    </q-dialog>
+    </q-dialog> -->
   </div>
 </template>
 
 <script>
+  import { mapActions } from "pinia";
+  import { useHouseBlessingStore } from "@/stores/houseBlessing";
 export default {
+  props: {
+        row: Object // Define the prop that you are receiving from the parent component
+    },
   data() {
     return {
       dialogVisible: false,
       confirmRejectVisible: false,
       assignPriestVisible: false,
-      formData: {
-        name: '',
-        contactNumber: '',
-        email: '',
-        address: '',
-        date: '',
-        time: '',
-        approvalStatus: null,
-      },
+      name: '',
+      contactNumber: '',
+      email: '',
+      date: '',
+      time: '', // Default time value
+      files1: [],
       priestOptions: [
         // Add your priest options here
       ],
@@ -84,15 +174,53 @@ export default {
     };
   },
   methods: {
+    ...mapActions(useHouseBlessingStore, ["getByID", 'updateByID']),
+
+    async getData(){
+        let result = await this.getByID(this.row.item_id)
+        let data = result.data
+        this.name = data.name,
+     this.contactNumber = data.contact_number,
+     this.date = data.preferred_date,
+     this.time = data.preferred_time,
+     this.email = data.email
+      },
+
+    async onSubmit() {
+  let payload = {
+    name: this.name,
+    contact_number: this.contactNumber,
+    preferred_date: this.date,
+    preferred_time: this.time,
+    email: this.email,
+  };
+
+  console.log(payload);
+  const result = await this.updateByID(this.row.item_id, payload);
+  console.log(result.message, 'resulta');
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
+    this.confirmRejectVisible = false;
+        this.dialogVisible = false;
+        this.$emit('updated');
+  }
+}, 
+
     openDialog() {
       this.dialogVisible = true;
+      this.getData()
+
     },
     closeDialog() {
       this.dialogVisible = false;
     },
     confirmReject() {
       this.confirmRejectVisible = true;
-      this.dialogVisible = false;
+      // this.dialogVisible = false;
     },
     cancelReject() {
       this.confirmRejectVisible = false;

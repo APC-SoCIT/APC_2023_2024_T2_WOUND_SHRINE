@@ -1,24 +1,28 @@
 const router = require('express').Router();
-const cofessionController = require('../controllers/confession-controller');
+const confessionController = require('../controllers/confession-controller');
 const { SchemaValidator } = require('../core/validator');
 const employeeSchema = require('../validators/employee-schema');
 
 
 
 router.get('/:id', 
-cofessionController.getAllConfessions);
+confessionController.getAllConfessions);
 
 router.post(
   '/',
-  cofessionController.create
+  confessionController.create
 );
 
 router.put(
   '/:id',
-  cofessionController.updateConfessionByID
+  confessionController.updateConfessionByID
 );
 
+router.get('/details/:id', 
+confessionController.getById);
+
+
 router.delete('/:id', 
-cofessionController.deleteConfessionByID);
+confessionController.deleteConfessionByID);
 
 module.exports = router;

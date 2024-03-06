@@ -7,4 +7,11 @@ export default {
   getAll(){
     return api.get(`/confession/${sessionStorage.getItem("user_id")}`);
   },
+
+  getById(id){
+    return api.get(`/confession/details/${id}`);
+  },
+  updatetById(id, payload){
+    return api.put(`/confession/${id}`, payload);
+  },
 };

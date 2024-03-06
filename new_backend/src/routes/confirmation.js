@@ -18,6 +18,9 @@ router.put(
   confirmationController.updateConfirmationByID
 );
 
+router.get('/details/:id', 
+confirmationController.getById);
+
 router.delete('/:id', 
 confirmationController.deleteConfirmationByID);
 

@@ -18,6 +18,9 @@ router.put(
   houseBlessingController.updateHouseBlessingByID
 );
 
+router.get('/details/:id', 
+houseBlessingController.getById);
+
 router.delete('/:id', 
 houseBlessingController.deleteHouseBlessingByID);
 

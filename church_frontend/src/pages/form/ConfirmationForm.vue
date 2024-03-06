@@ -174,10 +174,10 @@ export default {
   let payload = {
     user_id: sessionStorage.getItem("user_id"),
     Name: this.Name,
-    ContactNumber: this.contactNumber,
+    contact_number: this.contactNumber,
     preferred_date: this.date,
     preferred_time: this.time,
-    Email: this.email,
+    email: this.email,
     sponsor: this.sponsor,
   };
 

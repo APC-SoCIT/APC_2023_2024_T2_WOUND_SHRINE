@@ -22,8 +22,18 @@ module.exports.getAllConfessions = (req, res) => {
       });
   };
 
+  module.exports.updateByID = (req, res) => {
+    Confession.updateByID(req.params.id, req.body)
+    .then(result => {
+      res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+  };
+
 module.exports.updateConfessionByID = (req, res) => {
-  Baptism.updateByID(req.params.id, req.body)
+  Confession.updateByID(req.params.id, req.body)
   .then(result => {
     res.success(response(SUCCESS, '', result));
   })
@@ -32,8 +42,20 @@ module.exports.updateConfessionByID = (req, res) => {
   });
 };
 
+module.exports.getById = (req, res) => {
+  Confession.getByID(req.params.id)
+  .then(result => {
+    console.log(result, 'this is result')
+    res.success(response(SUCCESS, '', result));
+  })
+  .catch(err => {
+    res.error(err);
+  });
+};
+
+
 module.exports.deleteConfessionByID = (req, res) => {
-  Baptism.deleteByID(req.params.id)
+  Confession.deleteByID(req.params.id)
   .then(result => {
     res.success(response(SUCCESS, '', result));
   })

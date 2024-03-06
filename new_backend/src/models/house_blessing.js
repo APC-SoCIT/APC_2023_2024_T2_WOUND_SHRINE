@@ -34,3 +34,32 @@ module.exports.getAll = (id) => {
         });
     });
   };
+
+  module.exports.updateByID = (id, payload) => {
+    const ACTION = '[updateByID]';
+    logger.log('info', `${TAG}${ACTION}`, id);
+    return new Promise((resolve, reject) => {
+      db.execute(`UPDATE house_blessing SET ? WHERE id = ?`, [payload
+    , id])
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.getByID = (id) => {
+    const ACTION = '[getByID]';
+    logger.log('info', `${TAG}${ACTION}`, id);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM house_blessing where id = ?`, id)
+        .then(data => {
+          resolve(data[0]);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };

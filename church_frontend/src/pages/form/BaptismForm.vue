@@ -185,8 +185,8 @@ export default {
     child_name: this.childName,
     sponsors: this.principalSponsors,
     type: this.type,
-    marriage_certificate: await this.readFileAsBase64(this.marriage_certificate[0]),
-    birth_certificate: await this.readFileAsBase64(this.birth_certificate[0])
+    // marriage_certificate: await this.readFileAsBase64(this.marriage_certificate[0]),
+    // birth_certificate: await this.readFileAsBase64(this.birth_certificate[0])
   };
 
   console.log(payload);

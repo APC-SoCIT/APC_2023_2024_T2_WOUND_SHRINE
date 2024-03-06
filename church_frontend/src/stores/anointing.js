@@ -17,5 +17,16 @@ export const useAnointingStore = defineStore('anointing', {
             const response = await anointingrepository.getAll(sessionStorage.getItem("user_id"))
             return response.data
         },
+
+        async getByID(id) {
+            const response = await anointingrepository.getById(id)
+            console.log(response, 'res')
+            return response.data
+        },
+        async updateByID(id, payload) {
+            const response = await anointingrepository.updatetById(id, payload)
+            console.log(response, 'res')
+            return response.data
+        },
     }
 })
