@@ -47,10 +47,10 @@ import { ref, computed } from 'vue';
 export default {
   setup() {
     const columns = [
-      { name: 'memberId', label: 'Member ID', align: 'left', field: 'memberId', sortable: true },
+      { name: 'user_id', label: 'Member ID', align: 'left', field: 'user_id', sortable: true },
       { name: 'name', label: 'Name', align: 'left', field: 'name', sortable: true },
-      { name: 'dateOfRequest', label: 'Date of Request', align: 'center', field: 'dateOfRequest', sortable: true },
-      { name: 'timeOfRequest', label: 'Time of Request', align: 'center', field: 'timeOfRequest', sortable: true },
+      { name: 'preferred_date', label: 'Date of Request', align: 'center', field: 'preferred_date', sortable: true },
+      { name: 'preferred_time', label: 'Time of Request', align: 'center', field: 'preferred_time', sortable: true },
       { name: 'status', label: 'Status', align: 'center', field: 'status', sortable: true },
       { name: 'details', label: 'Details', align: 'center' },
     ];

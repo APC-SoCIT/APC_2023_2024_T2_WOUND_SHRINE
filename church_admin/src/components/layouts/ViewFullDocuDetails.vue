@@ -14,11 +14,12 @@
 
           <q-form @submit.prevent="submitForm">
             <q-input v-model="formData.name" label="Name" />
-            <q-input v-model="formData.contactNumber" label="Contact Number" />
+            <q-input v-model="formData.contact_number" label="Contact Number" />
             <q-input v-model="formData.email" label="Email" />
             <q-input v-model="formData.address" label="Address" />
-            <q-select v-model="formData.shippingOption" :options="shippingOptions" label="Shipping Options"></q-select>
-            <q-select v-model="formData.paymentOption" :options="formData.paymentOptions" label="Payment Options"></q-select>
+            <q-select v-model="formData.shipping_type" :options="shippingOptions" label="Shipping Options"></q-select>
+            <q-select v-model="formData.payment_type" :options="formData.paymentOptions" label="Payment Options"></q-select>
+            <q-input v-model="formData.copies" label="Address" />
             <q-select v-model="formData.paymentChannel" :options="formData.paymentChannels" label="Payment Channel"></q-select>
             
             <div class="q-mt-md row justify-end">
@@ -71,17 +72,17 @@ export default {
       confirmAcceptVisible: false, // Added line
       formData: {
         name: '',
-        contactNumber: '',
+        contact_number: '',
         email: '',
         address: '',
         paymentChannel: '',
         fee: '',
         shippingOption: '',
-        paymentOptions: ['Credit Card', 'Debit Card', 'PayPal'],
+        payment_type: ['Credit Card', 'Debit Card', 'PayPal'],
         paymentChannels: ['Online', 'Offline'],
-        shippingOptions: ['Pick Up', 'Delivery'],
+        shipping_type: ['Pick Up', 'Delivery'],
       },
-      shippingOptions: [
+      shipping_type: [
         { label: 'Pick Up', value: 'pick_up' },
         { label: 'Delivery', value: 'delivery' },
       ],

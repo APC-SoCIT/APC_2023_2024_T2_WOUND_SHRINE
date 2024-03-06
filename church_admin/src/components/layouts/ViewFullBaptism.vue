@@ -14,15 +14,15 @@
   
             <q-form @submit.prevent="submitForm">
               <q-input v-model="formData.name" label="Name" />
-              <q-input v-model="formData.contactNumber" label="Contact Number" />
+              <q-input v-model="formData.contact_number" label="Contact Number" />
               <q-input v-model="formData.email" label="Email" />
-              <q-input v-model="formData.date" label="Date" />
-              <q-input v-model="formData.time" label="Time" />
+              <q-input v-model="formData.preferred_date" label="Date" />
+              <q-input v-model="formData.preferred_time" label="Time" />
               <q-input v-model="formData.address" label="Address" />
-              <q-input v-model="formData.childName" label="Name of Child" />
-              <q-input v-model="formData.principalSponsors" label="List of Principal Sponsors" />
-              <q-input v-model="formData.preferredDateTime" label="Preferred Date/Time" />
+              <q-input v-model="formData.child_name" label="Name of Child" />
+              <q-input v-model="formData.sponsors" label="List of Principal Sponsors" />
               <q-option-group v-model="formData.type" :options="typeOptions" label="Type" />
+              <q-input v-model="formData.IndividualOrGroup" label="Individual or Group" />
   
               <q-file
                 v-model="formData.files1"
@@ -102,15 +102,15 @@
         assignPriestVisible: false,
         formData: {
           name: 'Jarvis V. Carpo',
-          contactNumber: '099999999',
+          contact_number: '099999999',
           email: 'jvcarpo@student.apc.edu.ph',
           address: '06 Dalupang Street, Zone 2, Central Signal Village, Taguig City',
-          date: 'Ocotber 08, 2002',
-          time: '8:00 pm',
-          approvalStatus: null,
-          childName: 'Lisa Carpo',
-          principalSponsors: 'Grace Valdez, Marlon Mendoza, Mario Valdez',
-          preferredDateTime: '',
+          preferred_date: 'Ocotber 08, 2002',
+          preferred_time: '8:00 pm',
+          status: null,
+          child_name: 'Lisa Carpo',
+          sponsors: 'Grace Valdez, Marlon Mendoza, Mario Valdez',
+          IndividualOrGroup: '',
           type: '',
           files1: [],
           files2: [],

@@ -47,7 +47,7 @@ import { ref, computed } from 'vue';
 export default {
   setup() {
     const columns = [
-      { name: 'memberId', label: 'Member ID', align: 'left', field: 'memberId', sortable: true },
+      { name: 'user_id', label: 'Member ID', align: 'left', field: 'user_id', sortable: true },
       { name: 'name', label: 'Name', align: 'left', field: 'name', sortable: true },
       { name: 'copies', label: '# of Copies', align: 'center', field: 'copies', sortable: true },
       { name: 'status', label: 'Status', align: 'center', field: 'status', sortable: true },

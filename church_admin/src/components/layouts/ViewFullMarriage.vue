@@ -14,15 +14,14 @@
   
             <q-form @submit.prevent="submitForm">
               <q-input v-model="formData.name" label="Name" />
-              <q-input v-model="formData.contactNumber" label="Contact Number" />
+              <q-input v-model="formData.contact_number" label="Contact Number" />
               <q-input v-model="formData.email" label="Email" />
-              <q-input v-model="formData.date" label="Date" />
-              <q-input v-model="formData.time" label="Time" />
+              <q-input v-model="formData.preferred_date" label="Date" />
+              <q-input v-model="formData.preferred_time" label="Time" />
               <q-input v-model="formData.address" label="Address" />
-              <q-input v-model="formData.groomName" label="Groom's Name" />
-              <q-input v-model="formData.brideName" label="Bride's Name" />
-              <q-input v-model="formData.principalSponsors" label="List of Principal Sponsors" />
-              <q-input v-model="formData.preferredDateTime" label="Preferred Date/Time" />
+              <q-input v-model="formData.groom_name" label="Groom's Name" />
+              <q-input v-model="formData.wife_name" label="Bride's Name" />
+              <q-input v-model="formData.sponsors" label="List of Principal Sponsors" />
   
               <q-file
                 v-model="formData.files1"
@@ -131,17 +130,15 @@
         assignPriestVisible: false,
         formData: {
           name: '',
-          contactNumber: '',
+          contact_number: '',
           email: '',
           address: '',
-          date: '',
-          time: '',
-          approvalStatus: null,
-          groomName: '',
-          brideName: '',
-          principalSponsors: '',
-          preferredDateTime: '',
-          type: '',
+          preferred_date: '',
+          preferred_time: '',
+          status: null,
+          husband_name: '',
+          wife_name: '',
+          sponsors: '',
           files1: [],
           files2: [],
           files3: [],

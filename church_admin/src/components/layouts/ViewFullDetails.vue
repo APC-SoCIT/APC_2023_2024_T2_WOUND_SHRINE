@@ -14,10 +14,10 @@
 
           <q-form @submit.prevent="submitForm">
             <q-input v-model="formData.name" label="Name" />
-            <q-input v-model="formData.contactNumber" label="Contact Number" />
+            <q-input v-model="formData.contact_number" label="Contact Number" />
             <q-input v-model="formData.email" label="Email" />
-            <q-input v-model="formData.date" label="Date" />
-            <q-input v-model="formData.time" label="Time" />
+            <q-input v-model="formData.preferred_date" label="Date" />
+            <q-input v-model="formData.preferred_time" label="Time" />
             <q-input v-model="formData.address" label="Address" />
 
             <div class="q-mt-md row justify-end">
@@ -70,12 +70,12 @@ export default {
       assignPriestVisible: false,
       formData: {
         name: '',
-        contactNumber: '',
+        contact_number: '',
         email: '',
         address: '',
-        date: '',
-        time: '',
-        approvalStatus: null,
+        preferred_date: '',
+        preferred_time: '',
+        status: null,
       },
       priestOptions: [
         // Add your priest options here
