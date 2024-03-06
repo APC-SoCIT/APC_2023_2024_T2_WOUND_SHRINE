@@ -3,11 +3,11 @@ const db = require('../core/database');
 const logger = require('../core/logger');
 const { response, INTERNAL_SERVER_ERROR, NOT_FOUND } = require('../core/response');
 
-module.exports.getAll = () => {
+module.exports.getAll = (id) => {
     const ACTION = '[getAll]';
-    logger.log('info', `${TAG}${ACTION}`);
+    logger.log('info', `${TAG}${ACTION}`, id);
     return new Promise((resolve, reject) => {
-      db.execute(`SELECT * FROM confirmation`)
+      db.execute(`SELECT * FROM confirmation where user_id = ?`, id)
         .then(data => {
           resolve(data);
         })

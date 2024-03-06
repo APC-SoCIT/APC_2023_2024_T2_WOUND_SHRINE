@@ -5,6 +5,6 @@ export default {
     return api.post('/marriage-certificate', payload);
   },
   getAll(){
-    return api.get('/marriage-certificate');
+    return api.get(`/marriage-certificate/${sessionStorage.getItem("user_id")}`);
   },
 };

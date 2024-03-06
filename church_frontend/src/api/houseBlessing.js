@@ -5,6 +5,6 @@ export default {
     return api.post('/house-blessing', payload);
   },
   getAll(){
-    return api.get('/house-blessing');
+    return api.get(`/house-blessing/${sessionStorage.getItem("user_id")}`);
   },
 };

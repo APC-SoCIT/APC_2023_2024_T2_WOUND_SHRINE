@@ -5,6 +5,6 @@ export default {
     return api.post('/confirmation', payload);
   },
   getAll(){
-    return api.get('/confirmation');
+    return api.get(`/confirmation/${sessionStorage.getItem("user_id")}`);
   },
 };

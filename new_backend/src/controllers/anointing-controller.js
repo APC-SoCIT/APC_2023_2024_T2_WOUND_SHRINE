@@ -13,7 +13,7 @@ module.exports.create = (req, res) => {
 
 
 module.exports.getAllAnointings = (req, res) => {
-    Anointing.getAll()
+    Anointing.getAll(req.params.id)
       .then(result => {
         return res.success(response(SUCCESS, '', result));
       })

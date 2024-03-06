@@ -5,6 +5,6 @@ export default {
     return api.post('/confession', payload);
   },
   getAll(){
-    return api.get('/confession');
+    return api.get(`/confession/${sessionStorage.getItem("user_id")}`);
   },
 };

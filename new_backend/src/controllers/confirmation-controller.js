@@ -13,7 +13,7 @@ module.exports.create = (req, res) => {
 
 
 module.exports.getAllConfirmations = (req, res) => {
-    Confirmation.getAll()
+    Confirmation.getAll(req.params.id)
       .then(result => {
         return res.success(response(SUCCESS, '', result));
       })

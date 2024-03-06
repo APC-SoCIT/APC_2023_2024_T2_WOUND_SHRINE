@@ -13,7 +13,7 @@ module.exports.create = (req, res) => {
 
 
 module.exports.getAllMarriages = (req, res) => {
-    Marriage.getAll()
+    Marriage.getAll(req.params.id)
       .then(result => {
         return res.success(response(SUCCESS, '', result));
       })

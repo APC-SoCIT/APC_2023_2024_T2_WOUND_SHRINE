@@ -5,6 +5,6 @@ export default {
     return api.post('/anointing', payload);
   },
   getAll(){
-    return api.get('/anointing');
+    return api.get(`/anointing/${sessionStorage.getItem("user_id")}`);
   },
 };

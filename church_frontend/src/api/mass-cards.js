@@ -5,6 +5,6 @@ export default {
     return api.post('/mass-cards', payload);
   },
   getAll(){
-    return api.get('/mass-cards');
+    return api.get(`/mass-cards/${sessionStorage.getItem("user_id")}`);
   },
 };

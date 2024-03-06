@@ -6,6 +6,6 @@ export default {
     return api.post('/marriage', payload);
   },
   getAll(){
-    return api.get('/marriage');
+    return api.get(`/marriage/${sessionStorage.getItem("user_id")}`);
   },
 };

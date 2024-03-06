@@ -13,7 +13,7 @@ module.exports.create = (req, res) => {
 
 
 module.exports.getAllMarriageCertificates = (req, res) => {
-    MarriageCertificate.getAll()
+    MarriageCertificate.getAll(req.params.id)
       .then(result => {
         return res.success(response(SUCCESS, '', result));
       })
