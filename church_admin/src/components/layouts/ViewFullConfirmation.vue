@@ -13,15 +13,15 @@
             </q-card-title>
   
             <q-form @submit.prevent="submitForm">
-              <q-input v-model="formData.name" label="Name" />
-              <q-input v-model="formData.contact_number" label="Contact Number" />
-              <q-input v-model="formData.email" label="Email" />
-              <q-input v-model="formData.preferred_date" label="Date" />
-              <q-input v-model="formData.preferred_time" label="Time" />
-              <q-input v-model="formData.address" label="Address" />
+              <q-input v-model="name" label="Name" />
+              <q-input v-model="contact_number" label="Contact Number" />
+              <q-input v-model="email" label="Email" />
+              <q-input v-model="preferred_date" label="Date" />
+              <q-input v-model="preferred_time" label="Time" />
+              <q-input v-model="address" label="Address" />
   
               <q-file
-                v-model="formData.files1"
+                v-model="files1"
                 label="Letter of Intnent"
                 filled
                 counter
@@ -35,7 +35,7 @@
               </q-file>
   
               <q-file
-                v-model="formData.files2"
+                v-model="files2"
                 label="Birth Certificate"
                 filled
                 counter
@@ -49,7 +49,7 @@
               </q-file>
 
               <q-file
-                v-model="formData.files3"
+                v-model="files3"
                 label="Files 3"
                 filled
                 counter
@@ -66,7 +66,7 @@
   
               <div class="q-mt-md row justify-end">
                 <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />
-                <q-btn type="button" color="orange" label="Accept" @click="confirmAccept" />
+                <q-btn type="button" color="orange" label="Accept" @click="acceptRequest" />
               </div>
             </q-form>
           </q-card-section>
@@ -106,13 +106,18 @@
   </template>
   
   <script>
+    import { mapActions } from "pinia";  
+    import { useConfirmationStore } from "@/stores/confirmation";
   export default {
+    props: {
+        row: Object // Define the prop that you are receiving from the parent component
+    },
     data() {
       return {
         dialogVisible: false,
         confirmRejectVisible: false,
         assignPriestVisible: false,
-        formData: {
+       
           name: '',
           contact_number: '',
           email: '',
@@ -123,7 +128,7 @@
           files1: [],
           files2: [],
           files3: [],
-        },
+    
         priestOptions: [
           // Add your priest options here
         ],
@@ -131,8 +136,53 @@
       };
     },
     methods: {
+      ...mapActions(useConfirmationStore, ["getByID", 'updateByID', 'reject', 'approve']),
+
+      async getData(){
+        let result = await this.getByID(this.row.item_id)
+        let data = result.data
+        this.name = data.Name,
+        this.contact_number = data.contact_number,
+        this.email = data.email,
+        this.address = data.address,
+        this.preferred_date = data.preferred_date,
+        this.preferred_time = data.preferred_time,
+        console.log(result.data.child_name)
+      },
+
+async acceptRequest(){
+  const result = await this.approve(this.row.item_id)
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Rquest Accepted',
+          position: 'top-right'
+        });
+        this.$emit('updated');
+        this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
+        this.dialogVisible = false;
+  }
+
+}, 
+
+      async rejectRequest() {
+        const result = await this.reject(this.row.item_id)
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Rquest Rejected',
+          position: 'top-right'
+        });
+        this.$emit('updated');
+        this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
+        this.dialogVisible = false;
+  }
+        // Handle reject logic
+
+      },
       openDialog() {
         this.dialogVisible = true;
+        this.getData()
       },
       closeDialog() {
         this.dialogVisible = false;
@@ -142,13 +192,6 @@
         this.dialogVisible = false;
       },
       cancelReject() {
-        this.confirmRejectVisible = false;
-      },
-      rejectRequest() {
-        // Handle reject logic
-        console.log('Request rejected');
-        // Close the dialog after rejecting
-        this.closeDialog();
         this.confirmRejectVisible = false;
       },
       confirmAccept() {

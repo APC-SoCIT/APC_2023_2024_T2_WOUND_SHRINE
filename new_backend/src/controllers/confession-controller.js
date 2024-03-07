@@ -63,3 +63,63 @@ module.exports.deleteConfessionByID = (req, res) => {
     res.error(err);
   });
 };
+
+module.exports.admingetAllConfessions = (req, res) => {
+  Confession.adminGetAll()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllApprovedConfessions = (req, res) => {
+  Confession.adminGetAllApproved()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllRejectedConfessions = (req, res) => {
+  Confession.adminGetAllRejected()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllPendingConfessions = (req, res) => {
+  Confession.adminGetAllPending()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.approveConfessions = (req, res) => {
+  Confession.confessionApprove(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.rejectConfessions = (req, res) => {
+  Confession.confessionReject(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};

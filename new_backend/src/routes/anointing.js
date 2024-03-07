@@ -21,5 +21,26 @@ router.put(
   anointingController.updateAnointingByID
 );
 
+router.get('/admin/all', 
+anointingController.admingetAllAnointings);
+
+router.get('/admin/aprroved', 
+anointingController.getAllApprovedAnointings);
+
+router.get('/admin/rejected', 
+anointingController.getAllRejectedAnointings);
+
+router.get('/admin/pending', 
+anointingController.getAllPendingAnointings);
+
+router.put(
+  '/approve/:id',
+  anointingController.approveAnointings
+);
+router.put(
+  '/reject/:id',
+  anointingController.rejectAnointings
+);
+
 
 module.exports = router;

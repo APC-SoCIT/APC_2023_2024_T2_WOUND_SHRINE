@@ -13,18 +13,18 @@
             </q-card-title>
   
             <q-form @submit.prevent="submitForm">
-              <q-input v-model="formData.name" label="Name" />
-              <q-input v-model="formData.contact_number" label="Contact Number" />
-              <q-input v-model="formData.email" label="Email" />
-              <q-input v-model="formData.preferred_date" label="Date" />
-              <q-input v-model="formData.preferred_time" label="Time" />
-              <q-input v-model="formData.address" label="Address" />
-              <q-input v-model="formData.groom_name" label="Groom's Name" />
-              <q-input v-model="formData.wife_name" label="Bride's Name" />
-              <q-input v-model="formData.sponsors" label="List of Principal Sponsors" />
+              <q-input v-model="name" label="Name" />
+              <q-input v-model="contact_number" label="Contact Number" />
+              <q-input v-model="email" label="Email" />
+              <q-input v-model="preferred_date" label="Date" />
+              <q-input v-model="preferred_time" label="Time" />
+              <q-input v-model="address" label="Address" />
+              <q-input v-model="groom_name" label="Groom's Name" />
+              <q-input v-model="wife_name" label="Bride's Name" />
+              <q-input v-model="sponsors" label="List of Principal Sponsors" />
   
               <q-file
-                v-model="formData.files1"
+                v-model="files1"
                 label="Confirmation Ceritficate"
                 filled
                 counter
@@ -38,7 +38,7 @@
               </q-file>
   
               <q-file
-                v-model="formData.files2"
+                v-model="files2"
                 label="Baptismal Ceritficate"
                 filled
                 counter
@@ -52,7 +52,7 @@
               </q-file>
 
               <q-file
-                v-model="formData.files3"
+                v-model="files3"
                 label="Birth Ceritficate"
                 filled
                 counter
@@ -67,7 +67,7 @@
               </q-file>
 
               <q-file
-                v-model="formData.files4"
+                v-model="files4"
                 label="Ceritficate of No Marriage"
                 filled
                 counter
@@ -82,7 +82,7 @@
   
               <div class="q-mt-md row justify-end">
                 <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />
-                <q-btn type="button" color="orange" label="Accept" @click="confirmAccept" />
+                <q-btn type="button" color="orange" label="Accept" @click="acceptRequest" />
               </div>
             </q-form>
           </q-card-section>
@@ -122,13 +122,17 @@
   </template>
   
   <script>
+    import { mapActions } from "pinia";  
+  import { useMarriageStore } from "@/stores/marriage";
   export default {
+    props: {
+        row: Object // Define the prop that you are receiving from the parent component
+    },
     data() {
       return {
         dialogVisible: false,
         confirmRejectVisible: false,
         assignPriestVisible: false,
-        formData: {
           name: '',
           contact_number: '',
           email: '',
@@ -143,7 +147,6 @@
           files2: [],
           files3: [],
           files4: [],
-        },
         priestOptions: [
           // Add your priest options here
         ],
@@ -151,26 +154,70 @@
       };
     },
     methods: {
+      ...mapActions(useMarriageStore, ["getByID", 'updateByID', 'reject', 'approve']),
+
+      async getData(){
+        let result = await this.getByID(this.row.item_id)
+        let data = result.data
+        console.log(data.preferred_time, 'this is time ')
+        this.name=data.name,
+        this.contact_number=data.contact_number,
+        this.email=data.email,
+        this.address=data.address,
+        this.preferred_date=data.preferred_date.substring(0, 10),
+        this.preferred_time=data.preferred_time,
+        this.status=data.status,
+        this.husband_name=data.husband_name,
+        this.wife_name=data.wife_name,
+        this.sponsors=data.sponsors,
+        console.log(result.data.child_name)
+      },
+
+async acceptRequest(){
+  const result = await this.approve(this.row.item_id)
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Rquest Accepted',
+          position: 'top-right'
+        });
+        this.$emit('updated');
+        this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
+        this.dialogVisible = false;
+  }
+
+}, 
+
+      async rejectRequest() {
+        const result = await this.reject(this.row.item_id)
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Rquest Rejected',
+          position: 'top-right'
+        });
+        this.$emit('updated');
+        this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
+        this.dialogVisible = false;
+  }
+        // Handle reject logic
+
+      },
       openDialog() {
         this.dialogVisible = true;
+        this.getData()
       },
       closeDialog() {
         this.dialogVisible = false;
       },
       confirmReject() {
         this.confirmRejectVisible = true;
-        this.dialogVisible = false;
+        // this.dialogVisible = false;
       },
       cancelReject() {
         this.confirmRejectVisible = false;
       },
-      rejectRequest() {
-        // Handle reject logic
-        console.log('Request rejected');
-        // Close the dialog after rejecting
-        this.closeDialog();
-        this.confirmRejectVisible = false;
-      },
+
       confirmAccept() {
         this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
         this.dialogVisible = false;

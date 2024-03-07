@@ -18,5 +18,15 @@ export const useBaptismalCertificateStore = defineStore('baptismal-certificate',
             return response.data
             
         },
+        async getByID(id) {
+            const response = await baptism.getById(id)
+            console.log(response, 'res')
+            return response.data
+        },
+        async updateByID(id, payload) {
+            const response = await baptism.updatetById(id, payload)
+            console.log(response, 'res')
+            return response.data
+        },
     }
 })

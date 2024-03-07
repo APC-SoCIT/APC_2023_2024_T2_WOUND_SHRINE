@@ -24,4 +24,25 @@ houseBlessingController.getById);
 router.delete('/:id', 
 houseBlessingController.deleteHouseBlessingByID);
 
+router.get('/admin/all', 
+houseBlessingController.admingetAllHouseBlessings);
+
+router.get('/admin/aprroved', 
+houseBlessingController.getAllApprovedHouseBlessings);
+
+router.get('/admin/rejected', 
+houseBlessingController.getAllRejectedHouseBlessings);
+
+router.get('/admin/pending', 
+houseBlessingController.getAllPendingHouseBlessings);
+
+router.put(
+  '/approve/:id',
+  houseBlessingController.approveHouseBlessings
+);
+router.put(
+  '/reject/:id',
+  houseBlessingController.rejectHouseBlessings
+);
+
 module.exports = router;

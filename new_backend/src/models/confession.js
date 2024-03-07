@@ -63,3 +63,89 @@ module.exports.getAll = (id) => {
         });
     });
   };
+
+  module.exports.adminGetAll = () => {
+    const ACTION = '[getAll]';
+    logger.log('info', `${TAG}${ACTION}`);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM confession`)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.adminGetAllApproved = () => {
+    const ACTION = '[getAll]';
+    logger.log('info', `${TAG}${ACTION}`);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM confession where status = 'Approved'`)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.adminGetAllRejected = () => {
+    const ACTION = '[getAll]';
+    logger.log('info', `${TAG}${ACTION}`);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM confession where status = 'Rejected'`)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.adminGetAllPending = () => {
+    const ACTION = '[getAll]';
+    logger.log('info', `${TAG}${ACTION}`);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM confession where status = 'Pending'`)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.confessionApprove = (id) => {
+    const ACTION = '[updateByID]';
+    logger.log('info', `${TAG}${ACTION}`, id);
+    return new Promise((resolve, reject) => {
+      db.execute(`UPDATE confession SET status = 'Approved' WHERE id = ?` 
+    , id)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.confessionReject = (id) => {
+    const ACTION = '[updateByID]';
+    logger.log('info', `${TAG}${ACTION}`, id);
+    return new Promise((resolve, reject) => {
+      db.execute(`UPDATE confession SET status = 'Rejected' WHERE id = ?` 
+    , id)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };

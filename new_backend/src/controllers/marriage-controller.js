@@ -44,11 +44,71 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.deleteMarriageByID = (req, res) => {
-  Baptism.deleteByID(req.params.id)
+  Marriage.deleteByID(req.params.id)
   .then(result => {
     res.success(response(SUCCESS, '', result));
   })
   .catch(err => {
     res.error(err);
   });
+};
+
+module.exports.admingetAllMarriages = (req, res) => {
+  Marriage.adminGetAll()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllApprovedMarriages = (req, res) => {
+  Marriage.adminGetAllApproved()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllRejectedMarriages = (req, res) => {
+  Marriage.adminGetAllRejected()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.approveMarriages = (req, res) => {
+  Marriage.marriageApprove(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllPendingMarriages = (req, res) => {
+  Marriage.adminGetAllPending()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.rejectMarriages = (req, res) => {
+  Marriage.marriageReject(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
 };

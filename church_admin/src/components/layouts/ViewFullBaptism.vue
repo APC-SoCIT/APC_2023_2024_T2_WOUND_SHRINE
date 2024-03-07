@@ -11,21 +11,21 @@
                 <q-btn round flat dense icon="close" @click="closeDialog" />
               </div>
             </q-card-title>
-  
+
             <q-form @submit.prevent="submitForm">
-              <q-input v-model="formData.name" label="Name" />
-              <q-input v-model="formData.contact_number" label="Contact Number" />
-              <q-input v-model="formData.email" label="Email" />
-              <q-input v-model="formData.preferred_date" label="Date" />
-              <q-input v-model="formData.preferred_time" label="Time" />
-              <q-input v-model="formData.address" label="Address" />
-              <q-input v-model="formData.child_name" label="Name of Child" />
-              <q-input v-model="formData.sponsors" label="List of Principal Sponsors" />
-              <q-option-group v-model="formData.type" :options="typeOptions" label="Type" />
-              <q-input v-model="formData.IndividualOrGroup" label="Individual or Group" />
+              <q-input v-model="name" label="Name" />
+              <q-input v-model="contact_number" label="Contact Number" />
+              <q-input v-model="email" label="Email" />
+              <q-input v-model="preferred_date" label="Date" />
+              <q-input v-model="preferred_time" label="Time" />
+              <q-input v-model="address" label="Address" />
+              <q-input v-model="child_name" label="Name of Child" />
+              <q-input v-model="sponsors" label="List of Principal Sponsors" />
+              <q-option-group v-model="type" :options="typeOptions" label="Type" />
+              <q-input v-model="IndividualOrGroup" label="Individual or Group" />
   
               <q-file
-                v-model="formData.files1"
+                v-model="files1"
                 label="Files 1"
                 filled
                 counter
@@ -39,7 +39,7 @@
               </q-file>
   
               <q-file
-                v-model="formData.files2"
+                v-model="files2"
                 label="Files 2"
                 filled
                 counter
@@ -54,7 +54,7 @@
   
               <div class="q-mt-md row justify-end">
                 <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />
-                <q-btn type="button" color="orange" label="Accept" @click="confirmAccept" />
+                <q-btn type="button" color="orange" label="Accept" @click="acceptRequest()" />
               </div>
             </q-form>
           </q-card-section>
@@ -94,30 +94,35 @@
   </template>
   
   <script>
+    import { mapActions } from "pinia";  
+    import { useBaptismStore } from "@/stores/baptism";
+
   export default {
+    props: {
+        row: Object // Define the prop that you are receiving from the parent component
+    },
     data() {
       return {
         dialogVisible: false,
         confirmRejectVisible: false,
         assignPriestVisible: false,
-        formData: {
-          name: 'Jarvis V. Carpo',
-          contact_number: '099999999',
-          email: 'jvcarpo@student.apc.edu.ph',
-          address: '06 Dalupang Street, Zone 2, Central Signal Village, Taguig City',
-          preferred_date: 'Ocotber 08, 2002',
-          preferred_time: '8:00 pm',
+          name: '',
+          contact_number: '',
+          email: '',
+          address: '',
+          preferred_date: '',
+          preferred_time: '',
           status: null,
-          child_name: 'Lisa Carpo',
-          sponsors: 'Grace Valdez, Marlon Mendoza, Mario Valdez',
+          child_name: '',
+          sponsors: '',
           IndividualOrGroup: '',
           type: '',
           files1: [],
           files2: [],
-        },
+       
         typeOptions: [
-          { label: 'Adult', value: 'adult' },
-          { label: 'Child', value: 'child' },
+          { label: 'Adult', value: 'Adult' },
+          { label: 'Child', value: 'Child' },
         ],
         priestOptions: [
           'Rev. Fr. Abel Maglines'
@@ -126,8 +131,67 @@
       };
     },
     methods: {
+      ...mapActions(useBaptismStore, ["getByID", 'approve', 'reject']),
+
+      async getData(){
+        let result = await this.getByID(this.row.item_id)
+        let data = result.data
+    this.motherName = data.mother_name,
+    this.name = data.child_name
+    this.fatherName = data.father_name,
+    this.preferred_date = data.preferred_date.substring(0, 10),
+    this.contact_number = data.contact_number,
+    this.email = data.email,
+    this.sponsors = data.sponsors,
+    this.type = data.type,
+        console.log(result.data.child_name)
+      },
+
+      async onSubmit() {
+  let payload = {
+    mother_name: this.motherName,
+    father_name: this.fatherName,
+    preferred_date: this.date,
+    contact_number: this.contactNumber,
+    email: this.email,
+    child_name: this.childName,
+    sponsors: this.principalSponsors,
+    type: this.type,
+  };
+
+  console.log(payload);
+  const result = await this.updateByID(this.row.item_id, payload);
+  console.log(result.message, 'resulta');
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
+    this.confirmRejectVisible = false;
+        this.dialogVisible = false;
+        this.$emit('updated');
+  }
+}, 
+
+async acceptRequest(){
+  const result = await this.approve(this.row.item_id)
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Rquest Accepted',
+          position: 'top-right'
+        });
+        this.$emit('updated');
+        this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
+        this.dialogVisible = false;
+  }
+
+},
+
       openDialog() {
         this.dialogVisible = true;
+        this.getData()
       },
       closeDialog() {
         this.dialogVisible = false;
@@ -139,17 +203,25 @@
       cancelReject() {
         this.confirmRejectVisible = false;
       },
-      rejectRequest() {
+      async rejectRequest() {
+        const result = await this.reject(this.row.item_id)
+  if (result.message === 'Success.') {
+    this.$q.notify({
+          type: 'positive',
+          message: 'Rquest Rejected',
+          position: 'top-right'
+        });
+        this.$emit('updated');
+        this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
+        this.dialogVisible = false;
+  }
         // Handle reject logic
-        console.log('Request rejected');
-        // Close the dialog after rejecting
-        this.closeDialog();
-        this.confirmRejectVisible = false;
+
       },
       confirmAccept() {
         this.confirmRejectVisible = false; // Close the reject confirmation dialog if open
         this.dialogVisible = false;
-        this.assignPriestVisible = true;
+        // this.assignPriestVisible = true;
       },
       assignPriest() {
         console.log('Assigned priest:', this.selectedPriest);

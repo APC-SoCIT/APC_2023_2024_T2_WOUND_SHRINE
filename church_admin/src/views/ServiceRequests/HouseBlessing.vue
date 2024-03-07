@@ -27,13 +27,13 @@
       flat
       bordered
       title="House Blessing Requests"
-      :rows="filteredRows"
+      :rows="rows"
       :columns="columns"
       row-key="memberId"
     >
       <template v-slot:body-cell-details="props">
         <q-td :props="props">
-          <ViewFullDetails :formData="props.row" />
+          <ViewFullDetails :row="props.row" @updated="getData()" />
         </q-td>
       </template>
     </q-table>
@@ -41,8 +41,12 @@
 </template>
 
 <script>
-import ViewFullDetails from '@/components/layouts/ViewFullDetails.vue';
-import { ref, computed } from 'vue';
+import ViewFullDetails from '@/components/layouts/ViewFullHouseBlessing.vue';
+import { ref, computed, onMounted } from 'vue';
+import { useHouseBlessingStore } from "@/stores/houseBlessing";
+
+const houseBlessingStore = useHouseBlessingStore();
+
 
 export default {
   setup() {
@@ -55,22 +59,43 @@ export default {
       { name: 'details', label: 'Details', align: 'center' },
     ];
 
-    const rows = [
-      {
-        memberId: 12345,
-        name: 'Jarvis Carpo',
-        dateOfRequest: '2024-02-21',
-        timeOfRequest: '12:30 PM',
-        status: 'Approved',
-      },
-      {
-        memberId: 67890,
-        name: 'Kim Altea',
-        dateOfRequest: '2024-02-20',
-        timeOfRequest: '03:45 PM',
-        status: 'Pending',
-      },
-    ];
+    let loading = ref(false)
+    let rows = ref([])
+
+    async function getData(){
+  loading.value = true
+  const statusToStoreMap = {
+    "all": houseBlessingStore.getAll(),
+    "Pending": houseBlessingStore.getAllPending(),
+    "Approved": houseBlessingStore.getAllApproved(),
+    "Rejected": houseBlessingStore.getAllRejected(),
+  };
+
+  const response = await statusToStoreMap[selectedStatus.value];
+  console.log(response.data);
+  const data = response.data;
+
+  rows.value = [];
+
+  // Assuming the data you provided is named `data`
+  data.forEach((item) => {
+    rows.value.push({
+      user_id: item.user_id,
+      item_id: item.id,
+      contact_number: item.contact_number,
+      email: item.email,
+      preferred_date: item.preferred_date.substring(0, 10),
+      preferred_time: item.preferred_time,
+      name: item.name,
+      status: item.status, // Assuming the status is always Baptism for this data
+    });
+  });
+  loading.value = false
+}
+
+onMounted(() => {
+  getData()
+})
 
     const viewFullDetails = (row) => {
       console.log('View Full Details:', row);
@@ -88,6 +113,7 @@ export default {
 
     const changeStatus = (status) => {
       selectedStatus.value = status;
+      getData()
     };
 
     return {
@@ -97,6 +123,7 @@ export default {
       selectedStatus,
       changeStatus,
       filteredRows,
+      getData
     };
   },
   components: {

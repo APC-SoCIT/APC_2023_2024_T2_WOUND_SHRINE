@@ -27,13 +27,13 @@
       flat
       bordered
       title="Marriage Requests"
-      :rows="filteredRows"
+      :rows="rows"
       :columns="columns"
       row-key="memberId"
     >
       <template v-slot:body-cell-details="props">
         <q-td :props="props">
-          <ViewFullMarriage :formData="props.row" />
+          <ViewFullMarriage :row="props.row" @updated="getData()" />
         </q-td>
       </template>
     </q-table>
@@ -42,35 +42,60 @@
 
 <script>
 import ViewFullMarriage from '@/components/layouts/ViewFullMarriage.vue';
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useMarriageStore } from "@/stores/marriage";
+
+const marriageStore = useMarriageStore();
+
 
 export default {
   setup() {
     const columns = [
-      { name: 'memberId', label: 'Member ID', align: 'left', field: 'memberId', sortable: true },
+      { name: 'memberId', label: 'Member ID', align: 'left', field: 'user_id', sortable: true },
       { name: 'name', label: 'Name', align: 'left', field: 'name', sortable: true },
-      { name: 'dateOfRequest', label: 'Date of Request', align: 'center', field: 'dateOfRequest', sortable: true },
-      { name: 'timeOfRequest', label: 'Time of Request', align: 'center', field: 'timeOfRequest', sortable: true },
+      { name: 'dateOfRequest', label: 'Date of Request', align: 'center', field: 'preferred_date', sortable: true },
+      { name: 'timeOfRequest', label: 'Time of Request', align: 'center', field: 'preferred_time', sortable: true },
       { name: 'status', label: 'Status', align: 'center', field: 'status', sortable: true },
       { name: 'details', label: 'Details', align: 'center' },
     ];
 
-    const rows = [
-      {
-        memberId: 12345,
-        name: 'Jarvis Carpo',
-        dateOfRequest: '2024-02-21',
-        timeOfRequest: '12:30 PM',
-        status: 'Approved',
-      },
-      {
-        memberId: 67890,
-        name: 'Kim Altea',
-        dateOfRequest: '2024-02-20',
-        timeOfRequest: '03:45 PM',
-        status: 'Pending',
-      },
-    ];
+    let loading = ref(false)
+    let rows = ref([])
+
+    async function getData(){
+  loading.value = true
+  const statusToStoreMap = {
+    "all": marriageStore.getAll(),
+    "Pending": marriageStore.getAllPending(),
+    "Approved": marriageStore.getAllApproved(),
+    "Rejected": marriageStore.getAllRejected(),
+  };
+
+  const response = await statusToStoreMap[selectedStatus.value];
+  console.log(response.data);
+  const data = response.data;
+
+  rows.value = [];
+
+  // Assuming the data you provided is named `data`
+  data.forEach((item) => {
+    rows.value.push({
+      user_id: item.user_id,
+      item_id: item.id,
+      contact_number: item.contact_number,
+      email: item.email,
+      preferred_date: item.preferred_date.substring(0, 10),
+      preferred_time: item.preferred_time,
+      child_name: item.child_name,
+      status: item.status, // Assuming the status is always Baptism for this data
+    });
+  });
+  loading.value = false
+}
+
+onMounted(() => {
+  getData()
+})
 
     const viewFullDetails = (row) => {
       console.log('View Full Details:', row);
@@ -88,6 +113,7 @@ export default {
 
     const changeStatus = (status) => {
       selectedStatus.value = status;
+      getData()
     };
 
     return {
@@ -97,6 +123,7 @@ export default {
       selectedStatus,
       changeStatus,
       filteredRows,
+      getData
     };
   },
   components: {

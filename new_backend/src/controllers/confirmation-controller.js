@@ -44,11 +44,71 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.deleteConfirmationByID = (req, res) => {
-  Baptism.deleteByID(req.params.id)
+  Confirmation.deleteByID(req.params.id)
   .then(result => {
     res.success(response(SUCCESS, '', result));
   })
   .catch(err => {
     res.error(err);
   });
+};
+
+module.exports.admingetAllConfirmations = (req, res) => {
+  Confirmation.adminGetAll()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllApprovedConfirmations = (req, res) => {
+  Confirmation.adminGetAllApproved()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllRejectedConfirmations = (req, res) => {
+  Confirmation.adminGetAllRejected()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllPendingConfirmations = (req, res) => {
+  Confirmation.adminGetAllPending()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.approveConfirmations = (req, res) => {
+  Confirmation.confirmationApprove(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.rejectConfirmations = (req, res) => {
+  Confirmation.confirmationReject(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
 };

@@ -63,3 +63,89 @@ module.exports.getAll = (id) => {
         });
     });
   };
+
+  module.exports.adminGetAll = () => {
+    const ACTION = '[getAll]';
+    logger.log('info', `${TAG}${ACTION}`);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM confirmation`)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.adminGetAllApproved = () => {
+    const ACTION = '[getAll]';
+    logger.log('info', `${TAG}${ACTION}`);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM confirmation where status = 'Approved'`)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.adminGetAllRejected = () => {
+    const ACTION = '[getAll]';
+    logger.log('info', `${TAG}${ACTION}`);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM confirmation where status = 'Rejected'`)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.adminGetAllPending = () => {
+    const ACTION = '[getAll]';
+    logger.log('info', `${TAG}${ACTION}`);
+    return new Promise((resolve, reject) => {
+      db.execute(`SELECT * FROM confirmation where status = 'Pending'`)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.confirmationApprove = (id) => {
+    const ACTION = '[updateByID]';
+    logger.log('info', `${TAG}${ACTION}`, id);
+    return new Promise((resolve, reject) => {
+      db.execute(`UPDATE confirmation SET status = 'Approved' WHERE id = ?` 
+    , id)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };
+
+  module.exports.confirmationReject = (id) => {
+    const ACTION = '[updateByID]';
+    logger.log('info', `${TAG}${ACTION}`, id);
+    return new Promise((resolve, reject) => {
+      db.execute(`UPDATE confirmation SET status = 'Rejected' WHERE id = ?` 
+    , id)
+        .then(data => {
+          resolve(data);
+        })
+        .catch(err => {
+          reject(response(INTERNAL_SERVER_ERROR));
+        });
+    });
+  };

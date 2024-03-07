@@ -33,6 +33,11 @@
               <q-item-tile label>Anointing of the sick</q-item-tile>
             </q-item-main>
           </q-item>
+          <q-item clickable @click="changeStatus('Baptismal Certificate')">
+            <q-item-main>
+              <q-item-tile label>Baptismal Certificate</q-item-tile>
+            </q-item-main>
+          </q-item>
         </q-list>
       </q-btn-dropdown>
 
@@ -56,6 +61,7 @@
             <ViewFullConfession v-if="selectedStatus === 'Confession'" :row="props.row" @updated="getData()"/>
             <ViewFullConfirmation v-if="selectedStatus === 'Confirmation'" :row="props.row" @updated="getData()" />
             <ViewFullHouseBlessing v-if="selectedStatus === 'House Blessing'" :row="props.row" @updated="getData()"/>
+            <ViewFullBaptismalCertificate v-if="selectedStatus === 'Baptismal Certificate'" :row="props.row" @updated="getData()"/>
           </q-td>
         </template>
         <template v-slot:loading>
@@ -73,6 +79,7 @@ import ViewFullConfession from '@/views/detailview/ViewFullConfession.vue';
 import ViewFullConfirmation from '@/views/detailview/ViewFullConfirmation.vue';
 import ViewFullAnointing from '@/views/detailview/ViewFullAnointing.vue';
 import ViewFullHouseBlessing from '@/views/detailview/ViewFullHouseBlessing.vue';
+import ViewFullBaptismalCertificate from '@/views/detailview/ViewFullBaptismalCertificate.vue';
 
 import { useBaptismStore } from "@/stores/baptism";
 import { useMarriageStore } from "@/stores/marriage";
@@ -80,6 +87,7 @@ import { useAnointingStore } from "@/stores/anointing";
 import { useConfessionStore } from "@/stores/confession";
 import { useConfirmationStore } from "@/stores/confirmation";
 import { useHouseBlessingStore } from "@/stores/houseBlessing";
+import { useBaptismalCertificateStore } from "@/stores/baptismal-certificate";
 
 import { ref, computed, onMounted } from 'vue';
 
@@ -89,12 +97,13 @@ const anointingStore = useAnointingStore();
 const confessionStore = useConfessionStore();
 const houseBlessingStore = useHouseBlessingStore();
 const confirmationStore = useConfirmationStore();
+const baptismal_certificatetore = useBaptismalCertificateStore();
 
 
 
 const columns = [
   { name: 'memberId', label: 'Member ID', align: 'left', field: 'memberId', sortable: true },
-  { name: 'name', label: 'Child Name', align: 'left', field: 'name', sortable: true },
+  // { name: 'name', label: 'Child Name', align: 'left', field: 'name', sortable: true },
   { name: 'dateOfRequest', label: 'Date of Request', align: 'center', field: 'dateOfRequest', sortable: true },
   { name: 'contact_number', label: 'Contact Number', align: 'center', field: 'contact_number', sortable: true },
   { name: 'email', label: 'Email', align: 'center', field: 'email', sortable: true },
@@ -144,7 +153,8 @@ async function getData(){
     "Confession": confessionStore,
     "Confirmation": confirmationStore,
     "House Blessing": houseBlessingStore,
-    "Anointing of the Sick": anointingStore
+    "Anointing of the Sick": anointingStore,
+    "Baptismal Certificate": baptismal_certificatetore
   };
 
   const response = await statusToStoreMap[selectedStatus.value].getAll();

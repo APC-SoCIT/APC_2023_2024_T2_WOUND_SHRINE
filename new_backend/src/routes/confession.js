@@ -25,4 +25,25 @@ confessionController.getById);
 router.delete('/:id', 
 confessionController.deleteConfessionByID);
 
+router.get('/admin/all', 
+confessionController.admingetAllConfessions);
+
+router.get('/admin/aprroved', 
+confessionController.getAllApprovedConfessions);
+
+router.get('/admin/rejected', 
+confessionController.getAllRejectedConfessions);
+
+router.get('/admin/pending', 
+confessionController.getAllPendingConfessions);
+
+router.put(
+  '/approve/:id',
+  confessionController.approveConfessions
+);
+router.put(
+  '/reject/:id',
+  confessionController.rejectConfessions
+);
+
 module.exports = router;

@@ -41,3 +41,63 @@ module.exports.updateAnointingByID = (req, res) => {
     res.error(err);
   });
 };
+
+module.exports.admingetAllAnointings = (req, res) => {
+  Anointing.adminGetAll()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllApprovedAnointings = (req, res) => {
+  Anointing.adminGetAllApproved()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllPendingAnointings = (req, res) => {
+  Anointing.adminGetAllPending()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllRejectedAnointings = (req, res) => {
+  Anointing.adminGetAllRejected()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.approveAnointings = (req, res) => {
+  Anointing.anointingApprove(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.rejectAnointings = (req, res) => {
+  Anointing.anointingReject(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};

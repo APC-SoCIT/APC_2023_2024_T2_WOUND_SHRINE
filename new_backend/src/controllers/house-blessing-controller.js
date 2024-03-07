@@ -44,11 +44,71 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.deleteHouseBlessingByID = (req, res) => {
-  Baptism.deleteByID(req.params.id)
+  HouseBlessing.deleteByID(req.params.id)
   .then(result => {
     res.success(response(SUCCESS, '', result));
   })
   .catch(err => {
     res.error(err);
   });
+};
+
+module.exports.admingetAllHouseBlessings = (req, res) => {
+  HouseBlessing.adminGetAll()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllPendingHouseBlessings = (req, res) => {
+  HouseBlessing.adminGetAllPending()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllApprovedHouseBlessings = (req, res) => {
+  HouseBlessing.adminGetAllApproved()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.getAllRejectedHouseBlessings = (req, res) => {
+  HouseBlessing.adminGetAllRejected()
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.approveHouseBlessings = (req, res) => {
+  HouseBlessing.houseBlessingApprove(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
+};
+
+module.exports.rejectHouseBlessings = (req, res) => {
+  HouseBlessing.houseBlessingReject(req.params.id)
+    .then(result => {
+      return res.success(response(SUCCESS, '', result));
+    })
+    .catch(err => {
+      res.error(err);
+    });
 };
