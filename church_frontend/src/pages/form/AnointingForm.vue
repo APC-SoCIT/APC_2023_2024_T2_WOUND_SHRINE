@@ -1,5 +1,5 @@
 <template>
-  <div class="google-form">
+  <div v-if="isAuthenticated" class="google-form">
     <q-form @submit.prevent="submitForm">
       <div class="form-content">
         <!-- Name of the Girl -->
@@ -76,7 +76,7 @@
         </div>
         <!-- First File Input -->
         <div class="input-wrapper">
-          <div class="label">Letter of Intent</div>
+          <!-- <div class="label">Letter of Intent</div>
           <q-file
             v-model="files1"
             label="Pick files"
@@ -89,7 +89,7 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
       </div>
       <!-- Submit Button -->
@@ -104,13 +104,14 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 import { mapActions } from "pinia";
 import { useAnointingStore } from '../../stores/anointing';
 
 export default {
   data() {
     return {
+      isAuthenticated: ref(false),
       name: '',
       contactNumber: '',
       email: '',
@@ -118,6 +119,9 @@ export default {
       time: ref('12:00'), // Default time value
       files1: []
     };
+  },
+  mounted(){
+    this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
   },
   methods: {
     ...mapActions(useAnointingStore,["create"]),
@@ -137,6 +141,11 @@ const result = await this.create(payload);
 console.log(result.message);
 if (result.message === 'Success.') {
 this.$emit('formSubmitted');
+this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
 }
 }, 
     fileUploadFailed(err) {

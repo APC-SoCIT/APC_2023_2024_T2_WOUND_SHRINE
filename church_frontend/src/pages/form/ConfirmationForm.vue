@@ -1,5 +1,5 @@
 <template>
-  <div class="google-form">
+  <div v-if="isAuthenticated" class="google-form">
     <q-form @submit.prevent="submitForm">
       <div class="form-content">
         <!-- Name of the Girl -->
@@ -87,7 +87,7 @@
         </div>
         <!-- First File Input -->
         <div class="input-wrapper">
-          <div class="label">Letter of Intent</div>
+          <!-- <div class="label">Letter of Intent</div>
           <q-file
             v-model="files1"
             label="Pick files"
@@ -100,11 +100,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Second File Input -->
         <div class="input-wrapper">
-          <div class="label">Baptismal Certificate</div>
+          <!-- <div class="label">Baptismal Certificate</div>
           <q-file
             v-model="files2"
             label="Pick files"
@@ -117,11 +117,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Third File Input -->
         <div class="input-wrapper">
-          <div class="label">Birth Certificate</div>
+          <!-- <div class="label">Birth Certificate</div>
           <q-file
             v-model="files3"
             label="Pick files"
@@ -134,7 +134,7 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
       </div>
       <!-- Submit Button -->
@@ -149,13 +149,14 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { mapActions } from "pinia";
 import { useConfirmationStore } from "@/stores/confirmation";
 
 export default {
   data() {
     return {
+      isAuthenticated: ref(false),
       Name: '',
       sponsor: '', // Added sponsorName field
       contactNumber: '',
@@ -167,6 +168,11 @@ export default {
       files3: []
     };
   },
+
+  mounted(){
+    this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+  },
+
   methods: {
     ...mapActions(useConfirmationStore,["create"]),
 
@@ -186,6 +192,11 @@ export default {
   console.log(result.message);
   if (result.message === 'Success.') {
     this.$emit('formSubmitted');
+    this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
   }
 }, 
     fileUploadFailed(err) {

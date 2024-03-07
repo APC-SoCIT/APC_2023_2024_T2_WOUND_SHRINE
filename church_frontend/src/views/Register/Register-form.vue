@@ -105,6 +105,36 @@ const formData = reactive({
 })
 
 async function onSubmit(){
+  // Check if the username meets the minimum length requirement
+  if (formData.username.length < 8) {
+    isError.value = true;
+    ErrorMessage.value = 'Username must be at least 8 characters long';
+    setTimeout(() => {
+      isError.value = false;
+    }, 3000);
+    return; // Prevent further execution of the function
+  }
+
+  // Check if the email contains the "@" symbol
+  if (!formData.email.includes('@')) {
+    isError.value = true;
+    ErrorMessage.value = 'Email must contain "@" symbol';
+    setTimeout(() => {
+      isError.value = false;
+    }, 3000);
+    return; // Prevent further execution of the function
+  }
+
+  // Check if the password contains at least one uppercase letter and one number
+  if (!/[A-Z]/.test(formData.password) || !/\d/.test(formData.password)) {
+    isError.value = true;
+    ErrorMessage.value = 'Password must contain at least one uppercase letter and one number';
+    setTimeout(() => {
+      isError.value = false;
+    }, 3000);
+    return; // Prevent further execution of the function
+  }
+
   // loading.value = true
   console.log(formData)
   const { confirmPassword, ...formDataWithoutConfirmPassword } = formData;

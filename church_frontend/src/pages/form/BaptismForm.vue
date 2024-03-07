@@ -1,5 +1,5 @@
 <template>
-  <div class="google-form">
+  <div v-if="isAuthenticated" class="google-form">
     <q-form @submit.prevent="onSubmit">
       <div class="form-content">
         <!-- Mothers Name -->
@@ -99,7 +99,7 @@
         </div>
         <!-- First File Input -->
         <div class="input-wrapper">
-          <div class="label">Marriage Certificate</div>
+          <!-- <div class="label">Marriage Certificate</div>
           <q-file
             v-model="marriage_certificate"
             label="Pick files"
@@ -112,11 +112,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Second File Input -->
         <div class="input-wrapper">
-          <div class="label">Birth Certificate</div>
+          <!-- <div class="label">Birth Certificate</div>
           <q-file
             v-model="birth_certificate"
             label="Pick files"
@@ -129,7 +129,7 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
       </div>
       <!-- Submit Button -->
@@ -145,7 +145,7 @@
 
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { mapActions } from "pinia";
 import { useBaptismStore } from "@/stores/baptism";
 
@@ -153,6 +153,7 @@ import { useBaptismStore } from "@/stores/baptism";
 export default {
   data() {
     return {
+      isAuthenticated: ref(false),
       user_id: sessionStorage.getItem("user_id"),
       motherName: '',
       fatherName: '',
@@ -169,6 +170,10 @@ export default {
       marriage_certificate: [],
       birth_certificate: []
     };
+  },
+
+  mounted(){
+    this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
   },
 
   methods: {
@@ -194,6 +199,11 @@ export default {
   console.log(result.message);
   if (result.message === 'Success.') {
     this.$emit('formSubmitted');
+    this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
   }
 }, 
 

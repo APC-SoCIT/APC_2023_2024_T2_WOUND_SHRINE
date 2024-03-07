@@ -34,7 +34,7 @@
         <q-icon name="arrow_back" color="black"></q-icon>Go Back
       </button>
       <!-- Title of the form inside the box -->
-      <div class="form-box">
+      <div v-if="isAuthenticated" class="form-box">
         <h3 style="color: black; background-color: #f0ebf8; padding: 10px;">{{ selectedService.name }} Form</h3>
         <!-- Integrated request form here -->
         <component v-if="!formSubmitted" :is="selectedServiceFormComponent" @formSubmitted="handleFormSubmitted" />
@@ -50,9 +50,9 @@
     <!-- Message after submitting the form -->
     <div v-if="formSubmitted" class="message">
       <h3 style="color: #ffaa2b;">Your request has been submitted.</h3>
-      <p style="color: #ffaa2b;">Please wait for our confirmation through your email address!</p>
+      <p style="color: #ffaa2b;">Please wait for Update</p>
       <!-- Button to review the reservation form -->
-      <button class="review-button" @click="reviewReservation" style="color: black;">Review Reservation</button>
+      <!-- <button class="review-button" @click="reviewReservation" style="color: black;">Review Reservation</button> -->
       <!-- Button to exit and go back to services -->
       <button class="exit-button" @click="exitReservation" style="color: black;">Exit</button>
     </div>
@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'
 import BaptismForm from "./form/BaptismForm.vue";
 import MarriageForm from "./form/MarriageForm.vue";
 import ConfessionForm from "./form/ConfessionForm.vue";
@@ -97,7 +98,9 @@ export default {
             'Sponsor (Godparent): If the candidate is an infant, sponsors (godparents) are typically required. They must be practicing Catholics who have received the sacraments of Baptism, Confirmation, and Holy Communion.',
             'Baptismal Fee: Some parishes may request a nominal fee to cover administrative costs.',
             'Preparation and Attendance: Candidates or parents may need to attend pre-baptismal classes or sessions.',
-            'Parental Consent (for minors): If the candidate is a minor, parental consent is necessary for the baptism.'
+            'Parental Consent (for minors): If the candidate is a minor, parental consent is necessary for the baptism.',
+            'NOTE:',
+            'Bring The orginal copy of Marriage Certificate and Birth Certificate'
           ],
           formComponent: 'BaptismForm'
           // Add formComponent property to other services with corresponding form component names
@@ -118,6 +121,8 @@ export default {
             'Pre-Cana Certificate: Completion of a pre-marriage preparation course is mandatory, and couples need to present a certificate of attendance.',
             'Freedom to Marry Affidavit: Couples may need to sign a document affirming that they are free to marry.',
             'Canonical Interview: Couples may undergo a canonical interview with the priest or deacon to ensure they understand the sacrament of marriage and are entering into it freely and willingly.',
+            'NOTE:',
+            'Bring the orginal copy of Confirmation Certificate, Baptismal Certificate, Birth Certificate and Certificate of No Marriage'
           ],
           formComponent: 'MarriageForm'
           // Add formComponent property to other services with corresponding form component names
@@ -136,7 +141,9 @@ export default {
             'Confession of Mortal Sins: Catholics must confess all mortal sins they are aware of since their last confession.',
             'Confession of Venial Sins: While not required, confessing venial sins is encouraged for spiritual growth and purification.',
             'Confession Frequency: Catholics are encouraged to confess mortal sins as soon as possible and to participate in the sacrament of reconciliation regularly for spiritual renewal.',
-            'Confidentiality: Confessions are absolutely confidential, and priests are bound by the seal of confession, never to disclose what is confessed to them.'
+            'Confidentiality: Confessions are absolutely confidential, and priests are bound by the seal of confession, never to disclose what is confessed to them.',
+            'NOTE:',
+            'Bring The Letter of intent upon Coming to the Parish Church'
          ],
           formComponent: 'ConfessionForm'
           // Add formComponent property to other services with corresponding form component names
@@ -155,7 +162,9 @@ export default {
             'Preparation: Candidates are expected to participate fully in the preparation process, which may include attending classes, retreats, and spiritual formation activities.',
             'Desire for Confirmation: Candidates should express a sincere desire to receive the sacrament and grow in their relationship with God.',
             'Sponsor: Each candidate must have a sponsor who is a confirmed Catholic in good standing with the Church.',
-            'Readiness: Candidates should be prepared to make a personal commitment to live out their faith and be active members of the Church community.'
+            'Readiness: Candidates should be prepared to make a personal commitment to live out their faith and be active members of the Church community.',
+            'NOTE:',
+            'Bring the Original copy of Baptismal Certificate, Birth Certificate and Letter of Intent'
           ],
           formComponent: 'ConfirmationForm'
           // Add formComponent property to other services with corresponding form component names
@@ -175,7 +184,9 @@ export default {
             'Personalize the Blessing: Consider incorporating personal prayers or intentions into the blessing, such as prayers for specific family members or needs.',
             'Invite Guests: You may wish to invite friends, neighbors, or fellow parishioners to witness and participate in the house blessing.',
             'Create a Sacred Space: After the blessing, display blessed objects prominently in the home as reminders of Gods presence and protection.',
-            'Express Gratitude: Thank the priest or deacon for their time and prayers, and consider offering them hospitality such as refreshments or a meal.'
+            'Express Gratitude: Thank the priest or deacon for their time and prayers, and consider offering them hospitality such as refreshments or a meal.',
+            'NOTE:',
+            'Bring The Letter of intent upon Coming to the Parish Church'
           ],
           formComponent: 'HouseBlessingForm'
           // Add formComponent property to other services with corresponding form component names
@@ -194,13 +205,16 @@ export default {
             'Desire for the Sacrament: The sick person or their caregiver should express a sincere desire to receive the sacrament and benefit from its graces.',
             'Presence of a Priest: A Catholic priest must be present to administer the sacrament, although in emergencies, any priest, even one without jurisdiction, can administer it.',
             'Openness to Gods Grace: The recipient should be open to receiving Gods healing, comfort, and strength through the sacrament.',
-            'Faith: While faith is not a strict requirement, an openness to Gods presence and grace can deepen the spiritual benefits of the sacrament.'
+            'Faith: While faith is not a strict requirement, an openness to Gods presence and grace can deepen the spiritual benefits of the sacrament.',
+            'NOTE:',
+            'Bring The Letter of intent upon Coming to the Parish Church'
           ],
           formComponent: 'AnointingForm'
           // Add formComponent property to other services with corresponding form component names
         },
         // Add other service objects here
       ],
+      isAuthenticated: ref(false),
       selectedService: null,
       showRequestForm: false,
       formSubmitted: false,
@@ -211,6 +225,9 @@ export default {
     selectedServiceFormComponent() {
       return this.selectedService ? this.selectedService.formComponent : null;
     }
+  },
+  mounted(){
+    this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
   },
   methods: {
     showServiceDetails(service) {

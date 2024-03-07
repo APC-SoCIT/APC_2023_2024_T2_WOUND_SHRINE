@@ -11,7 +11,7 @@
     </div>
 
     <!-- Document Request Form -->
-    <div v-if="selectedDocument && !showPaymentForm && !showConfirmation" class="form-box">
+    <div v-if=" selectedDocument && !showPaymentForm && !showConfirmation"  class="form-box">
       <!-- Add this div with the form-box class -->
       <q-form class="google-form">
         <!-- Back button with the icon and text "GO BACK" -->
@@ -20,13 +20,13 @@
         </q-btn>
 
         <!-- Displaying the document request form -->
-        <q-card class="request-content">
+        <q-card  class="request-content">
           <q-card-section>
             <div class="request-heading">
               <h3>Requesting {{ selectedDocument.title }}</h3>
             </div>
             <q-form @submit="onSubmit">
-              <div class="form-content">
+              <div v-if="isAuthenticated" class="form-content">
                 <div class="input-wrapper">
                   <div class="label">Name</div>
                   <q-input v-model="name" filled outlined dense required></q-input>
@@ -53,16 +53,16 @@
                   <q-select v-model="paymentOption" filled outlined :options="paymentOptions" required></q-select>
                 </div>
                 <div class="input-wrapper">
-                  <div class="label">Payment Channel:</div>
-                  <q-select v-model="paymentChannel" filled outlined :options="paymentChannels" required></q-select>
+                  <!-- <div class="label">Payment Channel:</div>
+                  <q-select v-model="paymentChannel" filled outlined :options="paymentChannels" required></q-select> -->
                 </div>
                 <div class="input-wrapper">
-                  <div class="label">Fee:</div>
-                  <q-input v-model="fee" filled outlined type="number" required></q-input>
+                  <!-- <div class="label">Fee:</div>
+                  <q-input v-model="fee" filled outlined type="number" required></q-input> -->
                 </div>
               </div>
               <!-- Add Next button to proceed to shipping options -->
-              <div class="form-actions">
+              <div v-if="isAuthenticated" class="form-actions">
                 <q-btn type="submit" label="Submit" color="primary"></q-btn>
               </div>
             </q-form>
@@ -74,14 +74,15 @@
     <!-- Confirmation Message after Payment -->
     <div v-if="showConfirmation" class="confirmation-message">
       <h3>Your document request has been confirmed.</h3>
-      <p>Please wait for your updates through your email address!</p>
-      <q-btn @click="showDocumentSelection" label="Review" color="primary"></q-btn>
-      <q-btn @click="exit" label="Exit" color="primary"></q-btn>
+      <p>Please wait for Update</p>
+      <!-- <q-btn @click="showDocumentSelection" label="Review" color="primary"></q-btn> -->
+      <q-btn @click="showDocumentSelection" label="Exit" color="primary"></q-btn>
     </div>
   </div>
 </template>
 
 <script>
+import { ref, onMounted } from 'vue'
 import { mapActions } from "pinia";
 import { useBaptismalCertificateStore } from "@/stores/baptismal-certificate";
 import { useMarriageCertificateStore } from "@/stores/marriage-certificate";
@@ -96,6 +97,7 @@ export default {
         { title: "Baptismal Certificate" },
         { title: "Mass Card" }
       ],
+      isAuthenticated: ref(false),
       selectedDocument: null,
       name: '',
       number: '',
@@ -107,11 +109,16 @@ export default {
       paymentChannel: '',
       fee: '',
       shippingOption: '',
-      paymentOptions: ['Credit Card', 'Debit Card', 'PayPal'],
+      paymentOptions: ['Gcash', 'Pay Onsite',],
       paymentChannels: ['Online', 'Offline'],
       shippingOptions: ['Pick Up', 'Delivery']
     };
   },
+
+  mounted(){
+    this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+  },
+
   methods: {
     ...mapActions(useBaptismalCertificateStore, ["Baptismalcreate"]),
     ...mapActions(useMarriageCertificateStore, ["Marriagecreate"]),
@@ -136,6 +143,11 @@ export default {
         const result = await this.Marriagecreate(payload)
         if (result.message === 'Success.') {
           this.showConfirmation = true;
+          this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
         }
       } else if (this.selectedDocument.title === "Baptismal Certificate") {
         const result = await this.Baptismalcreate(payload)
@@ -143,12 +155,22 @@ export default {
         if (result.message === 'Success.') {
           this.resetForm()
           this.showConfirmation = true;
+          this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
         }
       } else if (this.selectedDocument.title === "Mass Card") {
         const result = await this.Masscardcreate(payload)
         if (result.message === 'Success.') {
           this.resetForm()
           this.showConfirmation = true;
+          this.$q.notify({
+          type: 'positive',
+          message: 'Form submitted successfully',
+          position: 'top-right'
+        });
         }
       }
     },

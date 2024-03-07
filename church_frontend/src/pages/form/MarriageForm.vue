@@ -1,5 +1,5 @@
 <template>
-  <div class="google-form">
+  <div v-if="isAuthenticated" class="google-form">
     <q-form @submit.prevent="submitForm">
       <div class="form-content">
         <!-- Mothers Name -->
@@ -109,7 +109,7 @@
         </div>
         <!-- First File Input -->
         <div class="input-wrapper">
-          <div class="label">Confirmation Certificate</div>
+          <!-- <div class="label">Confirmation Certificate</div>
           <q-file
             v-model="confirmation_certificate"
             label="Pick files"
@@ -122,11 +122,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Second File Input -->
         <div class="input-wrapper">
-          <div class="label">Baptismal Certificate</div>
+          <!-- <div class="label">Baptismal Certificate</div>
           <q-file
             v-model="baptismal_certificate"
             label="Pick files"
@@ -139,11 +139,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Third File Input -->
         <div class="input-wrapper">
-          <div class="label">Birth Certificate</div>
+          <!-- <div class="label">Birth Certificate</div>
           <q-file
             v-model="psa_birth_certificate"
             label="Pick files"
@@ -156,11 +156,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Fourth File Input -->
         <div class="input-wrapper">
-          <div class="label">Certificate of No Marriage</div>
+          <!-- <div class="label">Certificate of No Marriage</div>
           <q-file
             v-model="psa_certificate_of_no_marriage"
             label="Pick files"
@@ -173,7 +173,7 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
       </div>
       <!-- Submit Button -->
@@ -188,13 +188,14 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { mapActions } from 'pinia';
 import { useMarriageStore } from "@/stores/marriage";
 
 export default {
   data() {
     return {
+      isAuthenticated: ref(false),
       wife_name: '',
       husband_name: '',
       contact_number: '',
@@ -209,6 +210,11 @@ export default {
       psa_certificate_of_no_marriage: []
     };
   },
+
+  mounted(){
+    this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
+  },
+
   methods: {
     ...mapActions(useMarriageStore, ["create"]),
 

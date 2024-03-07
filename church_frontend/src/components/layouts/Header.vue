@@ -26,15 +26,15 @@
       <q-space />
 
       <!-- Notification button with dropdown -->
-      <q-btn-dropdown flat dense icon="notifications" color="black" text-color="black">
+      <!-- <q-btn-dropdown flat dense icon="notifications" color="black" text-color="black">
         <q-list>
           <q-item v-for="(notification, index) in notifications" :key="index" clickable @click="onItemClick(notification)">
             <q-item-section>{{ notification }}</q-item-section>
           </q-item>
         </q-list>
-      </q-btn-dropdown>
+      </q-btn-dropdown> -->
 
-      <q-avatar class="q-ma-md">
+      <q-avatar v-if="isAuthenticated" class="q-ma-md">
         <img src="https://cdn.quasar.dev/img/avatar.png">
       </q-avatar>
 
