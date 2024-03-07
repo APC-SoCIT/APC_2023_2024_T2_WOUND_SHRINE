@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="section">
     <q-card class="q-pa-md">
       <q-btn-dropdown label="View" class="bg-white">
         <q-list link>
@@ -174,6 +174,10 @@ const changeStatus = (status) => {
 </script>
 
 <style scoped>
+.section {
+  margin-bottom: 20px; /* Adjust the value as needed */
+  margin-top: 20px;
+}
 .q-btn-dropdown {
   margin-bottom: 10px;
 }
