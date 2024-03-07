@@ -45,7 +45,7 @@ const router = createRouter({
                 beforeEnter: middleware.guest,
             },
               {
-                path: '/home',
+                path: '/',
                 name: 'home',
                 component: () => import('../views/HomeView.vue'),
                 meta: {

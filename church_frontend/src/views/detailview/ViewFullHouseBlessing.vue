@@ -89,7 +89,7 @@
         </div>
         <!-- First File Input -->
         <div class="input-wrapper">
-          <div class="label">Letter of Intent</div>
+          <!-- <div class="label">Letter of Intent</div>
           <q-file
             v-model="files1"
             label="Pick files"
@@ -102,7 +102,7 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
       </div>
       <!-- Submit Button -->

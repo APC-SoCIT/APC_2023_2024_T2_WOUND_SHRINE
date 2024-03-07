@@ -99,7 +99,7 @@
         </div>
         <!-- First File Input -->
         <div class="input-wrapper">
-          <div class="label">Letter of Intent</div>
+          <!-- <div class="label">Letter of Intent</div>
           <q-file
             v-model="files1"
             label="Pick files"
@@ -112,11 +112,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Second File Input -->
         <div class="input-wrapper">
-          <div class="label">Baptismal Certificate</div>
+          <!-- <div class="label">Baptismal Certificate</div>
           <q-file
             v-model="files2"
             label="Pick files"
@@ -129,11 +129,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Third File Input -->
         <div class="input-wrapper">
-          <div class="label">Birth Certificate</div>
+          <!-- <div class="label">Birth Certificate</div>
           <q-file
             v-model="files3"
             label="Pick files"
@@ -146,7 +146,7 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
       </div>
       <!-- Submit Button -->

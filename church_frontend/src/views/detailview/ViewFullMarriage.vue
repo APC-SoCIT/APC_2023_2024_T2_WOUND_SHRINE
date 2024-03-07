@@ -121,7 +121,7 @@
         </div>
         <!-- First File Input -->
         <div class="input-wrapper">
-          <div class="label">Confirmation Certificate</div>
+          <!-- <div class="label">Confirmation Certificate</div>
           <q-file
             v-model="confirmation_certificate"
             label="Pick files"
@@ -134,11 +134,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Second File Input -->
         <div class="input-wrapper">
-          <div class="label">Baptismal Certificate</div>
+          <!-- <div class="label">Baptismal Certificate</div>
           <q-file
             v-model="baptismal_certificate"
             label="Pick files"
@@ -151,11 +151,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Third File Input -->
         <div class="input-wrapper">
-          <div class="label">Birth Certificate</div>
+          <!-- <div class="label">Birth Certificate</div>
           <q-file
             v-model="psa_birth_certificate"
             label="Pick files"
@@ -168,11 +168,11 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
         <!-- Fourth File Input -->
         <div class="input-wrapper">
-          <div class="label">Certificate of No Marriage</div>
+          <!-- <div class="label">Certificate of No Marriage</div>
           <q-file
             v-model="psa_certificate_of_no_marriage"
             label="Pick files"
@@ -185,7 +185,7 @@
             <template v-slot:prepend>
               <q-icon name="attach_file" />
             </template>
-          </q-file>
+          </q-file> -->
         </div>
       </div>
       <!-- Submit Button -->
