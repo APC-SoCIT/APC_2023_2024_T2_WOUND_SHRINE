@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import baptismRepository from "../api/baptism";
 import router from "../router";
 import baptism from "../api/baptism";
+import mailer from "../api/mailer";
 
 export const useBaptismStore = defineStore('baptism', {
     actions: {
@@ -9,7 +10,9 @@ export const useBaptismStore = defineStore('baptism', {
         async create(payload) {
             console.log('payload')
             const response = await baptism.create(payload)
-            console.log(response, 'res')
+            if(response.status === 200){
+                mailer.sendmail({email: payload.email})
+            }
             return response.data
             
         },

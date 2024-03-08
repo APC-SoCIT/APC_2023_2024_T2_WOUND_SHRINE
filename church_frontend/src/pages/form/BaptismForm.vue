@@ -149,7 +149,6 @@ import { ref, onMounted } from 'vue'
 import { mapActions } from "pinia";
 import { useBaptismStore } from "@/stores/baptism";
 
-
 export default {
   data() {
     return {

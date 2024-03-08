@@ -10,10 +10,11 @@ const anointing = require('./anointing')
 const marriageCertificate = require('./marriage-certificate')
 const massCard = require('./mass-cards')
 const baptism_certificate = require('./baptism-certificate')
+const mailer = require('./mailer')
 
 
 
-
+router.use('/mailsender', mailer)
 router.use('/employees', employee);
 router.use('/user', user);
 router.use('/marriage', marriage);
