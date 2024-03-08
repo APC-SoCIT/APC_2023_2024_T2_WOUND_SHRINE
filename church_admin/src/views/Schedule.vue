@@ -81,8 +81,8 @@
           </div>
         </q-card-section>
         <q-card-actions align="right">
-          <q-btn label="Cancel" color="primary" @click="closeDialog" />
-          <q-btn label="Add" color="positive" @click="saveSchedule" />
+          <q-btn label="Cancel" color="white" text-color = "black" @click="closeDialog" />
+          <q-btn label="Add" text-color = "white" @click="saveSchedule" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -142,7 +142,7 @@ export default {
 }
 
 .dialog {
-  width: 300px;
+  width: 500px;
 }
 
 .q-dialog-title {
