@@ -170,7 +170,7 @@ async function getData(){
       item_id: item.id,
       contact_number: item.contact_number,
       email: item.email,
-      dateOfRequest: item.preferred_date.substring(0, 10),
+      // dateOfRequest: item.preferred_date.substring(0, 10),
       status: item.status, // Assuming the status is always Baptism for this data
     });
   });
