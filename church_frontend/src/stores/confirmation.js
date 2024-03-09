@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import confrimationrepository from "../api/confirmation";
 import router from "../router";
+import mailer from "../api/mailer";
 
 export const useConfirmationStore = defineStore('confrimation', {
     actions: {
@@ -8,7 +9,9 @@ export const useConfirmationStore = defineStore('confrimation', {
         async create(payload) {
             console.log('confrimation')
             const response = await confrimationrepository.create(payload)
-            console.log(response, 'res')
+            if(response.status === 200){
+                mailer.sendmail({email: payload.email})
+            }
             return response.data
             
         },

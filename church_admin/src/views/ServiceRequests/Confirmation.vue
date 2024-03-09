@@ -65,8 +65,8 @@ export default {
     const columns = [
       { name: 'user_id', label: 'Member ID', align: 'left', field: 'user_id', sortable: true },
       { name: 'name', label: 'Name', align: 'left', field: 'name', sortable: true },
-      { name: 'preferred_date', label: 'Date of Request', align: 'center', field: 'preferred_date', sortable: true },
-      { name: 'preferred_time', label: 'Time of Request', align: 'center', field: 'preferred_time', sortable: true },
+      { name: 'date_requested', label: 'Date Requested', align: 'center', field: 'date_requested', sortable: true },
+      { name: 'time_requested', label: 'Time Requested', align: 'center', field: 'time_requested', sortable: true },
       { name: 'status', label: 'Status', align: 'center', field: 'status', sortable: true },
       { name: 'details', label: 'Details', align: 'center' },
     ];
@@ -91,6 +91,14 @@ export default {
 
       // Assuming the data you provided is named `data`
       data.forEach((item) => {
+        // Convert time to 12-hour format
+        let time = item.time_requested;
+        let hours = parseInt(time.substring(0, 2), 10);
+        let minutes = time.substring(3);
+        let period = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12 || 12;
+        let time12HourFormat = `${hours}:${minutes} ${period}`;
+
         rows.value.push({
           user_id: item.user_id,
           item_id: item.id,
@@ -98,8 +106,10 @@ export default {
           email: item.email,
           preferred_date: item.preferred_date.substring(0, 10),
           preferred_time: item.preferred_time,
-          child_name: item.child_name,
+          name: item.name,
           status: item.status, // Assuming the status is always Baptism for this data
+          date_requested: item.date_requested.substring(0, 10), // Display only date
+          time_requested: time12HourFormat, // Assigning 12-hour formatted time
         });
       });
       loading.value = false;

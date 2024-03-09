@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import marriagerepository from "../api/marriage";
 import router from "../router";
+import mailer from "../api/mailer";
 
 export const useMarriageStore = defineStore('marriage', {
     actions: {
@@ -8,7 +9,9 @@ export const useMarriageStore = defineStore('marriage', {
         async create(payload) {
             console.log('marriage')
             const response = await marriagerepository.create(payload)
-            console.log(response, 'res')
+            if(response.status === 200){
+                mailer.sendmail({email: payload.email})
+            }
             return response.data
             
         },

@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import anointingrepository from "../api/anointing";
 import router from "../router";
+import mailer from "../api/mailer";
 
 export const useAnointingStore = defineStore('anointing', {
     actions: {
@@ -9,6 +10,9 @@ export const useAnointingStore = defineStore('anointing', {
             console.log('anointing')
             const response = await anointingrepository.create(payload)
             console.log(response, 'res')
+            if(response.status === 200){
+                mailer.sendmail({email: payload.email})
+            }
             return response.data
             
         },

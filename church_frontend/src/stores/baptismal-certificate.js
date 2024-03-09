@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import useBaptismalCertificateRepository from "../api/baptismal-certificate";
 import router from "../router";
+import mailer from "../api/mailer";
 
 export const useBaptismalCertificateStore = defineStore('baptismal-certificate', {
     actions: {
@@ -8,6 +9,9 @@ export const useBaptismalCertificateStore = defineStore('baptismal-certificate',
         async Baptismalcreate(payload) {
             const response = await useBaptismalCertificateRepository.create(payload)
             console.log(response, 'res')
+            if(response.status === 200){
+                mailer.sendmail({email: payload.email})
+            }
             return response.data
             
         },

@@ -97,7 +97,7 @@ export default {
         this.contact_number = data.contact_number,
         this.email = data.email,
         this.address = data.address,
-        this.preferred_date = data.preferred_date,
+        this.preferred_date = data.preferred_date.substring(0, 10),
         this.preferred_time = data.preferred_time,
         console.log(result.data.child_name)
       },

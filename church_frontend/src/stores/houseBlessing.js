@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import houseBlessingrepository from "../api/houseBlessing";
 import router from "../router";
+import mailer from "../api/mailer";
 
 export const useHouseBlessingStore = defineStore('houseBlessing', {
     actions: {
@@ -8,7 +9,9 @@ export const useHouseBlessingStore = defineStore('houseBlessing', {
         async create(payload) {
             console.log('houseBlessing')
             const response = await houseBlessingrepository.create(payload)
-            console.log(response, 'res')
+            if(response.status === 200){
+                mailer.sendmail({email: payload.email})
+            }
             return response.data
             
         },

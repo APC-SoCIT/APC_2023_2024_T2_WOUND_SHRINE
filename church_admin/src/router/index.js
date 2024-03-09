@@ -26,7 +26,7 @@ const router = createRouter({
           beforeEnter: middleware.guest,
       },
         {
-            path: '/',
+            path: '/home',
             name: 'main',
             meta: {
                 title: `Admin | ${import.meta.env.VITE_FE_TITLE}`,
@@ -45,7 +45,7 @@ const router = createRouter({
                 beforeEnter: middleware.guest,
             },
               {
-                path: '/',
+                path: '/home',
                 name: 'home',
                 component: () => import('../views/HomeView.vue'),
                 meta: {
