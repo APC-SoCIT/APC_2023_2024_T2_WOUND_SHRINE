@@ -104,7 +104,7 @@ const baptismal_certificatetore = useBaptismalCertificateStore();
 const columns = [
   { name: 'memberId', label: 'Member ID', align: 'left', field: 'memberId', sortable: true },
   // { name: 'name', label: 'Child Name', align: 'left', field: 'name', sortable: true },
-  { name: 'dateOfRequest', label: 'Date of Request', align: 'center', field: 'dateOfRequest', sortable: true },
+  { name: 'date_requested', label: 'Date of Request', align: 'center', field: 'date_requested', sortable: true },
   { name: 'contact_number', label: 'Contact Number', align: 'center', field: 'contact_number', sortable: true },
   { name: 'email', label: 'Email', align: 'center', field: 'email', sortable: true },
   { name: 'status', label: 'Status', align: 'center', field: 'status', sortable: true },
@@ -170,7 +170,7 @@ async function getData(){
       item_id: item.id,
       contact_number: item.contact_number,
       email: item.email,
-      // dateOfRequest: item.preferred_date.substring(0, 10),
+      date_requested: item.date_requested.substring(0, 10),
       status: item.status, // Assuming the status is always Baptism for this data
     });
   });
