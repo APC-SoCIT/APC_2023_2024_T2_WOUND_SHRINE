@@ -1,27 +1,38 @@
 <template>
   <div class="q-pa-md">
-    <q-btn-dropdown label="View" class="bg-white">
-      <q-list link>
-        <q-item clickable @click="changeStatus('all')">
-          <q-item-main>
-            <q-item-tile label>All Requests</q-item-tile>
-          </q-item-main>
-        </q-item>
-        <q-item clickable @click="changeStatus('Approved')">
-          <q-item-main>
-            <q-item-tile label>Approved Requests</q-item-tile>
-          </q-item-main>
-        </q-item>
-        <q-item clickable @click="changeStatus('Pending')">
-          <q-item-main>
-            <q-item-tile label>Pending Requests</q-item-tile>
-          </q-item-main>
-        </q-item>
-      </q-list>
-    </q-btn-dropdown>
+    <div class="q-gutter-md">
+      <div class="buttons">
+        <q-btn-dropdown label="View" class="bg-white" style="margin-right: 10px;">
+          <q-list link>
+            <q-item clickable @click="changeStatus('all')">
+              <q-item-main>
+                <q-item-tile label>All Requests</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item clickable @click="changeStatus('Approved')">
+              <q-item-main>
+                <q-item-tile label>Approved Requests</q-item-tile>
+              </q-item-main>
+            </q-item>
+            <q-item clickable @click="changeStatus('Pending')">
+              <q-item-main>
+                <q-item-tile label>Pending Requests</q-item-tile>
+              </q-item-main>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+        <q-btn
+          class="export"
+          icon-right="archive"
+          label="Export to csv"
+          no-caps
+          @click="exportTable"
+        />
+      </div>
+    </div>
 
     <q-table
-    table-class="bg-white text-black"
+      table-class="bg-white text-black"
       card-class="bg-white text-black"
       table-header-class="text-black"
       flat
@@ -29,11 +40,11 @@
       title="Baptism Certificate Requests"
       :rows="filteredRows"
       :columns="columns"
-      row-key="name"
+      row-key="user_id"
     >
       <template v-slot:body-cell-details="props">
         <q-td :props="props">
-          <ViewFullDocuDetails :formData="props.row" />
+          <ViewFullDocuDetails :row="props.row" @updated="getData()" />
         </q-td>
       </template>
     </q-table>
@@ -43,6 +54,7 @@
 <script>
 import ViewFullDocuDetails from '@/components/layouts/ViewFullDocuDetails.vue';
 import { ref, computed } from 'vue';
+import { useQuasar, exportFile } from 'quasar';
 
 export default {
   setup() {
@@ -54,72 +66,57 @@ export default {
       { name: 'details', label: 'Details', align: 'center' },
     ];
 
-
     const rows = [
       {
-        memberId: 12345,
+        user_id: 12345,
         name: 'Jarvis Carpo',
         copies: 5,
         status: 'Approved',
       },
       {
-        memberId: 67890,
+        user_id: 67890,
         name: 'Kim Altea',
         copies: 10,
         status: 'Pending',
       },
       {
-        memberId: 13579,
-        name: 'Reiner John',
-        copies: 3,
-        status: 'Approved',
-      },
-      {
-        memberId: 24680,
-        name: 'Bon Daggao',
-        copies: 8,
-        status: 'Pending',
-      },
-      {
-        memberId: 11223,
-        name: 'Vince Tan',
-        copies: 6,
-        status: 'Approved',
-      },
-      {
-        memberId: 33445,
-        name: 'Carlo Santos',
-        copies: 12,
-        status: 'Pending',
-      },
-      {
-        memberId: 55667,
-        name: 'John Slay',
-        copies: 7,
-        status: 'Approved',
-      },
-      {
-        memberId: 77889,
-        name: 'Eme Eme',
-        copies: 9,
-        status: 'Pending',
-      },
-      {
-        memberId: 99000,
-        name: 'Rina Sawayama',
-        copies: 4,
-        status: 'Approved',
-      },
-      {
-        memberId: 11234,
-        name: 'Slay',
-        copies: 11,
-        status: 'Pending',
-      },
+          memberId: 11223,
+          name: 'Vince Tan',
+          copies: 6,
+          status: 'Approved',
+        },
+        {
+          memberId: 33445,
+          name: 'Carlo Santos',
+          copies: 12,
+          status: 'Pending',
+        },
+        {
+          memberId: 55667,
+          name: 'John Slay',
+          copies: 7,
+          status: 'Approved',
+        },
+        {
+          memberId: 77889,
+          name: 'Eme Eme',
+          copies: 9,
+          status: 'Pending',
+        },
+        {
+          memberId: 99000,
+          name: 'Rina Sawayama',
+          copies: 4,
+          status: 'Approved',
+        },
+        {
+          memberId: 11234,
+          name: 'Slay',
+          copies: 11,
+          status: 'Pending',
+        },
+      
     ];
-    const viewFullDetails = (row) => {
-      console.log('View Full Details:', row);
-    };
 
     const selectedStatus = ref('all');
 
@@ -135,13 +132,55 @@ export default {
       selectedStatus.value = status;
     };
 
+    const exportTable = () => {
+      const currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, '_');
+      const filename = `BaptismCertificateRequests_${currentDate}.csv`;
+      const content = [columns.map(col => wrapCsvValue(col.label))].concat(
+        rows.map(row => columns.map(col => wrapCsvValue(
+          typeof col.field === 'function'
+            ? col.field(row)
+            : row[col.field === void 0 ? col.name : col.field],
+          col.format,
+          row
+        )).join(','))
+      ).join('\r\n');
+
+      const status = exportFile(
+        filename,
+        content,
+        'text/csv'
+      );
+
+      if (status !== true) {
+        $q.notify({
+          message: 'Browser denied file download...',
+          color: 'negative',
+          icon: 'warning'
+        });
+      }
+    };
+
+    function wrapCsvValue(val, formatFn, row) {
+      let formatted = formatFn !== void 0
+        ? formatFn(val, row)
+        : val;
+
+      formatted = formatted === void 0 || formatted === null
+        ? ''
+        : String(formatted);
+
+      formatted = formatted.split('"').join('""');
+
+      return `"${formatted}"`;
+    }
+
     return {
       columns,
       rows,
-      viewFullDetails,
       selectedStatus,
       changeStatus,
       filteredRows,
+      exportTable,
     };
   },
   components: {
@@ -150,12 +189,18 @@ export default {
 };
 </script>
 
-<style>
-.q-btn-dropdown{
-  margin-bottom: 10px;
-}
+<style scoped>
 .q-table th {
   font-weight: bold;
   font-size: 1.2em;
+}
+
+.buttons {
+  display: inline-flex;
+  margin-bottom: 10px;
+}
+
+.export {
+  background-color: #ffaa2b;
 }
 </style>

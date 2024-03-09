@@ -1,4 +1,4 @@
-<template>
+]<template>
   <div class="q-pa-md">
     <div class="q-gutter-md">
       <div class="buttons">
@@ -129,7 +129,7 @@ export default {
     const exportTable = () => {
  
       const currentDate = new Date().toISOString().slice(0, 10).replace(/-/g, '_');
-      const filename = `AnnointingOfTheSick_${currentDate}.csv`;
+      const filename = `AnnointingOfTheSickRequests_${currentDate}.csv`;
       const content = [columns.map(col => wrapCsvValue(col.label))].concat(
         rows.value.map(row => columns.map(col => wrapCsvValue(
           typeof col.field === 'function'
@@ -205,4 +205,3 @@ export default {
   background-color: #ffaa2b
 }
 </style>
-
