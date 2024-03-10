@@ -13,12 +13,12 @@
           </q-card-title>
 
           <q-form @submit.prevent="submitForm">
-            <q-input v-model="name" label="Name" />
-            <q-input v-model="contact_number" label="Contact Number" />
-            <q-input v-model="email" label="Email" />
-            <q-input v-model="preferred_date" label="Date" />
-            <q-input v-model="preferred_time" label="Time" />
-            <q-input v-model="address" label="Address" />
+            <q-input v-model="name" label="Name" readonly/>
+            <q-input v-model="contact_number" label="Contact Number" readonly/>
+            <q-input v-model="email" label="Email" readonly/>
+            <q-input v-model="preferred_date" label="Date" readonly/>
+            <q-input v-model="formattedPreferredTime" label="Time" readonly/>
+            <q-input v-model="address" label="Address" readonly/>
 
             <div class="q-mt-md row justify-end">
               <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />
@@ -69,6 +69,18 @@ export default {
   props: {
         row: Object // Define the prop that you are receiving from the parent component
     },
+    computed: {
+    formattedPreferredTime() {
+      // Convert preferred_time to 12-hour format
+      if (this.preferred_time) {
+        const [hours, minutes] = this.preferred_time.split(':').map(Number);
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12;
+        return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+      }
+      return ''; // Return empty string if preferred_time is not set
+    }
+  },
   data() {
     return {
       dialogVisible: false,

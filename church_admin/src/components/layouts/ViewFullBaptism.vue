@@ -13,20 +13,20 @@
             </q-card-title>
 
             <q-form @submit.prevent="submitForm">
-              <q-input v-model="father_name" label="Father Name" />
-              <q-input v-model="mother_name" label="Mother Name" />
-              <q-input v-model="child_name" label="Child Name" />
-              <q-input v-model="contact_number" label="Contact Number" />
-              <q-input v-model="email" label="Email" />
-              <q-input v-model="preferred_date" label="Date" />
+              <q-input v-model="father_name" label="Father Name" readonly/>
+              <q-input v-model="mother_name" label="Mother Name" readonly/>
+              <q-input v-model="child_name" label="Child Name" readonly/>
+              <q-input v-model="contact_number" label="Contact Number" readonly/>
+              <q-input v-model="email" label="Email" readonly/>
+              <q-input v-model="preferred_date" label="Date" readonly/>
               <!-- <q-input v-model="preferred_time" label="Time" />
               <q-input v-model="address" label="Address" /> -->
               <!-- <q-input v-model="child_name" label="Name of Child" /> -->
-              <q-input v-model="sponsors" label="List of Principal Sponsors" />
-              <q-option-group v-model="type" :options="typeOptions" label="Type" />
-              <q-input v-model="IndividualOrGroup" label="Individual or Group" />
+              <q-input v-model="sponsors" label="List of Principal Sponsors" readonly/>
+              <q-option-group v-model="type" :options="typeOptions" label="Type" disable readonly/>
+              <!-- <q-input v-model="IndividualOrGroup" label="Individual or Group" readonly/> -->
   
-              <q-file
+              <!-- <q-file
                 v-model="files1"
                 label="Files 1"
                 filled
@@ -52,7 +52,7 @@
                 <template v-slot:prepend>
                   <q-icon name="attach_file" />
                 </template>
-              </q-file>
+              </q-file> -->
   
               <div class="q-mt-md row justify-end">
                 <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />

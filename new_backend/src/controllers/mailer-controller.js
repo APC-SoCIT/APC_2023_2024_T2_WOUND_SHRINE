@@ -4,7 +4,7 @@ const mailer = require('../models/mailer');
 module.exports.emailsend = (req, res) => {
   
   const email_body={
-    from: process.env.MAILER_USER,
+    from: 'Five Wound Shrine',
     to: req.body.email,
     subject: 'Church Scheduler',
     // text: req.user.phone_number + " " + req.body.text,

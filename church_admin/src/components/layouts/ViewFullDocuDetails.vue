@@ -13,14 +13,14 @@
           </q-card-title>
 
           <q-form @submit.prevent="submitForm">
-            <q-input v-model="formData.name" label="Name" />
-            <q-input v-model="formData.contact_number" label="Contact Number" />
-            <q-input v-model="formData.email" label="Email" />
-            <q-input v-model="formData.address" label="Address" />
-            <q-select v-model="formData.shipping_type" :options="shippingOptions" label="Shipping Options"></q-select>
-            <q-select v-model="formData.payment_type" :options="formData.paymentOptions" label="Payment Options"></q-select>
-            <q-input v-model="formData.copies" label="Address" />
-            <q-select v-model="formData.paymentChannel" :options="formData.paymentChannels" label="Payment Channel"></q-select>
+            <q-input v-model="formData.name" label="Name" readonly/>
+            <q-input v-model="formData.contact_number" label="Contact Number" readonly/>
+            <q-input v-model="formData.email" label="Email" readonly/>
+            <q-input v-model="formData.address" label="Address" readonly/>
+            <q-select v-model="formData.shipping_type" :options="shippingOptions" label="Shipping Options" readonly></q-select>
+            <q-select v-model="formData.payment_type" :options="formData.paymentOptions" label="Payment Options"readonly></q-select>
+            <q-input v-model="formData.copies" label="Address" readonly/>
+            <q-select v-model="formData.paymentChannel" :options="formData.paymentChannels" label="Payment Channel"readonly></q-select>
             
             <div class="q-mt-md row justify-end">
               <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />

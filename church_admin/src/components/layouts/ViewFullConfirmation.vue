@@ -13,11 +13,12 @@
             </q-card-title>
   
             <q-form @submit.prevent="submitForm">
-              <q-input v-model="name" label="Name" />
-              <q-input v-model="contact_number" label="Contact Number" />
-              <q-input v-model="email" label="Email" />
-              <q-input v-model="preferred_date" label="Date" />
-              <q-input v-model="preferred_time" label="Time" />
+              <q-input v-model="name" label="Name" readonly/>
+              <q-input v-model="sponsor" label="Sponsor Name" readonly/>
+              <q-input v-model="contact_number" label="Contact Number" readonly/>
+              <q-input v-model="email" label="Email" readonly/>
+              <q-input v-model="preferred_date" label="Date" readonly/>
+              <q-input v-model="formattedPreferredTime" label="Time" readonly/>
               <!-- <q-input v-model="address" label="Address" />
   
               <q-file
@@ -112,6 +113,18 @@
     props: {
         row: Object // Define the prop that you are receiving from the parent component
     },
+    computed: {
+    formattedPreferredTime() {
+      // Convert preferred_time to 12-hour format
+      if (this.preferred_time) {
+        const [hours, minutes] = this.preferred_time.split(':').map(Number);
+        const period = hours >= 12 ? 'PM' : 'AM';
+        const formattedHours = hours % 12 || 12;
+        return `${formattedHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+      }
+      return ''; // Return empty string if preferred_time is not set
+    }
+  },
     data() {
       return {
         dialogVisible: false,
@@ -119,11 +132,12 @@
         assignPriestVisible: false,
        
           name: '',
+          sponsor: '',
           contact_number: '',
           email: '',
           address: '',
-          preferred_datedate: '',
-          preferred_timetime: '',
+          preferred_date: '',
+          preferred_time: '',
           status: null,
           files1: [],
           files2: [],
@@ -142,6 +156,7 @@
         let result = await this.getByID(this.row.item_id)
         let data = result.data
         this.name = data.name,
+        this.sponsor = data.sponsor,
         this.contact_number = data.contact_number,
         this.email = data.email,
         this.address = data.address,

@@ -13,14 +13,14 @@
             </q-card-title>
   
             <q-form @submit.prevent="submitForm">
-              <q-input v-model="husband_name" label="Groom's Name" />
-              <q-input v-model="wife_name" label="Bride's Name" />
-              <q-input v-model="contact_number" label="Contact Number" />
-              <q-input v-model="email" label="Email" />
-              <q-input v-model="preferred_date" label="Date" />
-              <q-input v-model="preferred_time" label="Time" />
-              <q-input v-model="address" label="Address" />
-              <q-input v-model="sponsors" label="List of Principal Sponsors" />
+              <q-input v-model="husband_name" label="Groom's Name" readonly/>
+              <q-input v-model="wife_name" label="Bride's Name" readonly/>
+              <q-input v-model="contact_number" label="Contact Number" readonly/>
+              <q-input v-model="email" label="Email" readonly/>
+              <q-input v-model="preferred_date" label="Date" readonly/>
+              <q-input v-model="preferred_time" label="Time" readonly/>
+              <q-input v-model="address" label="Address" readonly/>
+              <q-input v-model="sponsors" label="List of Principal Sponsors" readonly/>
   
               <!-- <q-file
                 v-model="files1"
