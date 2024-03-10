@@ -69,15 +69,15 @@
             required
           />
         </div>
-        <!-- Preferred Date/Time -->
-        <div class="input-wrapper">
+         <!-- Preferred Date/Time -->
+         <div class="input-wrapper">
           <div class="label">Preferred Date/Time</div>
           <div class="date-picker">
-            <q-input filled v-model="date" mask="date">
+            <q-input filled v-model="date" mask="date" :rules="[val => val && checkDateValidity(val) || 'Please select a date that is not in the past']">
               <template v-slot:append>
                 <q-icon name="event" class="cursor-pointer">
                   <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-date v-model="date">
+                    <q-date v-model="date" :min="getCurrentDate()">
                       <div class="row items-center justify-end">
                         <q-btn v-close-popup label="Close" color="primary" flat />
                       </div>
@@ -138,6 +138,8 @@
         label="Submit"
         color="primary"
         class="submit-button"
+        :disabled="!checkFormValidity"
+
       />
     </q-form>
   </div>
@@ -160,7 +162,7 @@ export default {
       email: '',
       childName: '',
       principalSponsors: '',
-      date: ref('2019/02/01'),
+      date: ref(''),
       type: '',
       options: [
         { label: 'Adult', value: 'Adult' },
@@ -172,6 +174,15 @@ export default {
   },
 
   mounted(){
+         // Get current date
+         const currentDate = new Date();
+
+        // Format the date as YYYY-MM-DD
+        const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+
+        // Assign the formatted date to the ref
+        this.date = formattedDate;
+
     this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
   },
 
@@ -179,6 +190,9 @@ export default {
     ...mapActions(useBaptismStore,["create"]),
 
     async onSubmit() {
+      if (!this.checkFormValidity()) {
+    return; // Prevent form submission if it's invalid
+  }
   let payload = {
     user_id: this.user_id,
     mother_name: this.motherName,
@@ -217,30 +231,34 @@ readFileAsBase64(file) {
     });
   },
 
-    // submitForm() {
-    //   // Handle form submission
-    //   console.log('Form submitted:', {
-    //     motherName: this.motherName,
-    //     fatherName: this.fatherName,
-    //     contactNumber: this.contactNumber,
-    //     email: this.email,
-    //     childName: this.childName,
-    //     principalSponsors: this.principalSponsors,
-    //     preferredDate: this.preferredDate,
-    //     preferredTime: this.preferredTime,
-    //     type: this.type,
-    //     files1: this.files1,
-    //     files2: this.files2
-    //   });
-    //   this.$emit('formSubmitted');
-    // },
     fileUploadFailed(err) {
       // Handle file upload failure
       console.error('File upload failed:', err);
     },
     counterLabelFn ({ totalSize, filesNumber, maxFiles }) {
       return `${filesNumber} files of ${maxFiles} | ${totalSize}`
-    }
+    },
+    getCurrentDate() {
+      const currentDate = new Date();
+      return `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+    },
+    // Ensure the selected date is not in the past
+    checkDateValidity(selectedDate) {
+      const currentDate = new Date();
+      const selectedDateObj = new Date(selectedDate);
+      return selectedDateObj >= currentDate;
+    },
+    checkFormValidity() {
+      return (
+        this.motherName && 
+        this.fatherName && 
+        this.contactNumber.length === 11 && 
+        this.email &&
+        this.childName &&
+        this.principalSponsors &&
+        this.checkDateValidity(this.date)
+      );
+    },
   }
 };
 </script>

@@ -13,13 +13,15 @@
             </q-card-title>
 
             <q-form @submit.prevent="submitForm">
-              <q-input v-model="name" label="Name" />
+              <q-input v-model="father_name" label="Father Name" />
+              <q-input v-model="mother_name" label="Mother Name" />
+              <q-input v-model="child_name" label="Child Name" />
               <q-input v-model="contact_number" label="Contact Number" />
               <q-input v-model="email" label="Email" />
               <q-input v-model="preferred_date" label="Date" />
-              <q-input v-model="preferred_time" label="Time" />
-              <q-input v-model="address" label="Address" />
-              <q-input v-model="child_name" label="Name of Child" />
+              <!-- <q-input v-model="preferred_time" label="Time" />
+              <q-input v-model="address" label="Address" /> -->
+              <!-- <q-input v-model="child_name" label="Name of Child" /> -->
               <q-input v-model="sponsors" label="List of Principal Sponsors" />
               <q-option-group v-model="type" :options="typeOptions" label="Type" />
               <q-input v-model="IndividualOrGroup" label="Individual or Group" />
@@ -107,6 +109,8 @@
         confirmRejectVisible: false,
         assignPriestVisible: false,
           name: '',
+          father_name: '',
+          mother_name: '',
           contact_number: '',
           email: '',
           address: '',
@@ -136,9 +140,9 @@
       async getData(){
         let result = await this.getByID(this.row.item_id)
         let data = result.data
-    this.motherName = data.mother_name,
-    this.name = data.child_name
-    this.fatherName = data.father_name,
+    this.mother_name = data.mother_name,
+    this.child_name = data.child_name,
+    this.father_name = data.father_name,
     this.preferred_date = data.preferred_date.substring(0, 10),
     this.contact_number = data.contact_number,
     this.email = data.email,

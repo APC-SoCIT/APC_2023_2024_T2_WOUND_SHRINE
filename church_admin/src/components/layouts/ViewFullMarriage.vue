@@ -13,17 +13,16 @@
             </q-card-title>
   
             <q-form @submit.prevent="submitForm">
-              <q-input v-model="name" label="Name" />
+              <q-input v-model="husband_name" label="Groom's Name" />
+              <q-input v-model="wife_name" label="Bride's Name" />
               <q-input v-model="contact_number" label="Contact Number" />
               <q-input v-model="email" label="Email" />
               <q-input v-model="preferred_date" label="Date" />
               <q-input v-model="preferred_time" label="Time" />
               <q-input v-model="address" label="Address" />
-              <q-input v-model="groom_name" label="Groom's Name" />
-              <q-input v-model="wife_name" label="Bride's Name" />
               <q-input v-model="sponsors" label="List of Principal Sponsors" />
   
-              <q-file
+              <!-- <q-file
                 v-model="files1"
                 label="Confirmation Ceritficate"
                 filled
@@ -78,7 +77,7 @@
                 <template v-slot:prepend>
                   <q-icon name="attach_file" />
                 </template>
-              </q-file>
+              </q-file> -->
   
               <div class="q-mt-md row justify-end">
                 <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />

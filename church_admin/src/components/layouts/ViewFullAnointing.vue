@@ -18,7 +18,7 @@
             <q-input v-model="email" label="Email" />
             <q-input v-model="preferred_date" label="Date" />
             <q-input v-model="preferred_time" label="Time" />
-            <q-input v-model="address" label="Address" />
+            <!-- <q-input v-model="address" label="Address" /> -->
 
             <div class="q-mt-md row justify-end">
               <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />

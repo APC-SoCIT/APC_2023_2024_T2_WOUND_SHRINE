@@ -18,7 +18,7 @@
               <q-input v-model="email" label="Email" />
               <q-input v-model="preferred_date" label="Date" />
               <q-input v-model="preferred_time" label="Time" />
-              <q-input v-model="address" label="Address" />
+              <!-- <q-input v-model="address" label="Address" />
   
               <q-file
                 v-model="files1"
@@ -61,7 +61,7 @@
               <template v-slot:prepend>
                   <q-icon name="attach_file" />
                 </template>
-              </q-file>
+              </q-file> -->
 
   
               <div class="q-mt-md row justify-end">
@@ -141,11 +141,11 @@
       async getData(){
         let result = await this.getByID(this.row.item_id)
         let data = result.data
-        this.name = data.Name,
+        this.name = data.name,
         this.contact_number = data.contact_number,
         this.email = data.email,
         this.address = data.address,
-        this.preferred_date = data.preferred_date,
+        this.preferred_date = data.preferred_date.substring(0, 10),
         this.preferred_time = data.preferred_time,
         console.log(result.data.child_name)
       },

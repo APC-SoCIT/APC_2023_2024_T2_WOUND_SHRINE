@@ -36,25 +36,36 @@
             type="email"
           />
         </div>
-        <!-- Preferred Date -->
         <div class="input-wrapper">
-          <div class="label">Preferred Date</div>
-          <div class="date-picker">
-            <q-input filled v-model="date" mask="date">
-              <template v-slot:append>
-                <q-icon name="event" class="cursor-pointer">
-                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-date v-model="date">
-                      <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="Close" color="primary" flat />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
-          </div>
+          <div class="label">Address</div>
+          <q-input
+            filled
+            v-model="address"
+            dense
+            outlined
+            required
+            type="address"
+          />
         </div>
+        <!-- Preferred Date -->
+<div class="input-wrapper">
+  <div class="label">Preferred Date</div>
+  <div class="date-picker">
+    <q-input filled v-model="date" mask="date" :rules="[val => val && checkDateValidity(val) || 'Please select a date that is not in the past']">
+      <template v-slot:append>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+            <q-date v-model="date" :min="getCurrentDate()">
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
+  </div>
+</div>
         <!-- Preferred Time -->
         <div class="input-wrapper">
           <div class="label">Preferred Time</div>
@@ -98,6 +109,7 @@
         label="Submit"
         color="primary"
         class="submit-button"
+        :disabled="!checkFormValidity"
       />
     </q-form>
   </div>
@@ -115,13 +127,24 @@ export default {
       name: '',
       contactNumber: '',
       email: '',
-      date: ref('2019/02/01'),
-      time: ref('12:00'), // Default time value
+      address: '',
+      date: ref(''),
+      time: ref('00:00'), // Default time value
       files1: []
     };
   },
 
   mounted(){
+    // Get current date
+    const currentDate = new Date();
+
+// Format the date as YYYY-MM-DD
+const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+
+// Assign the formatted date to the ref
+this.date = formattedDate;
+
+
     this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
   },
 
@@ -129,6 +152,9 @@ export default {
     ...mapActions(useHouseBlessingStore,["create"]),
 
     async submitForm() {
+      if (!this.checkFormValidity()) {
+    return; // Prevent form submission if it's invalid
+  }
   let payload = {
     user_id: sessionStorage.getItem("user_id"),
     name: this.name,
@@ -136,6 +162,7 @@ export default {
     preferred_date: this.date,
     preferred_time: this.time,
     email: this.email,
+    address: this.address,
   };
 
   console.log(payload);
@@ -156,7 +183,26 @@ export default {
     },
     counterLabelFn ({ totalSize, filesNumber, maxFiles }) {
       return `${filesNumber} files of ${maxFiles} | ${totalSize}`
-    }
+    },
+    getCurrentDate() {
+      const currentDate = new Date();
+      return `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+    },
+    // Ensure the selected date is not in the past
+    checkDateValidity(selectedDate) {
+      const currentDate = new Date();
+      const selectedDateObj = new Date(selectedDate);
+      return selectedDateObj >= currentDate;
+    },
+    checkFormValidity() {
+    return (
+      this.name && 
+      this.contactNumber.length === 11 && 
+      this.email &&
+      this.address &&
+      this.checkDateValidity(this.date)
+    );
+  },
   }
 };
 </script>

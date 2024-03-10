@@ -64,7 +64,7 @@ export default {
   setup() {
     const columns = [
       { name: 'user_id', label: 'Member ID', align: 'left', field: 'user_id', sortable: true },
-      { name: 'child_name', label: 'Name', align: 'left', field: 'child_name', sortable: true },
+      { name: 'child_name', label: 'Child Name', align: 'left', field: 'child_name', sortable: true },
       // { name: 'preferred_date', label: 'Date of Request', align: 'center', field: 'preferred_date', sortable: true },
       // { name: 'preferred_time', label: 'Time of Request', align: 'center', field: 'preferred_time', sortable: true },
       { name: 'date_requested', label: 'Date Requested', align: 'center', field: 'date_requested', sortable: true },

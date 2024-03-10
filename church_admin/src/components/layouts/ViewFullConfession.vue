@@ -13,12 +13,12 @@
           </q-card-title>
 
           <q-form @submit.prevent="submitForm">
-            <q-input v-model="name" label="Name" />
-            <q-input v-model="contact_number" label="Contact Number" />
-            <q-input v-model="email" label="Email" />
-            <q-input v-model="preferred_date" label="Date" />
-            <q-input v-model="preferred_time" label="Time" />
-            <q-input v-model="address" label="Address" />
+            <q-input v-model="name" label="Name" readonly/>
+            <q-input v-model="contact_number" label="Contact Number" readonly/>
+            <q-input v-model="email" label="Email" readonly />
+            <q-input v-model="preferred_date" label="Date" readonly/>
+            <q-input v-model="preferred_time" label="Time"readonly />
+            <!-- <q-input v-model="address" label="Address" /> -->
 
             <div class="q-mt-md row justify-end">
               <q-btn label="Reject" @click="confirmReject" class="q-mr-md" />

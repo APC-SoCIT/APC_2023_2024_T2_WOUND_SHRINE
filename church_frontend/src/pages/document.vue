@@ -31,6 +31,35 @@
                   <div class="label">Name</div>
                   <q-input v-model="name" filled outlined dense required></q-input>
                 </div>
+                <!-- Conditionally render input fields based on the selected document -->
+                <div v-if="selectedDocument.title !== 'Marriage Certificate' && selectedDocument.title !== 'Mass Card'">
+                  <div class="input-wrapper">
+                    <div class="label">Mother Name</div>
+                    <q-input v-model="mother_name" filled outlined dense required></q-input>
+                  </div>
+                  <div class="input-wrapper">
+                    <div class="label">Father Name</div>
+                    <q-input v-model="father_name" filled outlined dense required></q-input>
+                  </div>
+                  <div class="input-wrapper">
+                    <div class="label">Date Baptized</div>
+                    <div class="date-picker">
+                      <q-input filled v-model="date_baptized" mask="date">
+                        <template v-slot:append>
+                          <q-icon name="event" class="cursor-pointer">
+                            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                              <q-date v-model="date_baptized">
+                                <div class="row items-center justify-end">
+                                  <q-btn v-close-popup label="Close" color="primary" flat />
+                                </div>
+                              </q-date>
+                            </q-popup-proxy>
+                          </q-icon>
+                        </template>
+                      </q-input>
+                    </div>
+                  </div>
+                </div>
                 <div class="input-wrapper">
                   <div class="label">Number</div>
                   <q-input v-model="number" filled outlined dense required></q-input>
@@ -100,6 +129,9 @@ export default {
       isAuthenticated: ref(false),
       selectedDocument: null,
       name: '',
+      father_name:'',
+      mother_name:'',
+      date_baptized: ref(''),
       number: '',
       email: '',
       address: '',
@@ -116,6 +148,15 @@ export default {
   },
 
   mounted(){
+     // Get current date
+     const currentDate = new Date();
+
+    // Format the date as YYYY-MM-DD
+    const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+
+    // Assign the formatted date to the ref
+    this.date_baptized = formattedDate;
+
     this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
   },
 
@@ -124,71 +165,72 @@ export default {
     ...mapActions(useMarriageCertificateStore, ["Marriagecreate"]),
     ...mapActions(useMassCardStore, ["Masscardcreate"]),
 
-
-
     selectDocument(doc) {
       this.selectedDocument = doc;
     },
-   async onSubmit() {
+
+    async onSubmit() {
       let payload = {
         user_id: sessionStorage.getItem("user_id"),
         name: this.name,
+        mother_name: this.mother_name,
+        father_name: this.father_name,
+        date_baptized: this.date_baptized,
         number: this.number,
         email: this.email,
         address: this.address,
         payment_type: this.paymentOption,
         shipping_type: this.shippingOption
       }
+      if (this.selectedDocument.title === "Marriage Certificate" || this.selectedDocument.title === "Mass Card") {
+        // Exclude unnecessary fields for Marriage Certificate and Mass Card
+        delete payload.mother_name;
+        delete payload.father_name;
+        delete payload.date_baptized;
+      }
+      
       if (this.selectedDocument.title === "Marriage Certificate") {
         const result = await this.Marriagecreate(payload)
         if (result.message === 'Success.') {
           this.showConfirmation = true;
+          this.resetForm();
           this.$q.notify({
-          type: 'positive',
-          message: 'Form submitted successfully',
-          position: 'top-right'
-        });
+            type: 'positive',
+            message: 'Form submitted successfully',
+            position: 'top-right'
+          });
         }
       } else if (this.selectedDocument.title === "Baptismal Certificate") {
         const result = await this.Baptismalcreate(payload)
         console.log('Baptismal')
         if (result.message === 'Success.') {
-          this.resetForm()
+          this.resetForm();
           this.showConfirmation = true;
           this.$q.notify({
-          type: 'positive',
-          message: 'Form submitted successfully',
-          position: 'top-right'
-        });
+            type: 'positive',
+            message: 'Form submitted successfully',
+            position: 'top-right'
+          });
         }
       } else if (this.selectedDocument.title === "Mass Card") {
         const result = await this.Masscardcreate(payload)
         if (result.message === 'Success.') {
-          this.resetForm()
+          this.resetForm();
           this.showConfirmation = true;
           this.$q.notify({
-          type: 'positive',
-          message: 'Form submitted successfully',
-          position: 'top-right'
-        });
+            type: 'positive',
+            message: 'Form submitted successfully',
+            position: 'top-right'
+          });
         }
       }
     },
-    submitRequest() {
-      console.log('Form submitted:', this.name, this.email, this.address);
-      this.showConfirmation = true;
-      // Reset form fields
-      this.name = '';
-      this.number = '';
-      this.email = '';
-      this.address = '';
-      this.shippingOption = '';
-      this.paymentOption = '';
-      this.paymentChannel = '';
-      this.fee = '';
-    },
+
     resetForm(){
       this.name = '';
+      this.mother_name = '';
+      this.father_name = '';
+      this.date_baptized = '';
       this.number = '';
       this.email = '';
       this.address = '';
@@ -197,10 +239,12 @@ export default {
       this.paymentChannel = '';
       this.fee = '';
     },
+
     showDocumentSelection() {
       this.showConfirmation = false;
       this.selectedDocument = null;
     },
+
     exit() {
       this.formSubmitted = false;
     }
