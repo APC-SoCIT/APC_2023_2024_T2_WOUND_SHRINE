@@ -8,7 +8,8 @@ module.exports.emailsend = (req, res) => {
     to: req.body.email,
     subject: 'Church Scheduler',
     // text: req.user.phone_number + " " + req.body.text,
-    html: "You have successfully send a reservation request"  + "<br>" + 
+    html: "From: SHRINE OF THE FIVE WOUNDS OF OUR LORD JESUS CHRIST" + "<br>" +
+    "You have successfully send a reservation request"  + "<br>" + 
     "Regards:" + "<br>" + 
     "Wound Shrine of the lord Jesus Christ"
 

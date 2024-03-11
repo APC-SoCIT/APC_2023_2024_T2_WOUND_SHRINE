@@ -16,7 +16,7 @@
               <div class="form-content">
                 <!-- Mothers Name -->
                 <div class="input-wrapper">
-                  <div class="label">Wife</div>
+                  <div class="label">Bride's Name</div>
                   <q-input
                     filled
                     v-model="wife_name"
@@ -27,10 +27,10 @@
                 </div>
                 <!-- Fathers Name -->
                 <div class="input-wrapper">
-                  <div class="label">Husband</div>
+                  <div class="label">Groom's Name</div>
                   <q-input
                     filled
-                    v-model="father_name"
+                    v-model="husband_name"
                     dense
                     outlined
                     required
