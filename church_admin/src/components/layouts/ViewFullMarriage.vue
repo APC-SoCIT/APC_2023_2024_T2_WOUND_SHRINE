@@ -20,7 +20,7 @@
               <q-input v-model="preferred_date" label="Date" readonly/>
               <q-input v-model="preferred_time" label="Time" readonly/>
               <q-input v-model="address" label="Address" readonly/>
-              <q-input v-model="sponsors" label="List of Principal Sponsors" readonly/>
+              <q-input v-model="sponsors" label="List of Principal Sponsors" readonly rows="3" type="textarea"/>
   
               <!-- <q-file
                 v-model="files1"

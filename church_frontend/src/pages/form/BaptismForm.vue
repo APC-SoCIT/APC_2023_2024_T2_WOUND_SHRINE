@@ -67,6 +67,8 @@
             dense
             outlined
             required
+            type="textarea"
+            :rows=" 3" 
           />
         </div>
          <!-- Preferred Date/Time -->
@@ -97,40 +99,6 @@
             class="left-aligned"
           />
         </div>
-        <!-- First File Input -->
-        <div class="input-wrapper">
-          <!-- <div class="label">Marriage Certificate</div>
-          <q-file
-            v-model="marriage_certificate"
-            label="Pick files"
-            filled
-            counter
-            :counter-label="counterLabelFn"
-            max-files="1"
-            multiple
-          >
-            <template v-slot:prepend>
-              <q-icon name="attach_file" />
-            </template>
-          </q-file> -->
-        </div>
-        <!-- Second File Input -->
-        <div class="input-wrapper">
-          <!-- <div class="label">Birth Certificate</div>
-          <q-file
-            v-model="birth_certificate"
-            label="Pick files"
-            filled
-            counter
-            :counter-label="counterLabelFn"
-            max-files="1"
-            multiple
-          >
-            <template v-slot:prepend>
-              <q-icon name="attach_file" />
-            </template>
-          </q-file> -->
-        </div>
       </div>
       <!-- Submit Button -->
       <q-btn
@@ -139,7 +107,6 @@
         color="primary"
         class="submit-button"
         :disabled="!checkFormValidity"
-
       />
     </q-form>
   </div>
@@ -174,14 +141,14 @@ export default {
   },
 
   mounted(){
-         // Get current date
-         const currentDate = new Date();
+    // Get current date
+    const currentDate = new Date();
 
-        // Format the date as YYYY-MM-DD
-        const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+    // Format the date as YYYY-MM-DD
+    const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
 
-        // Assign the formatted date to the ref
-        this.date = formattedDate;
+    // Assign the formatted date to the ref
+    this.date = formattedDate;
 
     this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
   },
@@ -191,63 +158,71 @@ export default {
 
     async onSubmit() {
       if (!this.checkFormValidity()) {
-    return; // Prevent form submission if it's invalid
-  }
-  let payload = {
-    user_id: this.user_id,
-    mother_name: this.motherName,
-    father_name: this.fatherName,
-    preferred_date: this.date,
-    contact_number: this.contactNumber,
-    email: this.email,
-    child_name: this.childName,
-    sponsors: this.principalSponsors,
-    type: this.type,
-    // marriage_certificate: await this.readFileAsBase64(this.marriage_certificate[0]),
-    // birth_certificate: await this.readFileAsBase64(this.birth_certificate[0])
-  };
+        return; // Prevent form submission if it's invalid
+      }
+      
+      // Split the principalSponsors input by commas to get individual sponsors
+      const sponsorsArray = this.principalSponsors.split(',').map(sponsor => sponsor.trim());
+      
+      let payload = {
+        user_id: this.user_id,
+        mother_name: this.motherName,
+        father_name: this.fatherName,
+        preferred_date: this.date,
+        contact_number: this.contactNumber,
+        email: this.email,
+        child_name: this.childName,
+        sponsors: sponsorsArray, // Assign the array of sponsors
+        type: this.type,
+        // marriage_certificate: await this.readFileAsBase64(this.marriage_certificate[0]),
+        // birth_certificate: await this.readFileAsBase64(this.birth_certificate[0])
+      };
 
-  console.log(payload);
-  const result = await this.create(payload);
-  console.log(result.message);
-  if (result.message === 'Success.') {
-    this.$emit('formSubmitted');
-    this.$q.notify({
+      console.log(payload);
+      const result = await this.create(payload);
+      console.log(result.message);
+      if (result.message === 'Success.') {
+        this.$emit('formSubmitted');
+        this.$q.notify({
           type: 'positive',
           message: 'Form submitted successfully',
           position: 'top-right'
         });
-  }
-}, 
+      }
+    }, 
 
-readFileAsBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result.split(',')[1]); // Extracting base64 data from result
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  },
+    readFileAsBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          resolve(reader.result.split(',')[1]); // Extracting base64 data from result
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    },
 
     fileUploadFailed(err) {
       // Handle file upload failure
       console.error('File upload failed:', err);
     },
+
     counterLabelFn ({ totalSize, filesNumber, maxFiles }) {
       return `${filesNumber} files of ${maxFiles} | ${totalSize}`
     },
+
     getCurrentDate() {
       const currentDate = new Date();
       return `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
     },
+
     // Ensure the selected date is not in the past
     checkDateValidity(selectedDate) {
       const currentDate = new Date();
       const selectedDateObj = new Date(selectedDate);
       return selectedDateObj >= currentDate;
     },
+
     checkFormValidity() {
       return (
         this.motherName && 

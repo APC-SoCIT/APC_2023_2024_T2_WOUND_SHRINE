@@ -67,6 +67,8 @@
             dense
             outlined
             required
+            rows="3"
+            type="textarea"
           />
         </div>
         <!-- Preferred Date/Time -->
@@ -106,74 +108,6 @@
               </template>
             </q-input>
           </div>
-        </div>
-        <!-- First File Input -->
-        <div class="input-wrapper">
-          <!-- <div class="label">Confirmation Certificate</div>
-          <q-file
-            v-model="confirmation_certificate"
-            label="Pick files"
-            filled
-            counter
-            :counter-label="counterLabelFn"
-            max-files="4"
-            multiple
-          >
-            <template v-slot:prepend>
-              <q-icon name="attach_file" />
-            </template>
-          </q-file> -->
-        </div>
-        <!-- Second File Input -->
-        <div class="input-wrapper">
-          <!-- <div class="label">Baptismal Certificate</div>
-          <q-file
-            v-model="baptismal_certificate"
-            label="Pick files"
-            filled
-            counter
-            :counter-label="counterLabelFn"
-            max-files="1"
-            multiple
-          >
-            <template v-slot:prepend>
-              <q-icon name="attach_file" />
-            </template>
-          </q-file> -->
-        </div>
-        <!-- Third File Input -->
-        <div class="input-wrapper">
-          <!-- <div class="label">Birth Certificate</div>
-          <q-file
-            v-model="psa_birth_certificate"
-            label="Pick files"
-            filled
-            counter
-            :counter-label="counterLabelFn"
-            max-files="1"
-            multiple
-          >
-            <template v-slot:prepend>
-              <q-icon name="attach_file" />
-            </template>
-          </q-file> -->
-        </div>
-        <!-- Fourth File Input -->
-        <div class="input-wrapper">
-          <!-- <div class="label">Certificate of No Marriage</div>
-          <q-file
-            v-model="psa_certificate_of_no_marriage"
-            label="Pick files"
-            filled
-            counter
-            :counter-label="counterLabelFn"
-            max-files="1"
-            multiple
-          >
-            <template v-slot:prepend>
-              <q-icon name="attach_file" />
-            </template>
-          </q-file> -->
         </div>
       </div>
       <!-- Submit Button -->
@@ -216,12 +150,11 @@ export default {
     // Get current date
     const currentDate = new Date();
 
-// Format the date as YYYY-MM-DD
-const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
+    // Format the date as YYYY-MM-DD
+    const formattedDate = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
 
-// Assign the formatted date to the ref
-this.date = formattedDate;
-
+    // Assign the formatted date to the ref
+    this.date = formattedDate;
 
     this.isAuthenticated = sessionStorage.getItem('authenticated') === 'true';
   },
@@ -231,8 +164,8 @@ this.date = formattedDate;
 
     async submitForm() {
       if (!this.checkFormValidity()) {
-    return; // Prevent form submission if it's invalid
-  }
+        return; // Prevent form submission if it's invalid
+      }
       // Handle form submission
       let payload = {
         user_id: sessionStorage.getItem("user_id"),
@@ -262,15 +195,15 @@ this.date = formattedDate;
     },
 
     readFileAsBase64(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => {
-        resolve(reader.result.split(',')[1]); // Extracting base64 data from result
-      };
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  },
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          resolve(reader.result.split(',')[1]); // Extracting base64 data from result
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    },
 
     fileUploadFailed(err) {
       // Handle file upload failure
